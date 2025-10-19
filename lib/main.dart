@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/routes/route_names.dart';
-
+import 'package:super_fitness_app/features/app_sections/presentation/view/dash_board_screen.dart';
 import 'core/config/di.dart';
 import 'core/contants/secure_storage.dart';
 import 'core/l10n/translation/app_localizations.dart';
@@ -20,13 +20,12 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<LocalizationCubit>(
-          create: (BuildContext context) =>
-              LocalizationCubit(language: languageValue),
+          create:
+              (BuildContext context) =>
+                  LocalizationCubit(language: languageValue),
         ),
       ],
-      child: MyApp(
-        initialRoute: AppRoutes.initial,
-      ),
+      child: MyApp(initialRoute: AppRoutes.initial),
     ),
   );
 }
@@ -43,12 +42,12 @@ class MyApp extends StatelessWidget {
         final cubit = context.read<LocalizationCubit>();
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: initialRoute,
+          home: DashboardScreenApp(),
           onGenerateRoute: Routes.onGenerateRoute,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale:
-          cubit.language == "en" ? const Locale("en") : const Locale("ar"),
+              cubit.language == "en" ? const Locale("en") : const Locale("ar"),
         );
       },
     );
