@@ -1,5 +1,6 @@
 abstract class AppRoutes {
   static const String initial = "/splashScreen";
+  static const String register = "/register";
   static const String login = "/login";
   static const String forgetPassword = "/forgetPassword";
   static const String emailVerification = "/emailVerification";

@@ -12,6 +12,14 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/auth/api/data_source_impl/auth_remote_data_source_impl.dart'
+    as _i758;
+import '../../features/auth/data/datasource/auth_remote_data_source.dart'
+    as _i24;
+import '../../features/auth/data/repo_impl/auth_repo_impl.dart' as _i279;
+import '../../features/auth/domain/repo/auth_repo.dart' as _i170;
+import '../../features/auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart'
+    as _i416;
 import '../api/client/api_client.dart' as _i364;
 import 'dio_module/dio_module.dart' as _i484;
 
@@ -37,6 +45,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i361.Dio>(),
           baseUrl: gh<String>(instanceName: 'baseurl'),
         ));
+    gh.lazySingleton<_i24.AuthRemoteDatasource>(
+        () => _i758.AuthRemoteDatasourceImpl(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i170.AuthRepo>(
+        () => _i279.AuthRepoImpl(gh<_i24.AuthRemoteDatasource>()));
+    gh.factory<_i416.RegisterCubit>(
+        () => _i416.RegisterCubit(gh<_i170.AuthRepo>()));
     return this;
   }
 }
