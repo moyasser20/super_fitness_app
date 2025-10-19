@@ -15,6 +15,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool readonly;
   final bool showUploadIcon;
   final String? initialText;
+  final Widget? prefixIcon;
 
   const CustomTextFormField({
     super.key,
@@ -31,6 +32,7 @@ class CustomTextFormField extends StatefulWidget {
     this.readonly = false,
     this.initialText,
     this.showUploadIcon = false,
+    this.prefixIcon,
   });
 
   @override
@@ -77,29 +79,30 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       onChanged: widget.onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       style: TextStyle(
-        color: AppColors.black,
+        color: AppColors.white,
         fontWeight: FontWeight.w400,
-        fontSize: 18,
+        fontSize: 12,
       ),
       cursorColor: AppColors.main,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.grey, width: 1.5),
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(color: AppColors.white, width: 1.5),
         ),
-        labelText: widget.label,
-        labelStyle: TextStyle(
-          color: AppColors.black,
-          fontWeight: FontWeight.w400,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(color: AppColors.white, width: 1.5),
         ),
         hintText: widget.hint,
-        hintStyle: TextStyle(color: AppColors.grey.withValues(alpha: 0.5)),
+        hintStyle: TextStyle(color: AppColors.white.withValues(alpha: 0.5)),
+        prefixIcon: widget.prefixIcon,
         suffixIcon:
             widget.obscureText
                 ? IconButton(
                   icon: Icon(
                     isTextObscured ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.grey,
+                    color: AppColors.white,
                   ),
                   onPressed: () {
                     setState(() {
@@ -123,7 +126,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   child: Text(
                     widget.suffixText!,
                     style: TextStyle(
-                      color: AppColors.black,
+                      color: AppColors.white,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
@@ -132,7 +135,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 : null,
         border: const OutlineInputBorder(),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.black),
+          borderSide: BorderSide(color: AppColors.white),
         ),
         errorStyle: const TextStyle(color: Colors.red, fontSize: 12),
       ),

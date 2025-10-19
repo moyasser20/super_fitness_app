@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:super_fitness_app/core/routes/route_names.dart';
 
+import '../../features/auth/presentation/register/views/register_screen.dart';
+
 class Routes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.initial:
         return MaterialPageRoute(
-          builder: (context) => const Scaffold(),
+          builder: (context) => const RegisterScreen(),
           settings: settings,
         );
 
