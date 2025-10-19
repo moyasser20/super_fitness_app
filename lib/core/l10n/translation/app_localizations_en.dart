@@ -13,4 +13,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcome => 'Welcome to Super Fitness!';
+
+  @override
+  String get enterYourEmail => 'Enter Your Email';
+
+  @override
+  String get forgetPassword => 'Forget Password';
+
+  @override
+  String get emailHint => 'Email';
+
+  @override
+  String get sendOtp => 'Send OTP';
+
+  @override
+  String get emailValidation => 'Please enter your email';
+
+  @override
+  String get otpCode => 'OTP Code';
+
+  @override
+  String get enterOtpMessage => 'Enter Your OTP Check Your Email';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get didntReceiveCode => 'Didn\'t receive verification code?';
+
+  @override
+  String get resendCode => 'Resend Code?';
+
+  @override
+  String get passwordRequirement => 'Make sure it’s 8 characters or more';
+
+  @override
+  String get createNewPassword => 'Create New Password';
+
+  @override
+  String get newPasswordHint => 'New Password';
+
+  @override
+  String get confirmPasswordHint => 'Confirm Password';
+
+  @override
+  String get passwordRequiredError => 'Please enter your password';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get passwordInvalidError => 'Password must contain at least 8 characters, including letters, numbers, and a special symbol';
+
+  @override
+  String get passwordMismatchError => 'Passwords do not match';
 }

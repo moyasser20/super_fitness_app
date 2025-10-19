@@ -1,4 +1,22 @@
 {
   "hello": "Hello",
-  "welcome": "Welcome to Super Fitness!"
+  "welcome": "Welcome to Super Fitness!",
+  "enterYourEmail": "Enter Your Email",
+  "forgetPassword": "Forget Password",
+  "emailHint": "Email",
+  "sendOtp": "Send OTP",
+  "emailValidation": "Please enter your email",
+  "otpCode": "OTP Code",
+  "enterOtpMessage": "Enter Your OTP Check Your Email",
+  "confirm": "Confirm",
+  "didntReceiveCode": "Didn't receive verification code?",
+  "resendCode": "Resend Code?",
+  "passwordRequirement": "Make sure it’s 8 characters or more",
+  "createNewPassword": "Create New Password",
+  "newPasswordHint": "New Password",
+  "confirmPasswordHint": "Confirm Password",
+  "passwordRequiredError": "Please enter your password",
+  "done": "Done",
+  "passwordInvalidError": "Password must contain at least 8 characters, including letters, numbers, and a special symbol",
+  "passwordMismatchError": "Passwords do not match"
 }

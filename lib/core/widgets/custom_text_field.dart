@@ -88,11 +88,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(color: AppColors.white, width: 1.5),
+          borderSide: BorderSide(color: AppColors.white.withValues(alpha: 0.5),
+              width: 1.5),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(color: AppColors.white, width: 1.5),
+          borderSide: BorderSide(color: AppColors.white.withValues(alpha: 0.5),
+              width: 1.5),
         ),
         hintText: widget.hint,
         hintStyle: TextStyle(color: AppColors.white.withValues(alpha: 0.5)),
@@ -102,7 +104,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ? IconButton(
                   icon: Icon(
                     isTextObscured ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.white,
+                    color: AppColors.white.withValues(alpha: 0.5),
                   ),
                   onPressed: () {
                     setState(() {

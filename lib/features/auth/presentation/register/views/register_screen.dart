@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:super_fitness_app/core/contants/app_images.dart';
+import 'package:super_fitness_app/core/routes/route_names.dart';
 import 'package:super_fitness_app/core/widgets/custom_elevated_button.dart';
 import 'package:super_fitness_app/core/widgets/custom_text_field.dart';
 
@@ -152,7 +153,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRoutes.forgetPassword);
+                          },
                           child: Text(
                             'Login',
                             style: TextStyle(

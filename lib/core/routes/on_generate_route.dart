@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:super_fitness_app/core/routes/route_names.dart';
 
+import '../../features/auth/presentation/forgetpassword/view/screens/email_verification_screen.dart';
+import '../../features/auth/presentation/forgetpassword/view/screens/forget_password_screen.dart';
+import '../../features/auth/presentation/forgetpassword/view/screens/reset_password_screen.dart';
 import '../../features/auth/presentation/register/views/register_screen.dart';
 
 class Routes {
@@ -9,6 +12,21 @@ class Routes {
       case AppRoutes.initial:
         return MaterialPageRoute(
           builder: (context) => const RegisterScreen(),
+          settings: settings,
+        );
+        case AppRoutes.forgetPassword:
+        return MaterialPageRoute(
+          builder: (context) => const ForgetPasswordScreen(),
+          settings: settings,
+        );
+        case AppRoutes.emailVerification:
+        return MaterialPageRoute(
+          builder: (context) => const EmailVerificationScreen(),
+          settings: settings,
+        );
+        case AppRoutes.resetPassword:
+        return MaterialPageRoute(
+          builder: (context) => const ResetPasswordScreen(),
           settings: settings,
         );
 

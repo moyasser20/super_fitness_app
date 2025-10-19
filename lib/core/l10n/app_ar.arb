@@ -1,4 +1,22 @@
 {
   "hello": "مرحبا",
-  "welcome": "مرحبًا بك في سوبر فيتنس!"
+  "welcome": "مرحبًا بك في سوبر فيتنس!",
+  "enterYourEmail": "أدخل بريدك الإلكتروني",
+  "forgetPassword": "نسيت كلمة المرور",
+  "emailHint": "البريد الإلكتروني",
+  "sendOtp": "إرسال رمز التحقق",
+  "emailValidation": "يرجى إدخال بريدك الإلكتروني",
+  "otpCode": "رمز التحقق",
+  "enterOtpMessage": "أدخل رمز التحقق، تحقق من بريدك الإلكتروني",
+  "confirm": "تأكيد",
+  "didntReceiveCode": "لم تستلم رمز التحقق؟",
+  "resendCode": "إعادة إرسال الرمز؟",
+  "passwordRequirement": "تأكد من أن كلمة المرور تحتوي على 8 أحرف أو أكثر",
+  "createNewPassword": "إنشاء كلمة مرور جديدة",
+  "newPasswordHint": "كلمة المرور الجديدة",
+  "confirmPasswordHint": "تأكيد كلمة المرور",
+  "passwordRequiredError": "يرجى إدخال كلمة المرور",
+  "done": "تم",
+  "passwordInvalidError": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص",
+  "passwordMismatchError": "كلمتا المرور غير متطابقتين"
 }

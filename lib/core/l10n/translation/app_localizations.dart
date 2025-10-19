@@ -106,6 +106,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome to Super Fitness!'**
   String get welcome;
+
+  /// No description provided for @enterYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Email'**
+  String get enterYourEmail;
+
+  /// No description provided for @forgetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget Password'**
+  String get forgetPassword;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailHint;
+
+  /// No description provided for @sendOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Send OTP'**
+  String get sendOtp;
+
+  /// No description provided for @emailValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get emailValidation;
+
+  /// No description provided for @otpCode.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP Code'**
+  String get otpCode;
+
+  /// No description provided for @enterOtpMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your OTP Check Your Email'**
+  String get enterOtpMessage;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @didntReceiveCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive verification code?'**
+  String get didntReceiveCode;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code?'**
+  String get resendCode;
+
+  /// No description provided for @passwordRequirement.
+  ///
+  /// In en, this message translates to:
+  /// **'Make sure it’s 8 characters or more'**
+  String get passwordRequirement;
+
+  /// No description provided for @createNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Password'**
+  String get createNewPassword;
+
+  /// No description provided for @newPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPasswordHint;
+
+  /// No description provided for @confirmPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPasswordHint;
+
+  /// No description provided for @passwordRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get passwordRequiredError;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @passwordInvalidError.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least 8 characters, including letters, numbers, and a special symbol'**
+  String get passwordInvalidError;
+
+  /// No description provided for @passwordMismatchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordMismatchError;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
