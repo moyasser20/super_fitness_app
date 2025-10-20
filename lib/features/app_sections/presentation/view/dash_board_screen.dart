@@ -32,31 +32,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(30.0),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(25.0),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+            filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-              width: 311.0,
-              height: 85.0,
+              alignment: Alignment.center,
+              width: 315,
+              height: 100,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.white.withOpacity(0.10),
+                    Colors.white.withOpacity(0.15),
                     Colors.white.withOpacity(0.03),
-                    Colors.white.withOpacity(0.02),
-                    Colors.white.withOpacity(0.10),
-                    Colors.white.withOpacity(0.03),
-                    Colors.white.withOpacity(0.02),
-                    Colors.white.withOpacity(0.10),
-                    Colors.white.withOpacity(0.03),
-                    Colors.white.withOpacity(0.02),
+                    Colors.white.withOpacity(0.01),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                border: Border.all(color: Colors.white.withOpacity(0.05)),
-                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.03),
+                    offset: const Offset(-2, -2),
+                    blurRadius: 8,
+                  ),
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    offset: const Offset(3, 3),
+                    blurRadius: 12,
+                  ),
+                ],
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(25.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,25 +150,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              imagePath,
-              width: width,
-              height: height,
-              colorFilter: ColorFilter.mode(
-                isSelected ? Colors.deepOrange : Colors.white,
-                BlendMode.srcIn,
+            AnimatedScale(
+              scale: isSelected ? 1.15 : 1.0,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOutBack,
+              child: SvgPicture.asset(
+                imagePath,
+                width: width,
+                height: height,
+                colorFilter: ColorFilter.mode(
+                  isSelected ? Colors.deepOrangeAccent : Colors.white70,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
             const SizedBox(height: 4),
-            if (isSelected)
-              Text(
+            AnimatedOpacity(
+              opacity: isSelected ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 200),
+              child: Text(
                 label,
                 style: const TextStyle(
-                  color: Colors.deepOrange,
+                  color: Colors.deepOrangeAccent,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
           ],
         ),
       ),
