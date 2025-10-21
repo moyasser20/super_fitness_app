@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         final cubit = context.read<LocalizationCubit>();
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: DashboardScreenApp(),
+          initialRoute: initialRoute,
           onGenerateRoute: Routes.onGenerateRoute,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

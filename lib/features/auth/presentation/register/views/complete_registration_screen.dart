@@ -5,10 +5,12 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:super_fitness_app/core/common/widgets/container_with_blur_widget.dart';
 import 'package:super_fitness_app/core/common/widgets/custom_picker_widget.dart';
 import 'package:super_fitness_app/core/common/widgets/custom_radio_button.dart';
+import 'package:super_fitness_app/core/common/widgets/custom_snackbar_widget.dart';
 import 'package:super_fitness_app/core/contants/app_icons.dart';
 import 'package:super_fitness_app/core/contants/app_images.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/core/widgets/custom_elevated_button.dart';
+import '../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../core/routes/route_names.dart';
 import '../../../../../core/utils/enums/register_enums.dart';
 import '../viewmodel/register_viewmodel/register_cubit.dart';
@@ -164,12 +166,13 @@ class _CompleteRegistrationScreenState
   }
 
   Widget _buildAgeStep() {
+    var locale = AppLocalizations.of(context);
     return ContainerWithBlurWidget(
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           Text(
-            'Year',
+            locale?.year ?? 'Year',
             style: TextStyle(
               fontSize: 15,
               color: AppColors.main,
@@ -196,12 +199,13 @@ class _CompleteRegistrationScreenState
   }
 
   Widget _buildWeightStep() {
+    var locale = AppLocalizations.of(context);
     return ContainerWithBlurWidget(
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           Text(
-            'Kg',
+            locale!.kg,
             style: TextStyle(
               fontSize: 18,
               color: Colors.white.withValues(alpha: 0.8),
@@ -227,12 +231,13 @@ class _CompleteRegistrationScreenState
   }
 
   Widget _buildHeightStep() {
+    var locale = AppLocalizations.of(context);
     return ContainerWithBlurWidget(
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           Text(
-            'cm',
+            locale!.cm,
             style: TextStyle(
               fontSize: 18,
               color: Colors.white.withValues(alpha: 0.8),
@@ -331,17 +336,19 @@ class _CompleteRegistrationScreenState
   }
 
   Widget _buildNextButton() {
+    var locale = AppLocalizations.of(context);
     return CustomElevatedButton(
       color: _isStepValid() ? AppColors.main : AppColors.grey[80],
       width: double.infinity,
       isLoading: context.read<RegisterCubit>().state is RegisterLoading,
-      text: _currentPage == _steps.length - 1 ? 'Finish' : 'Next',
+      text: _currentPage == _steps.length - 1 ? locale!.finish : locale!.next,
       onPressed: _isStepValid() ? _nextPage : () {},
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    var locale = AppLocalizations.of(context);
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterLoaded) {
@@ -349,6 +356,8 @@ class _CompleteRegistrationScreenState
             context,
             AppRoutes.dashboard,
             (route) => false,
+          ).then(
+            (value) => showCustomSnackBar(context, locale!.completed_success),
           );
         }
       },
@@ -481,6 +490,7 @@ class _GenderContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var locale = AppLocalizations.of(context);
     return Container(
       height: 120,
       width: 120,
@@ -508,7 +518,7 @@ class _GenderContainerWidget extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            gender == 'male' ? 'Male' : 'Female',
+            gender == 'male' ? locale!.gender_male : locale!.gender_female,
             style: TextStyle(
               fontSize: 14,
               color:

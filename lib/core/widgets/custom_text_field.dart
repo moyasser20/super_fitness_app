@@ -133,13 +133,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   ),
                 )
                 : null,
-        border:  OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.white),
           borderRadius: BorderRadius.circular(30),
         ),
+        errorMaxLines: 2,
         errorStyle: const TextStyle(color: Colors.red, fontSize: 12),
       ),
     );

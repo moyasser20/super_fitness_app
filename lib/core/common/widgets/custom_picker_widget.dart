@@ -125,7 +125,7 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
   Widget build(BuildContext context) {
     final totalItems = widget.maxValue - widget.minValue + 1;
     final horizontalPadding =
-        MediaQuery.of(context).size.width / 2.4 - _itemWidth / 2;
+        MediaQuery.of(context).size.width / (2.5 -0.04)- _itemWidth / 2;
 
     return SizedBox(
       height: _itemHeight + _triangleHeight + 30,
@@ -150,7 +150,7 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
             final itemPosition = index * _itemWidth;
             final distanceFromCenter = (itemPosition - scrollPosition).abs();
 
-            final maxDistance = _itemWidth * 4;
+            final maxDistance = _itemWidth * 5;
             final distanceFactor = (maxDistance - distanceFromCenter.clamp(0, maxDistance)) / maxDistance;
             final scale = 0.4 + (distanceFactor * 0.6);
             final opacity = 0.2 + (distanceFactor * 0.8);

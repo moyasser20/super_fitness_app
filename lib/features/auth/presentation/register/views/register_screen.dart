@@ -6,6 +6,7 @@ import 'package:super_fitness_app/core/widgets/custom_elevated_button.dart';
 import 'package:super_fitness_app/core/widgets/custom_text_field.dart';
 import '../../../../../core/common/widgets/container_with_blur_widget.dart';
 import '../../../../../core/contants/app_icons.dart';
+import '../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../core/routes/route_names.dart';
 import '../viewmodel/register_viewmodel/register_cubit.dart';
 
@@ -50,6 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var locale = AppLocalizations.of(context);
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -74,12 +76,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    "Hey There",
+                  Text(
+                    locale!.hey_there,
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
-                  const Text(
-                    "CREATE AN ACCOUNT",
+                  Text(
+                    locale.create_account,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -90,8 +92,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ContainerWithBlurWidget(
                     child: Column(
                       children: [
-                        const Text(
-                          'Register',
+                        Text(
+                          locale.title,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
@@ -100,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 20),
                         CustomTextFormField(
-                          hint: 'First Name',
+                          hint: locale.hint_first_name,
                           controller: firstNameController,
                           prefixIcon: const Icon(
                             Icons.person_outline_sharp,
@@ -108,14 +110,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your first name';
+                              return locale.error_first_name;
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 20),
                         CustomTextFormField(
-                          hint: 'Last Name',
+                          hint: locale.hint_last_name,
                           controller: lastNameController,
                           prefixIcon: const Icon(
                             Icons.person_outline_sharp,
@@ -123,14 +125,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your last name';
+                              return locale.error_last_name;
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 20),
                         CustomTextFormField(
-                          hint: 'Email',
+                          hint: locale.hint_email,
                           controller: emailController,
                           prefixIcon: const Icon(
                             Icons.email_outlined,
@@ -139,19 +141,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
+                              return locale.error_email;
                             }
                             if (!RegExp(
                               r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
                             ).hasMatch(value)) {
-                              return 'Please enter a valid email';
+                              return locale.error_email_invalid;
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 20),
                         CustomTextFormField(
-                          hint: 'Password',
+                          hint: locale.hint_password,
                           controller: passwordController,
                           prefixIcon: const Icon(
                             Icons.lock_outline_sharp,
@@ -160,17 +162,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
+                              return locale.error_password;
                             }
                             if (value.length < 6) {
-                              return 'Password must be at least 6 characters';
+                              return locale.error_password_short;
+                            }
+                            if (!RegExp(
+                              r'^(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{7,}$',
+                            ).hasMatch(value)) {
+                              return locale.error_password_invalid;
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 20),
                         CustomTextFormField(
-                          hint: 'Confirm Password',
+                          hint: locale.hint_confirm_password,
                           controller: rePasswordController,
                           prefixIcon: const Icon(
                             Icons.lock_outline_sharp,
@@ -179,27 +186,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please confirm your password';
+                              return locale.error_confirm_password;
                             }
                             if (value != passwordController.text) {
-                              return 'Passwords do not match';
+                              return locale.error_passwords_not_match;
                             }
                             return null;
                           },
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 30),
                         CustomElevatedButton(
                           width: double.infinity,
                           color: AppColors.main,
-                          text: 'Continue',
+                          text: locale.btn_continue,
                           onPressed: _startRegistrationFlow,
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              'Already have an account?',
+                            Text(
+                              locale.already_have_account,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -207,10 +214,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/login');
+                                Navigator.pushNamed(context, AppRoutes.login);
                               },
                               child: Text(
-                                'Login',
+                                locale.btn_login,
                                 style: TextStyle(
                                   color: AppColors.main[20],
                                   fontSize: 16,
