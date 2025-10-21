@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:super_fitness_app/core/common/widgets/custom_snackbar_widget.dart';
 import 'package:super_fitness_app/core/contants/app_images.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/core/widgets/custom_elevated_button.dart';
 import 'package:super_fitness_app/core/widgets/custom_text_field.dart';
 import '../../../../../core/common/widgets/container_with_blur_widget.dart';
 import '../../../../../core/contants/app_icons.dart';
+import '../../../../../core/routes/route_names.dart';
 import '../viewmodel/register_viewmodel/register_cubit.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -32,6 +32,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
     passwordController.dispose();
     rePasswordController.dispose();
     super.dispose();
+  }
+
+  void _startRegistrationFlow() {
+    if (!formKey.currentState!.validate()) return;
+
+    context.read<RegisterCubit>().setPersonalInfo(
+      firstName: firstNameController.text.trim(),
+      lastName: lastNameController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text,
+      rePassword: rePasswordController.text,
+    );
+
+    Navigator.pushNamed(context, AppRoutes.completeRegistration);
   }
 
   @override
@@ -76,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ContainerWithBlurWidget(
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Register',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -174,31 +188,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                         const SizedBox(height: 40),
-
-                        BlocConsumer<RegisterCubit, RegisterState>(
-                          listener: (context, state) {
-                            if (state is RegisterError) {
-                              showCustomSnackBar(context, state.message);
-                            }
-
-                            if (state is RegisterLoaded) {
-                              showCustomSnackBar(
-                                context,
-                                state.registerResponse.message,
-                                isError: false
-                              );
-                            }
-                          },
-                          builder: (context, state) {
-                            return CustomElevatedButton(
-                              width: double.infinity,
-                              color: AppColors.main,
-                              isLoading: state is RegisterLoading,
-                              text: 'Register',
-                              onPressed:
-                                  state is RegisterLoading ? () {} : _register,
-                            );
-                          },
+                        CustomElevatedButton(
+                          width: double.infinity,
+                          color: AppColors.main,
+                          text: 'Continue',
+                          onPressed: _startRegistrationFlow,
                         ),
                         const SizedBox(height: 20),
                         Row(
@@ -212,7 +206,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/login');
+                              },
                               child: Text(
                                 'Login',
                                 style: TextStyle(
@@ -236,18 +232,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  void _register() {
-    if (!formKey.currentState!.validate()) return;
-
-    context.read<RegisterCubit>().register(
-      firstName: firstNameController.text.trim(),
-      lastName: lastNameController.text.trim(),
-      email: emailController.text.trim(),
-      password: passwordController.text,
-      rePassword: rePasswordController.text,
     );
   }
 }
