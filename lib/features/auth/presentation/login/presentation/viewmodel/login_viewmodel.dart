@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../data/models/login_models/login_request_model.dart';
+import '../../../../domain/services/auth_services.dart';
 import '../../../../domain/usecase/login_usecases.dart';
 import 'login_states.dart';
 
@@ -20,6 +21,7 @@ class LoginViewModel extends Cubit<LoginStates> {
     final request = LoginRequest(email: email, password: password);
     final response = await _loginUseCase(request);
     if (response.isSuccess) {
+      await AuthService.saveAuthToken(response.data?.token ?? "");
       emit(LoginSuccessState(response.data!));
     } else {
       emit(LoginErrorState(response.error ?? "unknown error"));
