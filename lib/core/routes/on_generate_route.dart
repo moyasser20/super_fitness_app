@@ -6,12 +6,8 @@ import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 import '../routes/route_names.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:super_fitness_app/core/routes/route_names.dart';
-import '../../features/app_sections/presentation/view/dash_board_screen.dart';
 import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
 import '../../features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart';
-import '../../features/auth/presentation/register/views/register_screen.dart';
-import '../../features/auth/presentation/register/views/complete_registration_screen.dart';
 import '../config/di.dart';
 
 class Routes {

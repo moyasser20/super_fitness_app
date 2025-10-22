@@ -39,13 +39,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get step_subtitle_age => 'This Helps Us Create Your Personalized Plan';
 
   @override
-  String get step_subtitle_weight => 'This Helps Us Create Your Personalized Plan';
+  String get step_subtitle_weight =>
+      'This Helps Us Create Your Personalized Plan';
 
   @override
   String get step_subtitle_height => 'Select your height in cm';
 
   @override
-  String get step_subtitle_goal => 'This Helps Us Create Your Personalized Workout Plan';
+  String get step_subtitle_goal =>
+      'This Helps Us Create Your Personalized Workout Plan';
 
   @override
   String get goal_gain_weight => 'Gain Weight';
@@ -150,7 +152,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_password_short => 'Password must be at least 6 characters';
 
   @override
-  String get error_password_invalid => 'Password must contain at least one uppercase letter and one special character';
+  String get error_password_invalid =>
+      'Password must contain at least one uppercase letter and one special character';
 
   @override
   String get hint_confirm_password => 'Confirm Password';
@@ -169,4 +172,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btn_login => 'Login';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get emailLabel => 'Email';
+
+  @override
+  String get emailHintText => 'Enter your email';
+
+  @override
+  String get passwordLabel => 'Password';
+
+  @override
+  String get passwordHintText => 'Enter your password';
+
+  @override
+  String get emailIsEmptyErrorMessage => 'Email is required';
+
+  @override
+  String get emailValidationErrorMsg => 'This email is not valid';
+
+  @override
+  String get passwordRequiredErrorMsg => 'Password is required';
+
+  @override
+  String get passwordValidationErrorMsg =>
+      'Password must be at least 6 characters and include M#12m';
+
+  @override
+  String get rememberMe => 'Remember me';
+
+  @override
+  String get forgetPasswordTextButton => 'Forgot password?';
+
+  @override
+  String get continueAsGuestButton => 'Continue as guest';
+
+  @override
+  String get dontHaveAnAccount => 'Don\'t have an account?';
+
+  @override
+  String get signUp => 'Sign up';
+
+  @override
+  String get welcomeBack => 'WELCOME BACK';
 }
