@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:super_fitness_app/core/common/widgets/container_with_blur_widget.dart';
@@ -83,17 +84,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          TextButton(
-            onPressed: _skipOnboarding,
-            child: Text(
-              "Skip",
-              style: TextStyle(
-                color: AppColors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
+          !isLast
+              ? TextButton(
+                onPressed: _skipOnboarding,
+                child: Text(
+                  "Skip",
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              )
+              : const SizedBox(),
         ],
       ),
       body: Container(
@@ -133,6 +136,58 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                     ),
                   ),
+                  ContainerWithBlurWidget(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          onboard[boardController.page!.toInt()].title,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Text(
+                          onboard[boardController.page!.toInt()].body,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: AppColors.white, fontSize: 15),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        SmoothPageIndicator(
+                          controller: boardController,
+                          count: onboard.length,
+                          effect: ExpandingDotsEffect(
+                            dotColor: const Color(0xFFF6F6F6),
+                            activeDotColor: AppColors.main,
+                            expansionFactor: 2.5,
+                            dotHeight: screenHeight * 0.012,
+                            dotWidth: screenWidth * 0.03,
+                            spacing: screenWidth * 0.05,
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        CustomElevatedButton(
+                          width: double.infinity,
+                          color: AppColors.main,
+                          text: isLast ? "Get Started" : "Next",
+                          onPressed: () {
+                            if (isLast) {
+                              _completeOnboarding();
+                            } else {
+                              boardController.nextPage(
+                                duration: const Duration(milliseconds: 750),
+                                curve: Curves.fastLinearToSlowEaseIn,
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
                 ],
               ),
             );
@@ -158,57 +213,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               height: screenHeight * 0.5,
               width: double.infinity,
             ),
-          ),
-        ),
-        ContainerWithBlurWidget(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                model.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              Text(
-                model.body,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.white, fontSize: 15),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              SmoothPageIndicator(
-                controller: boardController,
-                count: onboard.length,
-                effect: ExpandingDotsEffect(
-                  dotColor: const Color(0xFFF6F6F6),
-                  activeDotColor: AppColors.main,
-                  expansionFactor: 2.5,
-                  dotHeight: screenHeight * 0.012,
-                  dotWidth: screenWidth * 0.03,
-                  spacing: screenWidth * 0.05,
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              CustomElevatedButton(
-                width: double.infinity,
-                color: AppColors.main,
-                text: isLast ? "Get Started" : "Next",
-                onPressed: () {
-                  if (isLast) {
-                    _completeOnboarding();
-                  } else {
-                    boardController.nextPage(
-                      duration: const Duration(milliseconds: 750),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                    );
-                  }
-                },
-              ),
-            ],
           ),
         ),
       ],
