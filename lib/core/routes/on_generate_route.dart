@@ -5,6 +5,10 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/regi
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 import '../routes/route_names.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
+import '../../features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart';
+import '../config/di.dart';
 
 class Routes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -16,16 +20,27 @@ class Routes {
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case AppRoutes.completeRegistration:
-        return MaterialPageRoute(builder: (_) => const CompleteRegistrationScreen());
+        return MaterialPageRoute(
+          builder: (_) => const CompleteRegistrationScreen(),
+        );
       case AppRoutes.dashboard:
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
+      case AppRoutes.login:
+        return MaterialPageRoute(
+          builder:
+              (context) => BlocProvider(
+                create: (context) => getIt<LoginViewModel>(),
+                child: const LoginScreen(),
+              ),
+        );
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          ),
+          builder:
+              (_) => Scaffold(
+                body: Center(
+                  child: Text('No route defined for ${settings.name}'),
+                ),
+              ),
         );
     }
   }

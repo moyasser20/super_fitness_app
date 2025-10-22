@@ -7,29 +7,24 @@
   "step_title_height": "ما هو طولك؟",
   "step_title_goal": "ما هو هدفك؟",
   "step_title_activity": "ما هو مستوى نشاطك البدني؟",
-
   "step_subtitle_gender": "نحتاج إلى معرفة جنسك",
   "step_subtitle_age": "سيساعدنا هذا في إنشاء خطتك الشخصية",
   "step_subtitle_weight": "سيساعدنا هذا في إنشاء خطتك الشخصية",
   "step_subtitle_height": "اختر طولك بالسنتيمتر",
   "step_subtitle_goal": "سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك",
-
   "goal_gain_weight": "زيادة الوزن",
   "goal_lose_weight": "إنقاص الوزن",
   "goal_get_fitter": "تحسين اللياقة",
   "goal_gain_flexible": "زيادة المرونة",
   "goal_learn_basic": "تعلم الأساسيات",
-
   "activity_rookie": "مبتدئ جداً",
   "activity_beginner": "مبتدئ",
   "activity_intermediate": "متوسط",
   "activity_advanced": "متقدم",
   "activity_expert": "خبير",
   "activity_true_beast": "وحش حقيقي",
-
   "gender_male": "ذكر",
   "gender_female": "أنثى",
-
   "finish": "إنهاء",
   "next": "التالي",
   "year": "سنة",
@@ -57,5 +52,20 @@
   "error_passwords_not_match": "كلمتا المرور غير متطابقتين",
   "btn_continue": "متابعة",
   "already_have_account": "لديك حساب بالفعل؟",
-  "btn_login": "تسجيل الدخول"
+  "btn_login": "تسجيل الدخول",
+  "login": "تسجيل الدخول",
+  "emailLabel": "البريد الإلكتروني",
+  "emailHintText": "أدخل بريدك الإلكتروني",
+  "passwordLabel": "كلمة المرور",
+  "passwordHintText": "كلمة المرور",
+  "emailIsEmptyErrorMessage": "البريد الإلكتروني مطلوب",
+  "emailValidationErrorMsg": "هذا البريد الإلكتروني غير صالح",
+  "passwordRequiredErrorMsg": "كلمة المرور مطلوبة",
+  "passwordValidationErrorMsg": "يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m",
+  "rememberMe": "تذكرني",
+  "forgetPasswordTextButton": "هل نسيت كلمة المرور؟",
+  "continueAsGuestButton": "المتابعة كضيف",
+  "dontHaveAnAccount": "ليس لديك حساب؟",
+  "signUp": "إنشاء حساب",
+  "welcomeBack": "مرحباً بعودتك"
 }

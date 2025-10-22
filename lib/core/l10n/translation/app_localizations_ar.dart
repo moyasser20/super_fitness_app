@@ -45,7 +45,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get step_subtitle_height => 'اختر طولك بالسنتيمتر';
 
   @override
-  String get step_subtitle_goal => 'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
+  String get step_subtitle_goal =>
+      'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
 
   @override
   String get goal_gain_weight => 'زيادة الوزن';
@@ -147,10 +148,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error_password => 'يرجى إدخال كلمة المرور';
 
   @override
-  String get error_password_short => 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
+  String get error_password_short =>
+      'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
 
   @override
-  String get error_password_invalid => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
+  String get error_password_invalid =>
+      'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
 
   @override
   String get hint_confirm_password => 'تأكيد كلمة المرور';
@@ -169,4 +172,50 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get btn_login => 'تسجيل الدخول';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get emailLabel => 'البريد الإلكتروني';
+
+  @override
+  String get emailHintText => 'أدخل بريدك الإلكتروني';
+
+  @override
+  String get passwordLabel => 'كلمة المرور';
+
+  @override
+  String get passwordHintText => 'أدخل كلمة المرور';
+
+  @override
+  String get emailIsEmptyErrorMessage => 'البريد الإلكتروني مطلوب';
+
+  @override
+  String get emailValidationErrorMsg => 'هذا البريد الإلكتروني غير صالح';
+
+  @override
+  String get passwordRequiredErrorMsg => 'كلمة المرور مطلوبة';
+
+  @override
+  String get passwordValidationErrorMsg =>
+      'يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m';
+
+  @override
+  String get rememberMe => 'تذكرني';
+
+  @override
+  String get forgetPasswordTextButton => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get continueAsGuestButton => 'المتابعة كضيف';
+
+  @override
+  String get dontHaveAnAccount => 'ليس لديك حساب؟';
+
+  @override
+  String get signUp => 'إنشاء حساب';
+
+  @override
+  String get welcomeBack => 'مرحباً بعودتك';
 }
