@@ -1,23 +1,36 @@
 import 'dart:developer';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 abstract class SecureStorage {
   static late final FlutterSecureStorage _storage;
+  static bool _isInitialized = false;
 
   static Future<void> initialize() async {
-    _storage = const FlutterSecureStorage(
-      aOptions: AndroidOptions(encryptedSharedPreferences: true),
-      iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
-    );
+    try {
+      _storage = const FlutterSecureStorage(
+        aOptions: AndroidOptions(encryptedSharedPreferences: true),
+        iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
+      );
+      _isInitialized = true;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<void> _ensureInitialized() async {
+    if (!_isInitialized) {
+      await initialize();
+    }
   }
 
   static Future<void> write({
     required String key,
     required String value,
   }) async {
+    await _ensureInitialized();
     try {
       await _storage.write(key: key, value: value);
+      log('SecureStorage: Written key "$key" with value "$value"');
     } catch (error, stackTrace) {
       _handleError('write', error, stackTrace, key: key);
       rethrow;
@@ -25,8 +38,11 @@ abstract class SecureStorage {
   }
 
   static Future<String?> read(String key) async {
+    await _ensureInitialized();
     try {
-      return await _storage.read(key: key);
+      final value = await _storage.read(key: key);
+      log('SecureStorage: Read key "$key" -> "$value"');
+      return value;
     } catch (error, stackTrace) {
       _handleError('read', error, stackTrace, key: key);
       rethrow;
@@ -78,5 +94,27 @@ abstract class SecureStorage {
     log(
       'SecureStorage $operation error${key != null ? " for key: $key" : ""}: $error',
     );
+  }
+
+  static Future<void> saveToken(String token) async {
+    await write(key: 'token', value: token);
+  }
+
+  static Future<String?> getToken() async {
+    return await read('token');
+  }
+
+  static Future<void> deleteToken() async {
+    await delete('token');
+  }
+
+  static Future<void> resetForDevelopment() async {
+    await delete('onboarding_seen');
+    await delete('token');
+    await delete('app_version');
+  }
+
+  static Future<void> clearUserData() async {
+    await deleteToken();
   }
 }
