@@ -5,15 +5,19 @@ class ContainerWithBlurWidget extends StatelessWidget {
   const ContainerWithBlurWidget({
     super.key,
     required this.child,
-    this.blurIntensity = 36.0,
+    this.blurIntensity = 15.0,
     this.borderRadius = 50.0,
     this.padding = const EdgeInsets.all(20.0),
+    this.width,
+    this.isCenterWidget = false,
   });
 
   final Widget child;
   final double blurIntensity;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
+  final double? width;
+  final bool isCenterWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,10 @@ class ContainerWithBlurWidget extends StatelessWidget {
               ),
               child: Container(color: Colors.transparent),
             ),
-            Padding(padding: padding, child: child),
+            Padding(
+              padding: padding,
+              child: isCenterWidget ? Center(child: child) : child,
+            ),
           ],
         ),
       ),
