@@ -7,29 +7,24 @@
   "step_title_height": "WHAT IS YOUR HEIGHT?",
   "step_title_goal": "WHAT IS YOUR GOAL?",
   "step_title_activity": "Your Regular Physical Activity Level?",
-
   "step_subtitle_gender": "We Need To Know Your Gender",
   "step_subtitle_age": "This Helps Us Create Your Personalized Plan",
   "step_subtitle_weight": "This Helps Us Create Your Personalized Plan",
   "step_subtitle_height": "Select your height in cm",
   "step_subtitle_goal": "This Helps Us Create Your Personalized Workout Plan",
-
   "goal_gain_weight": "Gain Weight",
   "goal_lose_weight": "Lose Weight",
   "goal_get_fitter": "Get Fitter",
   "goal_gain_flexible": "Gain More Flexible",
   "goal_learn_basic": "Learn The Basic",
-
   "activity_rookie": "Rookie",
   "activity_beginner": "Beginner",
   "activity_intermediate": "Intermediate",
   "activity_advanced": "Advanced",
   "activity_expert": "Expert",
   "activity_true_beast": "True Beast",
-
   "gender_male": "Male",
   "gender_female": "Female",
-
   "finish": "Finish",
   "next": "Next",
   "year": "Year",
@@ -57,5 +52,19 @@
   "error_passwords_not_match": "Passwords do not match",
   "btn_continue": "Continue",
   "already_have_account": "Already have an account?",
-  "btn_login": "Login"
+  "btn_login": "Login",
+  "login": "Login",
+  "emailLabel": "Email",
+  "emailHintText": "Enter your email",
+  "passwordLabel": "Password",
+  "passwordHintText": "Enter your password",
+  "emailIsEmptyErrorMessage": "Email is required",
+  "emailValidationErrorMsg": "This email is not valid",
+  "passwordRequiredErrorMsg": "Password is required",
+  "passwordValidationErrorMsg": "Password must be at least 6 characters and include M#12m",
+  "rememberMe": "Remember me",
+  "forgetPasswordTextButton": "Forgot password?",
+  "continueAsGuestButton": "Continue as guest",
+  "dontHaveAnAccount": "Don't have an account?",
+  "signUp": "Sign up"
 }
