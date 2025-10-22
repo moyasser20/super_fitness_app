@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:super_fitness_app/features/auth/domain/repo/auth_repo.dart';
+import '../../../../../../core/contants/secure_storage.dart';
+import '../../../../../splash/splash_screen.dart';
 import '../../../../domain/responses/auth_response.dart';
 import '../../../../domain/responses/register_request_model.dart';
 import '../../../../domain/responses/register_response.dart';
@@ -105,12 +107,14 @@ class RegisterCubit extends Cubit<RegisterState> {
       goal: _goal!,
       activityLevel: _activityLevel!,
     );
+
     try {
       final AuthResponse<RegisterResponse> response = await _authRepo.register(
         registerRequest,
       );
 
       if (response.isSuccess) {
+        await SecureStorage.saveToken(response.data!.token);
         emit(RegisterLoaded(response.data!));
       } else {
         emit(RegisterError(response.error!));
@@ -118,6 +122,16 @@ class RegisterCubit extends Cubit<RegisterState> {
     } catch (e) {
       emit(RegisterError('An unexpected error occurred: $e'));
     }
+  }
+
+  void logout(BuildContext context) {
+    emit(RegisterInitial());
+    SecureStorage.clearUserData();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const SplashScreen()),
+      (Route<dynamic> route) => false,
+    );
   }
 
   void reset() {

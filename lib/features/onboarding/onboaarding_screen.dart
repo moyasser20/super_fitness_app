@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:super_fitness_app/core/common/widgets/container_with_blur_widget.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/core/widgets/custom_elevated_button.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
+import '../../core/contants/prefs.dart';
 
 class OnBoardModel {
   final String image;
@@ -45,6 +47,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   var boardController = PageController();
   bool isLast = false;
 
+  void _skipOnboarding() async {
+    log('=== SKIPPING ONBOARDING ===');
+    await Prefs.setOnboardingSeen();
+    final bool check = Prefs.isOnboardingSeen();
+    log('Onboarding marked as seen: $check');
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const RegisterScreen()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  void _completeOnboarding() async {
+    log('=== COMPLETING ONBOARDING ===');
+    await Prefs.setOnboardingSeen();
+    final bool check = Prefs.isOnboardingSeen();
+    log('Onboarding marked as seen: $check');
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const RegisterScreen()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -58,13 +84,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         elevation: 0,
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const RegisterScreen()),
-                (Route<dynamic> route) => false,
-              );
-            },
+            onPressed: _skipOnboarding,
             child: Text(
               "Skip",
               style: TextStyle(
@@ -179,13 +199,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 text: isLast ? "Get Started" : "Next",
                 onPressed: () {
                   if (isLast) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
-                      ),
-                      (Route<dynamic> route) => false,
-                    );
+                    _completeOnboarding();
                   } else {
                     boardController.nextPage(
                       duration: const Duration(milliseconds: 750),
