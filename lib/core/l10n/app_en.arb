@@ -57,7 +57,7 @@
   "emailLabel": "Email",
   "emailHintText": "Enter your email",
   "passwordLabel": "Password",
-  "passwordHintText": "Enter your password",
+  "passwordHintText": "Password",
   "emailIsEmptyErrorMessage": "Email is required",
   "emailValidationErrorMsg": "This email is not valid",
   "passwordRequiredErrorMsg": "Password is required",
@@ -65,6 +65,7 @@
   "rememberMe": "Remember me",
   "forgetPasswordTextButton": "Forgot password?",
   "continueAsGuestButton": "Continue as guest",
-  "dontHaveAnAccount": "Don't have an account?",
-  "signUp": "Sign up"
+  "dontHaveAnAccount": "Don't have an account yet?",
+  "signUp": "Register",
+  "welcomeBack": "WELCOME BACK"
 }

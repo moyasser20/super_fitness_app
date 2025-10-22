@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
-                        local.login,
+                        local.welcomeBack,
                         style: const TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w800,

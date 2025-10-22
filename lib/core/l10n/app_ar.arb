@@ -57,7 +57,7 @@
   "emailLabel": "البريد الإلكتروني",
   "emailHintText": "أدخل بريدك الإلكتروني",
   "passwordLabel": "كلمة المرور",
-  "passwordHintText": "أدخل كلمة المرور",
+  "passwordHintText": "كلمة المرور",
   "emailIsEmptyErrorMessage": "البريد الإلكتروني مطلوب",
   "emailValidationErrorMsg": "هذا البريد الإلكتروني غير صالح",
   "passwordRequiredErrorMsg": "كلمة المرور مطلوبة",
@@ -66,5 +66,6 @@
   "forgetPasswordTextButton": "هل نسيت كلمة المرور؟",
   "continueAsGuestButton": "المتابعة كضيف",
   "dontHaveAnAccount": "ليس لديك حساب؟",
-  "signUp": "إنشاء حساب"
+  "signUp": "إنشاء حساب",
+  "welcomeBack": "مرحباً بعودتك"
 }
