@@ -9,8 +9,164 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get hello => 'مرحبا';
+  String get hello => 'مرحباً';
 
   @override
   String get welcome => 'مرحبًا بك في سوبر فيتنس!';
+
+  @override
+  String get step_title_gender => 'حدثنا عن نفسك!';
+
+  @override
+  String get step_title_age => 'كم عمرك؟';
+
+  @override
+  String get step_title_weight => 'ما هو وزنك؟';
+
+  @override
+  String get step_title_height => 'ما هو طولك؟';
+
+  @override
+  String get step_title_goal => 'ما هو هدفك؟';
+
+  @override
+  String get step_title_activity => 'ما هو مستوى نشاطك البدني؟';
+
+  @override
+  String get step_subtitle_gender => 'نحتاج إلى معرفة جنسك';
+
+  @override
+  String get step_subtitle_age => 'سيساعدنا هذا في إنشاء خطتك الشخصية';
+
+  @override
+  String get step_subtitle_weight => 'سيساعدنا هذا في إنشاء خطتك الشخصية';
+
+  @override
+  String get step_subtitle_height => 'اختر طولك بالسنتيمتر';
+
+  @override
+  String get step_subtitle_goal => 'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
+
+  @override
+  String get goal_gain_weight => 'زيادة الوزن';
+
+  @override
+  String get goal_lose_weight => 'إنقاص الوزن';
+
+  @override
+  String get goal_get_fitter => 'تحسين اللياقة';
+
+  @override
+  String get goal_gain_flexible => 'زيادة المرونة';
+
+  @override
+  String get goal_learn_basic => 'تعلم الأساسيات';
+
+  @override
+  String get activity_rookie => 'مبتدئ جداً';
+
+  @override
+  String get activity_beginner => 'مبتدئ';
+
+  @override
+  String get activity_intermediate => 'متوسط';
+
+  @override
+  String get activity_advanced => 'متقدم';
+
+  @override
+  String get activity_expert => 'خبير';
+
+  @override
+  String get activity_true_beast => 'وحش حقيقي';
+
+  @override
+  String get gender_male => 'ذكر';
+
+  @override
+  String get gender_female => 'أنثى';
+
+  @override
+  String get finish => 'إنهاء';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get year => 'سنة';
+
+  @override
+  String get years => 'سنوات';
+
+  @override
+  String get kg => 'كغ';
+
+  @override
+  String get kg_unit => 'كغ';
+
+  @override
+  String get cm => 'سم';
+
+  @override
+  String get completed_success => 'تم إكمال التسجيل بنجاح';
+
+  @override
+  String get hey_there => 'Hey There';
+
+  @override
+  String get create_account => 'إنشاء حساب';
+
+  @override
+  String get title => 'التسجيل';
+
+  @override
+  String get hint_first_name => 'الاسم الأول';
+
+  @override
+  String get error_first_name => 'يرجى إدخال الاسم الأول';
+
+  @override
+  String get hint_last_name => 'اسم العائلة';
+
+  @override
+  String get error_last_name => 'يرجى إدخال اسم العائلة';
+
+  @override
+  String get hint_email => 'البريد الإلكتروني';
+
+  @override
+  String get error_email => 'يرجى إدخال البريد الإلكتروني';
+
+  @override
+  String get error_email_invalid => 'يرجى إدخال بريد إلكتروني صالح';
+
+  @override
+  String get hint_password => 'كلمة المرور';
+
+  @override
+  String get error_password => 'يرجى إدخال كلمة المرور';
+
+  @override
+  String get error_password_short => 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
+
+  @override
+  String get error_password_invalid => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
+
+  @override
+  String get hint_confirm_password => 'تأكيد كلمة المرور';
+
+  @override
+  String get error_confirm_password => 'يرجى تأكيد كلمة المرور';
+
+  @override
+  String get error_passwords_not_match => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get btn_continue => 'متابعة';
+
+  @override
+  String get already_have_account => 'لديك حساب بالفعل؟';
+
+  @override
+  String get btn_login => 'تسجيل الدخول';
 }
