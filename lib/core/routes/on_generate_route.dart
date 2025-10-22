@@ -24,24 +24,28 @@ class Routes {
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case AppRoutes.completeRegistration:
-        return MaterialPageRoute(builder: (_) => const CompleteRegistrationScreen());
+        return MaterialPageRoute(
+          builder: (_) => const CompleteRegistrationScreen(),
+        );
       case AppRoutes.dashboard:
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
-    case AppRoutes.login:
-    return MaterialPageRoute(
-    builder: (context) => BlocProvider(
-    create: (context) => getIt<LoginViewModel>(),
-    child: const LoginScreen(),
-    ),
-    );
-        default:
+      case AppRoutes.login:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          ),
+          builder:
+              (context) => BlocProvider(
+                create: (context) => getIt<LoginViewModel>(),
+                child: const LoginScreen(),
+              ),
         );
-      }
+      default:
+        return MaterialPageRoute(
+          builder:
+              (_) => Scaffold(
+                body: Center(
+                  child: Text('No route defined for ${settings.name}'),
+                ),
+              ),
+        );
+    }
   }
 }
