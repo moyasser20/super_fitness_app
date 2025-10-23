@@ -29,7 +29,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this._authRepo) : super(RegisterInitial()) {
     log('=== REGISTER CUBIT CREATED ===');
-    log('Cubit instance: ${this.hashCode}');
+    log('Cubit instance: $hashCode');
     log('First: $_firstName, Last: $_lastName, Email: $_email');
   }
 

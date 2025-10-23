@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/routes/route_names.dart';
 import 'core/config/di.dart';
-import 'core/config/di.dart' as di;
 import 'core/contants/prefs.dart';
 import 'core/contants/secure_storage.dart';
 import 'core/l10n/translation/app_localizations.dart';

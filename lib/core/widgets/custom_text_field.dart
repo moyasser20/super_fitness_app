@@ -81,18 +81,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       style: TextStyle(
         color: AppColors.white,
         fontWeight: FontWeight.w400,
-        fontSize: 12,
+        fontSize: 15,
       ),
       cursorColor: AppColors.main,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(color: AppColors.white, width: 1.5),
+          borderSide: BorderSide(color: Color(0xffD9D9D9), width: 1.5),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(color: AppColors.white, width: 1.5),
+          borderSide: BorderSide(color: Color(0xffD9D9D9), width: 1.5),
         ),
         hintText: widget.hint,
         hintStyle: TextStyle(color: AppColors.white.withValues(alpha: 0.5)),
@@ -101,8 +101,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             widget.obscureText
                 ? IconButton(
                   icon: Icon(
-                    isTextObscured ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.white,
+                    isTextObscured ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                    color: Color(0xffD9D9D9),
                   ),
                   onPressed: () {
                     setState(() {
@@ -126,9 +126,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   child: Text(
                     widget.suffixText!,
                     style: TextStyle(
-                      color: AppColors.white,
+                      color: Color(0xffD9D9D9),
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: 15,
                     ),
                   ),
                 )
