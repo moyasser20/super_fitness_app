@@ -93,5 +93,11 @@
   "continueAsGuestButton": "Continue as guest",
   "dontHaveAnAccount": "Don't have an account yet?",
   "signUp": "Register",
-  "welcomeBack": "WELCOME BACK"
+  "welcomeBack": "WELCOME BACK",
+  "passwordRequired": "Password is required",
+  "passwordInvalid": "Password must be at least 8 characters, include letters, numbers, and special characters.",
+  "confirmPasswordRequired": "Confirmation is required",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Please enter a valid email address"
 }

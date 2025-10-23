@@ -18,8 +18,7 @@ import '../../features/auth/presentation/forgetpassword/view/screens/reset_passw
 import '../../features/auth/presentation/forgetpassword/viewmodel/forget_password_viewmodel.dart';
 import '../../features/auth/presentation/forgetpassword/viewmodel/reset_password_viewmodel.dart';
 import '../../features/auth/presentation/forgetpassword/viewmodel/verify_code_viewmodel.dart';
-import '../../features/auth/presentation/register/views/register_screen.dart';
-import '../config/di.dart';
+
 
 class Routes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {

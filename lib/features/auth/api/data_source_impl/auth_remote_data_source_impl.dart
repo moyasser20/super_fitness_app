@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/reset_password_request_model.dart';
 import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart';
 import 'dart:convert';
+import '../../../../core/api/client/api_client.dart' as _apiClient;
 import '../../../../core/errors/failure.dart';
 import '../../../../core/api/client/api_client.dart';
 import '../../data/datasource/auth_remote_data_source.dart';
@@ -100,9 +101,6 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return AuthResponse.error(e.toString());
     }
   }
-
-}
-
   @override
   Future<AuthResponse<LoginResponse>> login(LoginRequest loginRequest) async {
     try {

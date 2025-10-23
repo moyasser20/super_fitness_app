@@ -5,6 +5,7 @@ import '../../../../../../core/common/widgets/container_with_blur_widget.dart';
 import '../../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../../core/contants/app_icons.dart';
 import '../../../../../../core/contants/app_images.dart';
+import '../../../../../../core/extensions/validations.dart';
 import '../../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../../core/routes/route_names.dart';
 import '../../../../../../core/widgets/custom_elevated_button.dart';
@@ -95,6 +96,16 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return local.emailRequired;
+                              }
+                              if (!Validations.validateEmail(value)) {
+                                return local.emailInvalid;
+                              }
+                              return null;
+                            },
+
                             hint: local.emailHint,
                             controller: _cubit.emailController,
                             prefixIcon: Icon(
@@ -102,12 +113,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                               color: AppColors.white.withOpacity(0.5),
                             ),
                             keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return local.emailValidation;
-                              }
-                              return null;
-                            },
                           ),
                           const SizedBox(height: 30),
                           CustomElevatedButton(

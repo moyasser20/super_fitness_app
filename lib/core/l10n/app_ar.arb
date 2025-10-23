@@ -92,5 +92,11 @@
   "continueAsGuestButton": "المتابعة كضيف",
   "dontHaveAnAccount": "ليس لديك حساب؟",
   "signUp": "إنشاء حساب",
-  "welcomeBack": "مرحباً بعودتك"
+  "welcomeBack": "مرحباً بعودتك",
+  "passwordRequired": "كلمة المرور مطلوبة",
+  "passwordInvalid": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتشمل أحرفًا وأرقامًا ورموزًا خاصة.",
+  "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
+  "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "emailInvalid": "يرجى إدخال بريد إلكتروني صالح"
 }
