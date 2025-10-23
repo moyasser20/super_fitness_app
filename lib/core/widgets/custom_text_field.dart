@@ -81,20 +81,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       style: TextStyle(
         color: AppColors.white,
         fontWeight: FontWeight.w400,
-        fontSize: 12,
+        fontSize: 15,
       ),
       cursorColor: AppColors.main,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(color: AppColors.white.withValues(alpha: 0.5),
-              width: 1.5),
+          borderSide: BorderSide(color: AppColors.white, width: 1.5),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(color: AppColors.white.withValues(alpha: 0.5),
-              width: 1.5),
+          borderSide: BorderSide(color: AppColors.white, width: 1.5),
         ),
         hintText: widget.hint,
         hintStyle: TextStyle(color: AppColors.white.withValues(alpha: 0.5)),
@@ -104,7 +102,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 ? IconButton(
                   icon: Icon(
                     isTextObscured ? Icons.visibility_off : Icons.visibility,
-                    color: AppColors.white.withValues(alpha: 0.5),
+                    color: AppColors.white,
                   ),
                   onPressed: () {
                     setState(() {
@@ -128,17 +126,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   child: Text(
                     widget.suffixText!,
                     style: TextStyle(
-                      color: AppColors.white,
+                      color: Color(0xffD9D9D9),
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: 15,
                     ),
                   ),
                 )
                 : null,
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.white),
+          borderRadius: BorderRadius.circular(30),
         ),
+        errorMaxLines: 2,
         errorStyle: const TextStyle(color: Colors.red, fontSize: 12),
       ),
     );

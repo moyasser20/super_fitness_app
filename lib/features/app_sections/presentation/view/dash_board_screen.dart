@@ -1,0 +1,193 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart';
+
+class DashboardScreenApp extends StatelessWidget {
+  const DashboardScreenApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DashboardScreen(),
+    );
+  }
+}
+
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  int currentPageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Scaffold(
+      backgroundColor: const Color(0xff222528),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25.0),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+            child: Container(
+              alignment: Alignment.center,
+              width: 315,
+              height: 100,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.15),
+                    Colors.white.withOpacity(0.03),
+                    Colors.white.withOpacity(0.01),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.03),
+                    offset: const Offset(-2, -2),
+                    blurRadius: 8,
+                  ),
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    offset: const Offset(3, 3),
+                    blurRadius: 12,
+                  ),
+                ],
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.2),
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildNavItem(
+                    imagePath: 'assets/icons/home.svg',
+                    label: 'Explore',
+                    index: 0,
+                  ),
+                  _buildNavItem(
+                    imagePath: 'assets/icons/chat_ai.svg',
+                    label: 'Chat',
+                    index: 1,
+                  ),
+                  _buildNavItem(
+                    imagePath: 'assets/icons/gym.svg',
+                    label: 'Workouts',
+                    index: 2,
+                  ),
+                  _buildNavItem(
+                    imagePath: 'assets/icons/profile.svg',
+                    width: 40,
+                    height: 40,
+                    label: 'Profile',
+                    index: 3,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: <Widget>[
+          Center(
+            child: Text(
+              'Explore page',
+              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+          ),
+          Center(
+            child: Text(
+              'Chat page',
+              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+          ),
+          Center(
+            child: Text(
+              'Workout page',
+              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+          ),
+          Center(
+            child: InkWell(
+              onTap: () => context.read<RegisterCubit>().logout(context),
+              child: Text(
+                'Profile page',
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem({
+    required String imagePath,
+    required String label,
+    required int index,
+    double width = 25,
+    double height = 25,
+  }) {
+    final bool isSelected = currentPageIndex == index;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          currentPageIndex = index;
+        });
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedScale(
+              scale: isSelected ? 1.15 : 1.0,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOutBack,
+              child: SvgPicture.asset(
+                imagePath,
+                width: width,
+                height: height,
+                colorFilter: ColorFilter.mode(
+                  isSelected ? Colors.deepOrangeAccent : Colors.white70,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+            const SizedBox(height: 4),
+            AnimatedOpacity(
+              opacity: isSelected ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 200),
+              child: Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.deepOrangeAccent,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
