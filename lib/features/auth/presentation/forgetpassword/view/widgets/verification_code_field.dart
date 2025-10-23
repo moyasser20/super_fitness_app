@@ -4,7 +4,7 @@ import '../../../../../../../core/theme/app_colors.dart';
 
 class VerificationCodeField extends StatefulWidget {
   final Function(String)? onCodeChanged;
-  
+
   const VerificationCodeField({super.key, this.onCodeChanged});
 
   @override

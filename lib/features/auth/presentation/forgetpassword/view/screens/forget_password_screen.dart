@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
-
 import '../../../../../../core/common/widgets/container_with_blur_widget.dart';
+import '../../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../../core/contants/app_icons.dart';
 import '../../../../../../core/contants/app_images.dart';
 import '../../../../../../core/l10n/translation/app_localizations.dart';
@@ -37,20 +37,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     final local = AppLocalizations.of(context)!;
 
     return BlocConsumer<ForgetPasswordCubit, ForgetPasswordStates>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is ForgetPasswordSuccessState) {
+          await showCustomSnackBar(context, local.otpSent, isError: false);
+
           Navigator.pushNamed(
             context,
             AppRoutes.emailVerification,
             arguments: _cubit.emailController.text,
           );
         } else if (state is ForgetPasswordErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showCustomSnackBar(context, state.message, isError: true);
         }
       },
       builder: (context, state) {
@@ -77,7 +74,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   const SizedBox(height: 100),
                   Text(
                     local.enterYourEmail,
-                    style: const TextStyle(fontSize: 18, color:  AppColors.white),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: AppColors.white,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
@@ -85,7 +85,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color:  AppColors.white,
+                      color: AppColors.white,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -97,7 +97,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           CustomTextFormField(
                             hint: local.emailHint,
                             controller: _cubit.emailController,
-                            prefixIcon: Icon(Icons.email_outlined, color: AppColors.white.withOpacity(0.5)),
+                            prefixIcon: Icon(
+                              Icons.email_outlined,
+                              color: AppColors.white.withOpacity(0.5),
+                            ),
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -112,13 +115,21 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             color: AppColors.main,
                             text: local.sendOtp,
                             isLoading: state is ForgetPasswordLoadingState,
-                            onPressed: _cubit.isFormValid
-                                ? () {
-                                    if (_formState.currentState!.validate()) {
-                                      _cubit.sendResetCode();
+                            onPressed:
+                                _cubit.isFormValid
+                                    ? () {
+                                      if (_formState.currentState!.validate()) {
+                                        _cubit.sendResetCode();
+                                      } else {
+                                        showCustomSnackBar(
+                                          context,
+                                          local.emailValidation,
+                                          isError: true,
+                                          isWarning: true,
+                                        );
+                                      }
                                     }
-                                  }
-                                : null,
+                                    : null,
                           ),
                           const SizedBox(height: 10),
                         ],

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/Widgets/custom_Elevated_Button.dart';
 import '../../../../../../core/Widgets/custom_text_field.dart';
 import '../../../../../../core/common/widgets/container_with_blur_widget.dart';
+import '../../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../../core/contants/app_icons.dart';
 import '../../../../../../core/contants/app_images.dart';
-import '../../../../../../core/extensions/validations.dart';
 import '../../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../../viewmodel/reset_password_viewmodel.dart';
@@ -41,20 +41,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(local.passwordResetSuccess),
-              backgroundColor: Colors.green,
-            ),
+          showCustomSnackBar(
+            context,
+            local.passwordResetSuccess,
+            isError: false,
           );
           Navigator.popUntil(context, (route) => route.isFirst);
         } else if (state is ResetPasswordErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showCustomSnackBar(context, state.message, isError: true);
         }
       },
       builder: (context, state) {
@@ -86,7 +80,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       const SizedBox(height: 50),
                       Text(
                         local.passwordRequirement,
-                        style: const TextStyle(fontSize: 16, color: AppColors.white),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: AppColors.white,
+                        ),
                       ),
                       const SizedBox(height: 5),
                       Text(
@@ -129,13 +126,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             CustomElevatedButton(
                               width: double.infinity,
                               isLoading: state is ResetPasswordLoadingState,
-                              onPressed: cubit.isFormValid
-                                  ? () {
-                                if (_formKey.currentState!.validate()) {
-                                  cubit.resetPassword();
-                                }
-                              }
-                                  : null,
+                              onPressed:
+                                  cubit.isFormValid
+                                      ? () {
+                                        if (_formKey.currentState!.validate()) {
+                                          cubit.resetPassword();
+                                        }
+                                      }
+                                      : null,
                               text: local.done,
                             ),
                             const SizedBox(height: 10),

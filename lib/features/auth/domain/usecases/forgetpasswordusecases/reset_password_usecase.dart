@@ -2,7 +2,6 @@ import 'package:injectable/injectable.dart';
 import '../../repo/auth_repo.dart';
 import '../../responses/auth_response.dart';
 
-
 @injectable
 class ResetPasswordUseCase {
   final AuthRepo _authRepo;

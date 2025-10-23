@@ -23,5 +23,8 @@
   "codeResent": "تم إعادة إرسال رمز التحقق",
   "passwordResetSuccess": "تم إعادة تعيين كلمة المرور بنجاح",
   "error": "خطأ",
-  "codeReceiveMsgError": "لم تستلم الرمز؟"
+  "codeReceiveMsgError": "لم تستلم الرمز؟",
+  "otpSent": "تم ارسال الرمز الى البريد الخاص بيك",
+  "success": "نجاح!"
+
 }

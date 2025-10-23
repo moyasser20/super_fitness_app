@@ -5,6 +5,7 @@
   "forgetPassword": "Forget Password",
   "emailHint": "Email",
   "sendOtp": "Send OTP",
+  "otpSent": "OTP sent to your email",
   "emailValidation": "Please enter your email",
   "otpCode": "OTP Code",
   "enterOtpMessage": "Enter Your OTP Check Your Email",
@@ -23,5 +24,7 @@
   "codeResent": "Verification code has been resent",
   "passwordResetSuccess": "Password has been reset successfully",
   "error": "Error",
-  "codeReceiveMsgError": "Didn't receive code?"
+  "codeReceiveMsgError": "Didn't receive code?",
+  "success": "Success!"
+
 }

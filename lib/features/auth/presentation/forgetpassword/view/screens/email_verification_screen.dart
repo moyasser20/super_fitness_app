@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/common/widgets/container_with_blur_widget.dart';
+import '../../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../../core/contants/app_icons.dart';
 import '../../../../../../core/contants/app_images.dart';
 import '../../../../../../core/l10n/translation/app_localizations.dart';
@@ -16,45 +17,37 @@ class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key, required this.email});
 
   @override
-  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
+  State<EmailVerificationScreen> createState() =>
+      _EmailVerificationScreenState();
 }
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (widget.email != "") {
+    if (widget.email.isNotEmpty) {
       context.read<VerifyCodeCubit>().setEmail(widget.email);
     }
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
 
     return BlocConsumer<VerifyCodeCubit, VerifyCodeStates>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is VerifyCodeSuccessStates) {
+          await showCustomSnackBar(context, local.success, isError: false);
+
           Navigator.pushNamed(
             context,
             AppRoutes.resetPassword,
             arguments: widget.email,
           );
         } else if (state is VerifyCodeErrorStates) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showCustomSnackBar(context, state.message, isError: true);
         } else if (state is VerifyCodeResendStates) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(local.resendCode),
-              backgroundColor: Colors.green,
-            ),
-          );
+          showCustomSnackBar(context, local.codeResent, isError: false);
         }
       },
       builder: (context, state) {
@@ -93,7 +86,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     const SizedBox(height: 5),
                     Text(
                       local.enterOtpMessage,
-                      style: const TextStyle(fontSize: 16, color: AppColors.white),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: AppColors.white,
+                      ),
                     ),
                     const SizedBox(height: 20),
                     ContainerWithBlurWidget(
@@ -121,15 +117,17 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           ),
                           const SizedBox(height: 5),
                           GestureDetector(
-                            onTap: cubit.isResendEnabled
-                                ? () => cubit.resendCode()
-                                : null,
+                            onTap:
+                                cubit.isResendEnabled
+                                    ? () => cubit.resendCode()
+                                    : null,
                             child: Text(
                               local.resendCode,
                               style: TextStyle(
-                                color: cubit.isResendEnabled
-                                    ? Colors.redAccent
-                                    : Colors.grey,
+                                color:
+                                    cubit.isResendEnabled
+                                        ? Colors.redAccent
+                                        : Colors.grey,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
