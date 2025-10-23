@@ -18,5 +18,10 @@
   "passwordRequiredError": "يرجى إدخال كلمة المرور",
   "done": "تم",
   "passwordInvalidError": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص",
-  "passwordMismatchError": "كلمتا المرور غير متطابقتين"
+  "passwordMismatchError": "كلمتا المرور غير متطابقتين",
+  "codeLengthError": "يجب ان يكون اكثر من 6 احرف",
+  "codeResent": "تم إعادة إرسال رمز التحقق",
+  "passwordResetSuccess": "تم إعادة تعيين كلمة المرور بنجاح",
+  "error": "خطأ",
+  "codeReceiveMsgError": "لم تستلم الرمز؟"
 }

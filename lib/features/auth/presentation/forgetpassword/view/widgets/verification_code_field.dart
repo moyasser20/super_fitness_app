@@ -3,7 +3,9 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import '../../../../../../../core/theme/app_colors.dart';
 
 class VerificationCodeField extends StatefulWidget {
-  const VerificationCodeField({super.key});
+  final Function(String)? onCodeChanged;
+  
+  const VerificationCodeField({super.key, this.onCodeChanged});
 
   @override
   State<VerificationCodeField> createState() => _VerificationCodeFieldState();
@@ -17,8 +19,8 @@ class _VerificationCodeFieldState extends State<VerificationCodeField> {
     return Column(
       children: [
         OtpTextField(
-          numberOfFields: 4,
-          fieldWidth: 57,
+          numberOfFields: 6,
+          fieldWidth: 48,
           fieldHeight: 60,
           borderRadius: BorderRadius.circular(8),
           borderColor: Colors.white.withOpacity(0.6),
@@ -31,8 +33,14 @@ class _VerificationCodeFieldState extends State<VerificationCodeField> {
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
-          onCodeChanged: (code) => setState(() => otpCode = code),
-          onSubmit: (code) => setState(() => otpCode = code),
+          onCodeChanged: (code) {
+            setState(() => otpCode = code);
+            widget.onCodeChanged?.call(code);
+          },
+          onSubmit: (code) {
+            setState(() => otpCode = code);
+            widget.onCodeChanged?.call(code);
+          },
         ),
         const SizedBox(height: 12),
       ],

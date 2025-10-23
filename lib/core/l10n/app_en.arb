@@ -18,5 +18,10 @@
   "passwordRequiredError": "Please enter your password",
   "done": "Done",
   "passwordInvalidError": "Password must contain at least 8 characters, including letters, numbers, and a special symbol",
-  "passwordMismatchError": "Passwords do not match"
+  "passwordMismatchError": "Passwords do not match",
+  "codeLengthError": "should be more that 6",
+  "codeResent": "Verification code has been resent",
+  "passwordResetSuccess": "Password has been reset successfully",
+  "error": "Error",
+  "codeReceiveMsgError": "Didn't receive code?"
 }
