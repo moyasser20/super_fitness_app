@@ -27,6 +27,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sendOtp => 'Send OTP';
 
   @override
+  String get otpSent => 'OTP sent to your email';
+
+  @override
   String get emailValidation => 'Please enter your email';
 
   @override
@@ -67,4 +70,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordMismatchError => 'Passwords do not match';
+
+  @override
+  String get codeLengthError => 'should be more that 6';
+
+  @override
+  String get codeResent => 'Verification code has been resent';
+
+  @override
+  String get passwordResetSuccess => 'Password has been reset successfully';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get codeReceiveMsgError => 'Didn\'t receive code?';
+
+  @override
+  String get success => 'Success!';
 }

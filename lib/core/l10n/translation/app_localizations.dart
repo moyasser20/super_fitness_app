@@ -131,6 +131,12 @@ abstract class AppLocalizations {
   /// **'Send OTP'**
   String get sendOtp;
 
+  /// No description provided for @otpSent.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP sent to your email'**
+  String get otpSent;
+
   /// No description provided for @emailValidation.
   ///
   /// In en, this message translates to:
@@ -214,6 +220,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get passwordMismatchError;
+
+  /// No description provided for @codeLengthError.
+  ///
+  /// In en, this message translates to:
+  /// **'should be more that 6'**
+  String get codeLengthError;
+
+  /// No description provided for @codeResent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code has been resent'**
+  String get codeResent;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password has been reset successfully'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @codeReceiveMsgError.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive code?'**
+  String get codeReceiveMsgError;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success!'**
+  String get success;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

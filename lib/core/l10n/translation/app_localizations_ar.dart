@@ -27,6 +27,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sendOtp => 'إرسال رمز التحقق';
 
   @override
+  String get otpSent => 'تم ارسال الرمز الى البريد الخاص بيك';
+
+  @override
   String get emailValidation => 'يرجى إدخال بريدك الإلكتروني';
 
   @override
@@ -67,4 +70,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get passwordMismatchError => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get codeLengthError => 'يجب ان يكون اكثر من 6 احرف';
+
+  @override
+  String get codeResent => 'تم إعادة إرسال رمز التحقق';
+
+  @override
+  String get passwordResetSuccess => 'تم إعادة تعيين كلمة المرور بنجاح';
+
+  @override
+  String get error => 'خطأ';
+
+  @override
+  String get codeReceiveMsgError => 'لم تستلم الرمز؟';
+
+  @override
+  String get success => 'نجاح!';
 }
