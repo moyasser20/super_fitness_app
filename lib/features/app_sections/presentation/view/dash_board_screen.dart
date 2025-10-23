@@ -34,37 +34,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(25.0),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+            filter: ImageFilter.blur(sigmaX: 25.0, sigmaY: 25.0),
             child: Container(
-              alignment: Alignment.center,
-              width: 315,
-              height: 100,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+              width: 311.0,
+              height: 90.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.white.withOpacity(0.15),
-                    Colors.white.withOpacity(0.03),
-                    Colors.white.withOpacity(0.01),
+                    Colors.white.withOpacity(0.18),
+                    Colors.white.withOpacity(0.05),
+                    Colors.white.withOpacity(0.02),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
+
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.white.withOpacity(0.03),
+                    color: Colors.white.withOpacity(0.05),
                     offset: const Offset(-2, -2),
-                    blurRadius: 8,
+                    blurRadius: 6,
                   ),
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withOpacity(0.4),
                     offset: const Offset(3, 3),
-                    blurRadius: 12,
+                    blurRadius: 10,
                   ),
                 ],
                 border: Border.all(
-                  color: Colors.white.withOpacity(0.2),
-                  width: 1.0,
+                  color: Colors.white.withOpacity(0.25),
+                  width: 1.2,
                 ),
                 borderRadius: BorderRadius.circular(25.0),
               ),
@@ -105,24 +105,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Center(
             child: Text(
               'Explore page',
+              key: const Key('explorePageText'),
               style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
           ),
           Center(
             child: Text(
               'Chat page',
+              key: const Key('chatPageText'),
               style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
           ),
           Center(
             child: Text(
               'Workout page',
+              key: const Key('workoutPageText'),
               style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
           ),
           Center(
             child: Text(
               'Profile page',
+              key: const Key('profilePageText'),
               style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
           ),
@@ -146,39 +150,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
           currentPageIndex = index;
         });
       },
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AnimatedScale(
-              scale: isSelected ? 1.15 : 1.0,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOutBack,
-              child: SvgPicture.asset(
-                imagePath,
-                width: width,
-                height: height,
-                colorFilter: ColorFilter.mode(
-                  isSelected ? Colors.deepOrangeAccent : Colors.white70,
-                  BlendMode.srcIn,
-                ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedScale(
+            scale: isSelected ? 1.15 : 1.0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutBack,
+            child: SvgPicture.asset(
+              imagePath,
+              width: width,
+              height: height,
+              colorFilter: ColorFilter.mode(
+                isSelected ? Colors.deepOrangeAccent : Colors.white70,
+                BlendMode.srcIn,
               ),
             ),
-            const SizedBox(height: 4),
-            AnimatedOpacity(
-              opacity: isSelected ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 200),
-              child: Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.deepOrangeAccent,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
+          ),
+          const SizedBox(height: 4),
+          AnimatedOpacity(
+            opacity: isSelected ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 200),
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: Colors.deepOrangeAccent,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

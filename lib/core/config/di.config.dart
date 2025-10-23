@@ -16,27 +16,23 @@ import '../api/client/api_client.dart' as _i364;
 import 'dio_module/dio_module.dart' as _i484;
 
 extension GetItInjectableX on _i174.GetIt {
-// initializes the registration of main-scope dependencies inside of GetIt
+  // initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(
-      this,
-      environment,
-      environmentFilter,
-    );
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
-    gh.factory<String>(
-      () => dioModule.baseUrl,
-      instanceName: 'baseurl',
-    );
+    gh.factory<String>(() => dioModule.baseUrl, instanceName: 'baseurl');
     gh.lazySingleton<_i361.Dio>(
-        () => dioModule.dio(gh<String>(instanceName: 'baseurl')));
-    gh.factory<_i364.ApiClient>(() => _i364.ApiClient(
-          gh<_i361.Dio>(),
-          baseUrl: gh<String>(instanceName: 'baseurl'),
-        ));
+      () => dioModule.dio(gh<String>(instanceName: 'baseurl')),
+    );
+    gh.factory<_i364.ApiClient>(
+      () => _i364.ApiClient(
+        gh<_i361.Dio>(),
+        baseUrl: gh<String>(instanceName: 'baseurl'),
+      ),
+    );
     return this;
   }
 }

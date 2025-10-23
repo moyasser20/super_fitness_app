@@ -9,5 +9,4 @@ part 'api_client.g.dart';
 abstract class ApiClient {
   @factoryMethod
   factory ApiClient(Dio dio, {@Named('baseurl') String? baseUrl}) = _ApiClient;
-
 }

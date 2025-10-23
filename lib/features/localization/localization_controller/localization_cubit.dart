@@ -8,7 +8,7 @@ class LocalizationCubit extends Cubit<LocalizationState> {
   String selectedLanguage;
 
   LocalizationCubit({required this.language, this.selectedLanguage = "English"})
-      : super(LanguageInitialState());
+    : super(LanguageInitialState());
 
   void selectLanguage(String lang) {
     selectedLanguage = lang;
