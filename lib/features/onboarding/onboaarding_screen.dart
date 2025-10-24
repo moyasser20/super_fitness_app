@@ -214,10 +214,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           color: AppColors.main,
                           text: isLast ? "Do it" : "Next",
                           onPressed: () {
-                            boardController.nextPage(
-                              duration: const Duration(milliseconds: 750),
-                              curve: Curves.fastLinearToSlowEaseIn,
-                            );
+                            if (isLast) {
+                              _completeOnboarding();
+                            } else {
+                              boardController.nextPage(
+                                duration: const Duration(milliseconds: 750),
+                                curve: Curves.fastLinearToSlowEaseIn,
+                              );
+                            }
                           },
                         ),
                       ),
@@ -228,14 +232,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     color: AppColors.main,
                     text: "Next",
                     onPressed: () {
-                      if (isLast) {
-                        _completeOnboarding();
-                      } else {
-                        boardController.nextPage(
-                          duration: const Duration(milliseconds: 750),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                        );
-                      }
+                      boardController.nextPage(
+                        duration: const Duration(milliseconds: 750),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                      );
                     },
                   ),
                 ],
