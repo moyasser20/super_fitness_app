@@ -17,6 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter
   flutter_otp_text_field: ^1.1.0
@@ -53,6 +54,14 @@ dev_dependencies:
   injectable_generator: ^2.6.2
   json_serializable: ^6.8.0
   retrofit_generator: ^8.1.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/main_fitness_app_icon.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icons/app_icon3.png"
+
 
 flutter:
   generate: true
