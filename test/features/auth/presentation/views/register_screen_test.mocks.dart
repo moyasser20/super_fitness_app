@@ -57,6 +57,66 @@ class MockAuthRepo extends _i1.Mock implements _i3.AuthRepo {
   }
 
   @override
+  _i4.Future<_i2.AuthResponse<String>> forgetPassword(String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #forgetPassword,
+          [email],
+        ),
+        returnValue: _i4.Future<_i2.AuthResponse<String>>.value(
+            _FakeAuthResponse_0<String>(
+          this,
+          Invocation.method(
+            #forgetPassword,
+            [email],
+          ),
+        )),
+      ) as _i4.Future<_i2.AuthResponse<String>>);
+
+  @override
+  _i4.Future<_i2.AuthResponse<String>> verifyCode(String? code) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #verifyCode,
+          [code],
+        ),
+        returnValue: _i4.Future<_i2.AuthResponse<String>>.value(
+            _FakeAuthResponse_0<String>(
+          this,
+          Invocation.method(
+            #verifyCode,
+            [code],
+          ),
+        )),
+      ) as _i4.Future<_i2.AuthResponse<String>>);
+
+  @override
+  _i4.Future<_i2.AuthResponse<String>> resetPassword(
+    String? email,
+    String? newPassword,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [
+            email,
+            newPassword,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.AuthResponse<String>>.value(
+            _FakeAuthResponse_0<String>(
+          this,
+          Invocation.method(
+            #resetPassword,
+            [
+              email,
+              newPassword,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.AuthResponse<String>>);
+
+  @override
   _i4.Future<_i2.AuthResponse<_i5.RegisterResponse>> register(
           _i6.RegisterRequestModel? registerRequest) =>
       (super.noSuchMethod(
