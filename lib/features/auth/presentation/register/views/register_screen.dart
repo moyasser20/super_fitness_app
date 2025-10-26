@@ -8,7 +8,6 @@ import 'package:super_fitness_app/core/widgets/custom_text_field.dart';
 import '../../../../../core/common/widgets/container_with_blur_widget.dart';
 import '../../../../../core/contants/app_icons.dart';
 import '../../../../../core/l10n/translation/app_localizations.dart';
-import '../../../../../core/routes/route_names.dart';
 import '../viewmodel/register_viewmodel/register_cubit.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -78,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    locale!.hey_there,
+                    locale!.greeting,
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                   Text(

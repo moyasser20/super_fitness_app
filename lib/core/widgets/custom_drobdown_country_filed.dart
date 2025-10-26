@@ -21,7 +21,7 @@ class CustomDropdownField<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
-      initialValue: value,
+      value: value,
       decoration: InputDecoration(
         labelText: label,
         filled: true,

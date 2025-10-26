@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart';
+import '../../../../core/Widgets/custom_Elevated_Button.dart';
+import '../../../../core/routes/route_names.dart';
+import '../../../auth/domain/services/auth_services.dart';
 
 class DashboardScreenApp extends StatelessWidget {
   const DashboardScreenApp({super.key});
@@ -127,14 +127,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Center(
-            child: InkWell(
-              onTap: () => context.read<RegisterCubit>().logout(context),
-              child: Text(
-                'Profile page',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: Colors.white,
-                ),
-              ),
+            child: CustomElevatedButton(
+              text: "Logout",
+              onPressed: () async {
+                await AuthService.logout();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.login,
+                  (route) => false,
+                );
+              },
             ),
           ),
         ],
