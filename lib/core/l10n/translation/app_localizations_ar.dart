@@ -27,7 +27,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sendOtp => 'إرسال رمز التحقق';
 
   @override
-  String get otpSent => 'تم ارسال الرمز الى البريد الخاص بيك';
+  String get otpSent => 'تم إرسال الرمز إلى بريدك الإلكتروني';
 
   @override
   String get emailValidation => 'يرجى إدخال بريدك الإلكتروني';
@@ -74,7 +74,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordMismatchError => 'كلمتا المرور غير متطابقتين';
 
   @override
-  String get codeLengthError => 'يجب ان يكون اكثر من 6 احرف';
+  String get codeLengthError => 'يجب أن يكون أكثر من 6 أحرف';
 
   @override
   String get codeResent => 'تم إعادة إرسال رمز التحقق';
@@ -89,7 +89,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get codeReceiveMsgError => 'لم تستلم الرمز؟';
 
   @override
-  String get success => 'نجاح!';
+  String get success => 'تم بنجاح!';
 
   @override
   String get step_title_gender => 'حدثنا عن نفسك!';
@@ -132,7 +132,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get goal_lose_weight => 'إنقاص الوزن';
 
   @override
-  String get goal_get_fitter => 'تحسين اللياقة';
+  String get goal_get_fitter => 'تحسين لياقتك البدنية';
 
   @override
   String get goal_gain_flexible => 'زيادة المرونة';
@@ -189,7 +189,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get completed_success => 'تم إكمال التسجيل بنجاح';
 
   @override
-  String get hey_there => 'Hey There';
+  String get hey_there => 'أهلاً بك';
 
   @override
   String get create_account => 'إنشاء حساب';
