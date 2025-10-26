@@ -26,7 +26,6 @@
   "error": "Error",
   "codeReceiveMsgError": "Didn't receive code?",
   "success": "Success!",
-
   "step_title_gender": "TELL US ABOUT YOURSELF!",
   "step_title_age": "HOW OLD ARE YOU?",
   "step_title_weight": "WHAT IS YOUR WEIGHT?",
@@ -59,7 +58,7 @@
   "kg_unit": "kg",
   "cm": "cm",
   "completed_success": "Registration completed successfully",
-  "hey_there": "Hey There",
+  "greeting": "Hey There",
   "create_account": "CREATE AN ACCOUNT",
   "title": "Register",
   "hint_first_name": "First Name",
