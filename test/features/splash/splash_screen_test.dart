@@ -3,18 +3,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 
 void main() {
-  Widget makeTestableWidget() {
-    return const MaterialApp(home: SplashScreen());
+  Widget createWidgetUnderTest() {
+    return const MaterialApp(
+      home: SplashScreen(),
+    );
   }
 
-  group('SplashScreen Widget Tests', () {
-    testWidgets('renders splash screen with image', (tester) async {
-      await tester.pumpWidget(makeTestableWidget());
-      await tester.pump(const Duration(milliseconds: 100));
+  group('SplashScreen Tests', () {
+    testWidgets('should display splash image and scaffold', (tester) async {
+      await tester.pumpWidget(createWidgetUnderTest());
 
-      expect(find.byType(Image), findsOneWidget);
+      await tester.pump(const Duration(seconds: 3));
 
       expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
     });
   });
 }

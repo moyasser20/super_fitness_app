@@ -2,7 +2,7 @@
     <application
         android:label="superFitness"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
 
         <meta-data
             android:name="io.flutter.embedding.android.EnableImpeller"

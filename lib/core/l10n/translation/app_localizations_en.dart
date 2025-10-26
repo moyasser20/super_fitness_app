@@ -189,7 +189,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get completed_success => 'Registration completed successfully';
 
   @override
-  String get hey_there => 'Hey There';
+  String get greeting => 'Hey There';
 
   @override
   String get create_account => 'CREATE AN ACCOUNT';

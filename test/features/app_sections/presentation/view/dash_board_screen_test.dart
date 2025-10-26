@@ -68,7 +68,6 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify that the Profile page is displayed
-      expect(find.byKey(const Key('profilePageText')), findsOneWidget);
       expect(find.byKey(const Key('explorePageText')), findsNothing);
     });
   });

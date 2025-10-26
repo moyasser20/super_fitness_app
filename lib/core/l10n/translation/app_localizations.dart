@@ -452,11 +452,11 @@ abstract class AppLocalizations {
   /// **'Registration completed successfully'**
   String get completed_success;
 
-  /// No description provided for @hey_there.
+  /// No description provided for @greeting.
   ///
   /// In en, this message translates to:
   /// **'Hey There'**
-  String get hey_there;
+  String get greeting;
 
   /// No description provided for @create_account.
   ///
