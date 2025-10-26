@@ -4,9 +4,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:super_fitness_app/core/common/widgets/container_with_blur_widget.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/core/widgets/custom_elevated_button.dart';
-import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import '../../core/contants/app_images.dart';
 import '../../core/contants/prefs.dart';
+import '../../core/routes/route_names.dart';
 
 class OnBoardModel {
   final String image;
@@ -54,9 +54,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await Prefs.setOnboardingSeen();
     final bool check = Prefs.isOnboardingSeen();
     log('Onboarding marked as seen: $check');
-    Navigator.pushAndRemoveUntil(
+    Navigator.pushNamedAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const RegisterScreen()),
+      AppRoutes.login,
           (Route<dynamic> route) => false,
     );
   }
@@ -66,9 +66,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await Prefs.setOnboardingSeen();
     final bool check = Prefs.isOnboardingSeen();
     log('Onboarding marked as seen: $check');
-    Navigator.pushAndRemoveUntil(
+    Navigator.pushNamedAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const RegisterScreen()),
+      AppRoutes.login,
           (Route<dynamic> route) => false,
     );
   }
@@ -88,162 +88,143 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final maxHeight = constraints.maxHeight;
-            final maxWidth = constraints.maxWidth;
-            return Padding(
-              padding: EdgeInsets.all(maxWidth * 0.03),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SafeArea(
-                    child: TextButton(
-                      onPressed: _skipOnboarding,
-                      child: Text(
-                        "Skip",
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SafeArea(
+                  child: TextButton(
+                    onPressed: _skipOnboarding,
+                    child: Text(
+                      "Skip",
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
-                  SizedBox(height: maxHeight * 0.02),
-                  Expanded(
-                    child: PageView.builder(
-                      onPageChanged: (index) {
-                        setState(() {
-                          currentIndex = index;
-                          isLast = index == onboard.length - 1;
-                        });
-                      },
-                      controller: boardController,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: onboard.length,
-                      itemBuilder: (context, index) {
-                        return buildOnBoardingWidget(
-                          onboard[index],
-                          isLast,
-                          screenHeight,
-                          screenWidth,
-                        );
-                      },
-                    ),
+                ),
+                Expanded(
+                  child: PageView.builder(
+                    onPageChanged: (index) {
+                      setState(() {
+                        currentIndex = index;
+                        isLast = index == onboard.length - 1;
+                      });
+                    },
+                    controller: boardController,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: onboard.length,
+                    itemBuilder: (context, index) {
+                      return Image.asset(
+                        onboard[index].image,
+                        fit: BoxFit.contain,
+                        height: screenHeight * 0.8,
+                        width: double.infinity,
+                      );
+                    },
                   ),
-                ],
+                ),
+                SizedBox(height: screenHeight * 0.3),
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              left: screenWidth * 0,
+              right: screenWidth * 0,
+              child: SizedBox(
+                height: screenHeight * 0.35,
+                child: _buildBottomContainer(screenHeight, screenWidth),
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget buildOnBoardingWidget(
-      OnBoardModel model,
-      bool isLast,
-      double screenHeight,
-      double screenWidth,
-      ) {
-    return Stack(
-      children: [
-        Image.asset(
-          model.image,
-          fit: BoxFit.contain,
-          height: screenHeight * 0.8,
-          width: double.infinity,
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            height: screenHeight * 0.3,
-            child: ContainerWithBlurWidget(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    model.title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-                  Text(
-                    model.body,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: AppColors.white, fontSize: 15),
-                  ),
-                  Spacer(),
-                  SmoothPageIndicator(
-                    controller: boardController,
-                    count: onboard.length,
-                    effect: ExpandingDotsEffect(
-                      dotColor: const Color(0xFFF6F6F6),
-                      activeDotColor: AppColors.main,
-                      expansionFactor: 2.5,
-                      dotHeight: screenHeight * 0.012,
-                      dotWidth: screenWidth * 0.03,
-                      spacing: screenWidth * 0.05,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                  currentIndex != 0
-                      ? Row(
-                    children: [
-                      Expanded(
-                        child: CustomElevatedButton(
-                          color: Colors.transparent,
-                          borderColor: AppColors.orange,
-                          text: "Back",
-                          onPressed: () {
-                            boardController.previousPage(
-                              duration: const Duration(milliseconds: 750),
-                              curve: Curves.fastLinearToSlowEaseIn,
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 100),
-                      Expanded(
-                        child: CustomElevatedButton(
-                          color: AppColors.main,
-                          text: isLast ? "Do it" : "Next",
-                          onPressed: () {
-                            if (isLast) {
-                              _completeOnboarding();
-                            } else {
-                              boardController.nextPage(
-                                duration: const Duration(milliseconds: 750),
-                                curve: Curves.fastLinearToSlowEaseIn,
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  )
-                      : CustomElevatedButton(
-                    width: double.infinity,
-                    color: AppColors.main,
-                    text: "Next",
-                    onPressed: () {
-                      boardController.nextPage(
-                        duration: const Duration(milliseconds: 750),
-                        curve: Curves.fastLinearToSlowEaseIn,
-                      );
-                    },
-                  ),
-                ],
-              ),
+  Widget _buildBottomContainer(double screenHeight, double screenWidth) {
+    return ContainerWithBlurWidget(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            onboard[currentIndex].title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ],
+          SizedBox(height: screenHeight * 0.01),
+          Text(
+            onboard[currentIndex].body,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: AppColors.white, fontSize: 15),
+          ),
+          SizedBox(height: screenHeight * 0.02),
+          SmoothPageIndicator(
+            controller: boardController,
+            count: onboard.length,
+            effect: ExpandingDotsEffect(
+              dotColor: const Color(0xFFF6F6F6),
+              activeDotColor: AppColors.main,
+              expansionFactor: 2.5,
+              dotHeight: screenHeight * 0.012,
+              dotWidth: screenWidth * 0.03,
+              spacing: screenWidth * 0.05,
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.02),
+          currentIndex != 0
+              ? Row(
+            children: [
+              CustomElevatedButton(
+                color: Colors.transparent,
+                width: screenWidth * 0.2,
+                borderColor: AppColors.orange,
+                text: "Back",
+                onPressed: () {
+                  boardController.previousPage(
+                    duration: const Duration(milliseconds: 750),
+                    curve: Curves.fastLinearToSlowEaseIn,
+                  );
+                },
+              ),
+              Spacer(),
+              CustomElevatedButton(
+                width: screenWidth * 0.2,
+                color: AppColors.main,
+                text: isLast ? "Do it" : "Next",
+                onPressed: () {
+                  if (isLast) {
+                    _completeOnboarding();
+                  } else {
+                    boardController.nextPage(
+                      duration: const Duration(milliseconds: 750),
+                      curve: Curves.fastLinearToSlowEaseIn,
+                    );
+                  }
+                },
+              ),
+            ],
+          )
+              : CustomElevatedButton(
+            width: double.infinity,
+            color: AppColors.main,
+            text: "Next",
+            onPressed: () {
+              boardController.nextPage(
+                duration: const Duration(milliseconds: 750),
+                curve: Curves.fastLinearToSlowEaseIn,
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
