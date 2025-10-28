@@ -126,18 +126,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
               style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
           ),
-          Center(
-            child: CustomElevatedButton(
-              text: "Logout",
-              onPressed: () async {
-                await AuthService.logout();
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  AppRoutes.login,
-                  (route) => false,
-                );
-              },
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: CustomElevatedButton(
+                  text: "Logout",
+                  onPressed: () async {
+                    await AuthService.logout();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.login,
+                      (route) => false,
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 30),
+              Center(
+                child: CustomElevatedButton(
+                  text: "Food Details",
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.foodDetailsScreen,
+                      (route) => false,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),

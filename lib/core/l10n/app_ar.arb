@@ -98,5 +98,7 @@
   "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
   "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
   "emailRequired": "البريد الإلكتروني مطلوب",
-  "emailInvalid": "يرجى إدخال بريد إلكتروني صالح"
+  "emailInvalid": "يرجى إدخال بريد إلكتروني صالح",
+  "ingredients": "المكونات",
+  "recommendation": "اقتراحات"
 }

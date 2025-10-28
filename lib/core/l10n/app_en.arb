@@ -98,5 +98,7 @@
   "confirmPasswordRequired": "Confirmation is required",
   "passwordsDoNotMatch": "Passwords do not match",
   "emailRequired": "Email is required",
-  "emailInvalid": "Please enter a valid email address"
+  "emailInvalid": "Please enter a valid email address",
+  "ingredients": "Ingredients",
+  "recommendation": "Recommendation"
 }

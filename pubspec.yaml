@@ -44,6 +44,7 @@ dependencies:
   step_progress_indicator: ^1.0.2
   url_launcher: ^6.3.2
 
+
 dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.4.13
@@ -76,3 +77,4 @@ flutter:
         - asset: assets/fonts/Inter_18pt-Regular.ttf
         - asset: assets/fonts/Inter_18pt-Medium.ttf
         - asset: assets/fonts/Inter_18pt-Bold.ttf
+        - asset: assets/fonts/BalooThambi2-Medium.ttf
