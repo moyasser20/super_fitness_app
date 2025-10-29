@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness_app/features/workouts/presentation/view/workouts_screen.dart';
 import '../../../../core/Widgets/custom_Elevated_Button.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../auth/domain/services/auth_services.dart';
@@ -120,11 +121,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Center(
-            child: Text(
-              'Workout page',
-              key: const Key('workoutPageText'),
-              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
-            ),
+            child: WorkoutsScreen(),
           ),
           Center(
             child: CustomElevatedButton(
