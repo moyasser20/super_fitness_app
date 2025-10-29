@@ -8,6 +8,7 @@ import '../../../features/auth/domain/responses/register_response.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/forget_password_request_model.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/reset_password_request_model.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart';
+import '../../../features/food-details/data/models/meals_model.dart';
 import '../api_constants/api_end_points.dart';
 part 'api_client.g.dart';
 
@@ -37,4 +38,6 @@ abstract class ApiClient {
 
   @POST(ApiEndPoints.login)
   Future<LoginResponse> login(@Body() LoginRequest loginRequest);
+
+
 }

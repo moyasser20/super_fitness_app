@@ -8,4 +8,7 @@ abstract class ApiEndPoints {
   static const String profileData = 'auth/profile-data';
   static const String changePassword = 'auth/change-password';
   static const String editProfile = 'auth/editProfile';
+
+  static const String mealById = 'lookup.php';
+
 }

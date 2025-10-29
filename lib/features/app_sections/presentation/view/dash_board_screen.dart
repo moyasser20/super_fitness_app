@@ -147,11 +147,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: CustomElevatedButton(
                   text: "Food Details",
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
+                    Navigator.pushNamed(
                       context,
                       AppRoutes.foodDetailsScreen,
-                      (route) => false,
                     );
+
                   },
                 ),
               ),

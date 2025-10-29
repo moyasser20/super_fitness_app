@@ -35,6 +35,20 @@ import '../../features/auth/presentation/login/presentation/viewmodel/login_view
     as _i462;
 import '../../features/auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart'
     as _i416;
+import '../../features/food-details/api/client/meal_details_api_client.dart'
+    as _i979;
+import '../../features/food-details/api/data_source_impl/meal_details_remote_data_source_impl.dart'
+    as _i221;
+import '../../features/food-details/data/data_sources/meal_details_remote_data_source.dart'
+    as _i991;
+import '../../features/food-details/data/repositories_impl/meals_details_repo_impl.dart'
+    as _i871;
+import '../../features/food-details/domain/repositories/meals_details_repo.dart'
+    as _i143;
+import '../../features/food-details/domain/use_cases/meals_details_usecase.dart'
+    as _i51;
+import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart'
+    as _i557;
 import '../api/client/api_client.dart' as _i364;
 import 'dio_module/dio_module.dart' as _i484;
 
@@ -54,6 +68,20 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioModule.baseUrl,
       instanceName: 'baseurl',
     );
+    gh.lazySingleton<_i361.Dio>(
+      () => dioModule.mealsDio,
+      instanceName: 'mealsDio',
+    );
+    gh.factory<_i979.MealsApiClient>(
+        () => _i979.MealsApiClient(gh<_i361.Dio>(instanceName: 'mealsDio')));
+    gh.lazySingleton<_i991.MealsDetailsRemoteDataSource>(() =>
+        _i221.MealsDetailsRemoteDataSourceImpl(gh<_i979.MealsApiClient>()));
+    gh.lazySingleton<_i143.MealsRepo>(() =>
+        _i871.MealsRepositoryImpl(gh<_i991.MealsDetailsRemoteDataSource>()));
+    gh.factory<_i51.MealsDetailsUseCase>(
+        () => _i51.MealsDetailsUseCase(gh<_i143.MealsRepo>()));
+    gh.factory<_i557.MealDetailsCubit>(
+        () => _i557.MealDetailsCubit(gh<_i51.MealsDetailsUseCase>()));
     gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<String>(instanceName: 'baseurl')));
     gh.factory<_i364.ApiClient>(() => _i364.ApiClient(

@@ -5,6 +5,7 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/regi
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
+import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
 import '../routes/route_names.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
@@ -19,7 +20,6 @@ import '../../features/auth/presentation/forgetpassword/view/screens/reset_passw
 import '../../features/auth/presentation/forgetpassword/viewmodel/forget_password_viewmodel.dart';
 import '../../features/auth/presentation/forgetpassword/viewmodel/reset_password_viewmodel.dart';
 import '../../features/auth/presentation/forgetpassword/viewmodel/verify_code_viewmodel.dart';
-
 
 class Routes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -48,18 +48,18 @@ class Routes {
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider<ForgetPasswordCubit>(
-            create: (context) => getIt<ForgetPasswordCubit>(),
-            child: const ForgetPasswordScreen(),
-          ),
+                create: (context) => getIt<ForgetPasswordCubit>(),
+                child: const ForgetPasswordScreen(),
+              ),
         );
       case AppRoutes.emailVerification:
         final email = settings.arguments as String? ?? '';
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider<VerifyCodeCubit>(
-            create: (context) => getIt<VerifyCodeCubit>(),
-            child: EmailVerificationScreen(email: email),
-          ),
+                create: (context) => getIt<VerifyCodeCubit>(),
+                child: EmailVerificationScreen(email: email),
+              ),
         );
 
       case AppRoutes.resetPassword:
@@ -67,15 +67,22 @@ class Routes {
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider<ResetPasswordCubit>(
-            create: (context) => getIt<ResetPasswordCubit>(),
-            child: ResetPasswordScreen(email: email),
-          ),
+                create: (context) => getIt<ResetPasswordCubit>(),
+                child: ResetPasswordScreen(email: email),
+              ),
         );
 
-        case AppRoutes.foodDetailsScreen:
-          return MaterialPageRoute(
-            builder: (_) => const FoodDetailsScreen(),
-          );
+      case AppRoutes.foodDetailsScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) {
+              final cubit = getIt<MealDetailsCubit>();
+              cubit.getMealById("52936");
+              return cubit;
+            },
+            child: const FoodDetailsScreen(),
+          ),
+        );
 
 
       default:
