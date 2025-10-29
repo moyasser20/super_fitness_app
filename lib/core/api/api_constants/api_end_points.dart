@@ -10,4 +10,7 @@ abstract class ApiEndPoints {
   static const String editProfile = 'auth/editProfile';
   static const String musclesEndPoint = 'muscles';
   static const String musclesGroupEndPoint = 'musclesGroup';
+  static const String recommendationMuscles = 'muscles/random';
+  static const String muscleGroups = 'muscles';
+  static const String muscleGroupsById = 'musclesGroup/{groupId}';
 }

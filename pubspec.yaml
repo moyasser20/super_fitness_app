@@ -41,6 +41,7 @@ dependencies:
   percent_indicator: ^4.2.5
   retrofit: ^4.1.0
   shared_preferences: ^2.5.3
+  shimmer: ^3.0.0
   smooth_page_indicator: ^1.2.1
   step_progress_indicator: ^1.0.2
   url_launcher: ^6.3.2
@@ -71,9 +72,17 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/json_files/recommendation_for_you.json
   fonts:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter_18pt-Regular.ttf
         - asset: assets/fonts/Inter_18pt-Medium.ttf
         - asset: assets/fonts/Inter_18pt-Bold.ttf
+    - family: BalooThambi2
+      fonts:
+        - asset: assets/fonts/BalooThambi2-Bold.ttf
+        - asset: assets/fonts/BalooThambi2-ExtraBold.ttf
+        - asset: assets/fonts/BalooThambi2-Medium.ttf
+        - asset: assets/fonts/BalooThambi2-Regular.ttf
+        - asset: assets/fonts/BalooThambi2-SemiBold.ttf

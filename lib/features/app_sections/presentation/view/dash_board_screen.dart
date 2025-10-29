@@ -1,8 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:super_fitness_app/features/workouts/presentation/view/workouts_screen.dart';
+import 'package:super_fitness_app/core/theme/app_colors.dart';
+import 'package:super_fitness_app/features/home/presentation/views/home_screen.dart';
 import '../../../../core/Widgets/custom_Elevated_Button.dart';
+import '../../../../core/contants/app_icons.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../auth/domain/services/auth_services.dart';
 
@@ -27,77 +31,128 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int currentPageIndex = 0;
+  final ScrollController _scrollController = ScrollController();
+  bool _showNavBar = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_handleScroll);
+  }
+
+  void _handleScroll() {
+    if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      if (_showNavBar) setState(() => _showNavBar = false);
+    } else if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.forward) {
+      if (!_showNavBar && _scrollController.offset <= 0) {
+        setState(() => _showNavBar = true);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_handleScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xff222528),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(25.0),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 25.0, sigmaY: 25.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-              width: 311.0,
-              height: 90.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.white.withOpacity(0.18),
-                    Colors.white.withOpacity(0.05),
-                    Colors.white.withOpacity(0.02),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.white.withOpacity(0.05),
-                    offset: const Offset(-2, -2),
-                    blurRadius: 6,
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          IndexedStack(
+            index: currentPageIndex,
+            children: <Widget>[
+              HomeScreen(scrollController: _scrollController),
+              Center(
+                child: Text(
+                  'Chat page',
+                  key: const Key('chatPageText'),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: Colors.white,
                   ),
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.4),
-                    offset: const Offset(3, 3),
-                    blurRadius: 10,
-                  ),
-                ],
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.25),
-                  width: 1.2,
                 ),
-                borderRadius: BorderRadius.circular(25.0),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildNavItem(
-                    imagePath: 'assets/icons/home.svg',
-                    label: 'Explore',
-                    index: 0,
+              Container(
+                decoration: const BoxDecoration(),
+                child: Center(
+                  child: Text(
+                    'Workout page',
+                    key: const Key('workoutPageText'),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
-                  _buildNavItem(
-                    imagePath: 'assets/icons/chat_ai.svg',
-                    label: 'Chat',
-                    index: 1,
+                ),
+              ),
+              Container(
+                decoration: const BoxDecoration(),
+                child: Center(
+                  child: CustomElevatedButton(
+                    text: "Logout",
+                    onPressed: () async {
+                      await AuthService.logout();
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        AppRoutes.login,
+                        (route) => false,
+                      );
+                    },
                   ),
-                  _buildNavItem(
-                    imagePath: 'assets/icons/gym.svg',
-                    label: 'Workouts',
-                    index: 2,
+                ),
+              ),
+            ],
+          ),
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 250),
+            left: 0,
+            right: 0,
+            bottom: _showNavBar ? 30 : -110,
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25.0),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 35,
+                    vertical: 12,
                   ),
-                  _buildNavItem(
-                    imagePath: 'assets/icons/profile.svg',
-                    width: 40,
-                    height: 40,
-                    label: 'Profile',
-                    index: 3,
+                  width: 334.0,
+                  height: 90.0,
+                  decoration: BoxDecoration(color: Color(0xff242424)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildNavItem(
+                        imagePath: AppIcons.homeIcon,
+                        label: 'Explore',
+                        index: 0,
+                      ),
+                      _buildNavItem(
+                        imagePath: AppIcons.chatIcon,
+                        label: 'Chat',
+                        index: 1,
+                      ),
+                      _buildNavItem(
+                        imagePath: AppIcons.workoutIcon,
+                        label: 'Workouts',
+                        index: 2,
+                      ),
+                      _buildNavItem(
+                        imagePath: AppIcons.profileIcon,
+                        width: 40,
+                        height: 40,
+                        label: 'Profile',
+                        index: 3,
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -168,7 +223,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               width: width,
               height: height,
               colorFilter: ColorFilter.mode(
-                isSelected ? Colors.deepOrangeAccent : Colors.white70,
+                isSelected ? AppColors.orange : Colors.white,
                 BlendMode.srcIn,
               ),
             ),
@@ -180,7 +235,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Text(
               label,
               style: const TextStyle(
-                color: Colors.deepOrangeAccent,
+                color: AppColors.orange,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
