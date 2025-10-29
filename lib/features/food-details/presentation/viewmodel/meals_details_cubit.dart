@@ -17,6 +17,7 @@ class MealDetailsCubit extends Cubit<MealDetailsState> {
     try {
       final meal = await _mealsDetailsUseCase.getMealById(id);
       emit(MealDetailsLoaded(meal));
+      print(meal);
     } catch (e) {
       emit(MealDetailsError(e.toString()));
     }
