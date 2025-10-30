@@ -49,6 +49,15 @@ import '../../features/food-details/domain/use_cases/meals_details_usecase.dart'
     as _i51;
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart'
     as _i557;
+import '../../features/workouts/api/data_source_impl/workouts_remote_data_source_impl.dart'
+    as _i61;
+import '../../features/workouts/data/datasource/workouts_data_source.dart'
+    as _i194;
+import '../../features/workouts/data/repo_impl/workout_repo_impl.dart' as _i940;
+import '../../features/workouts/domain/repo/workouts_repo.dart' as _i301;
+import '../../features/workouts/domain/usecase/workouts_use_case.dart' as _i532;
+import '../../features/workouts/presentation/viewmodel/workouts_view_model.dart'
+    as _i433;
 import '../api/client/api_client.dart' as _i364;
 import 'dio_module/dio_module.dart' as _i484;
 
@@ -88,12 +97,18 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i361.Dio>(),
           baseUrl: gh<String>(instanceName: 'baseurl'),
         ));
+    gh.lazySingleton<_i194.WorkoutsRemoteDataSource>(
+        () => _i61.WorkoutsRemoteDataSourceImpl(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i301.WorkoutsRepo>(
+        () => _i940.WorkoutRepoImpl(gh<_i194.WorkoutsRemoteDataSource>()));
     gh.factory<_i697.ResetPasswordCubit>(
         () => _i697.ResetPasswordCubit(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i24.AuthRemoteDatasource>(
         () => _i758.AuthRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i170.AuthRepo>(
         () => _i279.AuthRepoImpl(gh<_i24.AuthRemoteDatasource>()));
+    gh.factory<_i532.WorkoutsUseCase>(
+        () => _i532.WorkoutsUseCase(gh<_i301.WorkoutsRepo>()));
     gh.factory<_i442.LoginUseCase>(
         () => _i442.LoginUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i957.ForgetPasswordUseCase>(
@@ -110,6 +125,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i188.VerifyCodeUseCase>(),
           gh<_i957.ForgetPasswordUseCase>(),
         ));
+    gh.factory<_i433.WorkoutsViewModel>(
+        () => _i433.WorkoutsViewModel(gh<_i532.WorkoutsUseCase>()));
     gh.factory<_i556.ForgetPasswordCubit>(
         () => _i556.ForgetPasswordCubit(gh<_i957.ForgetPasswordUseCase>()));
     return this;

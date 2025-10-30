@@ -8,7 +8,10 @@ abstract class ApiEndPoints {
   static const String profileData = 'auth/profile-data';
   static const String changePassword = 'auth/change-password';
   static const String editProfile = 'auth/editProfile';
-
   static const String mealById = 'lookup.php';
-
+  static const String musclesEndPoint = 'muscles';
+  static const String musclesGroupEndPoint = 'musclesGroup';
+  static const String recommendationMuscles = 'muscles/random';
+  static const String muscleGroups = 'muscles';
+  static const String muscleGroupsById = 'musclesGroup/{groupId}';
 }

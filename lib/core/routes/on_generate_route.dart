@@ -6,6 +6,7 @@ import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
+import '../../features/home/presentation/views/home_screen.dart';
 import '../routes/route_names.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
@@ -69,8 +70,7 @@ class Routes {
               (_) => BlocProvider<ResetPasswordCubit>(
                 create: (context) => getIt<ResetPasswordCubit>(),
                 child: ResetPasswordScreen(email: email),
-              ),
-        );
+              ),        );
 
       case AppRoutes.foodDetailsScreen:
         return MaterialPageRoute(
@@ -83,7 +83,8 @@ class Routes {
             child: const FoodDetailsScreen(mealId: '52959',),
           ),
         );
-
+      case AppRoutes.homeScreen:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
 
       default:
         return MaterialPageRoute(
