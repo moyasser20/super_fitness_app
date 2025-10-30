@@ -4,6 +4,7 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/comp
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
+import '../../features/food/presentation/view/screens/food_screen.dart';
 import '../../features/home/presentation/views/home_screen.dart';
 import '../../features/workouts/presentation/view/workouts_screen.dart';
 import '../routes/route_names.dart';
@@ -78,6 +79,8 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => WorkoutsScreen(isFromHome: isFromHome),
         );
+        case AppRoutes.foodScreen:
+        return MaterialPageRoute(builder: (_) => const FoodScreen());
 
       default:
         return MaterialPageRoute(

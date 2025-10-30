@@ -78,9 +78,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(height: Dimensions.paddingDefault),
                           _buildUpcomingWorkoutsSection(state),
                           SizedBox(height: Dimensions.paddingDefault),
-                          Text(
-                            'Recommendation for you',
-                            style: balooThambi2BoldExtraLarge,
+                          Row(
+                            children: [
+                              Text(
+                                'Recommendation for you',
+                                style: balooThambi2BoldExtraLarge,
+                              ),
+                              const SizedBox(width: 110,),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.foodScreen,
+                                    arguments: true,
+                                  );
+                                },
+                                child: Text(
+                                  local?.seeAll ?? '',
+                                  style: balooThambi2RegularLarge.copyWith(
+                                    color: AppColors.orange,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.orange,
+                                  ),
+                                ),
+                              ),
+
+                            ],
                           ),
                           SizedBox(height: Dimensions.paddingSmall),
                           _buildRecommendationForYouSection(state),
