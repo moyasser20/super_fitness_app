@@ -6,6 +6,7 @@ import 'dart:convert';
 import '../../../../core/common/widgets/custom_card_shimmer_widget.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
+import '../../../../core/routes/route_names.dart';
 import '../../../../core/utils/dimensions.dart';
 import '../../../../core/utils/styles.dart';
 import '../viewmodel/home_cubit.dart';
@@ -177,12 +178,21 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Upcoming Workouts', style: balooThambi2BoldExtraLarge),
-            Text(
-              'See All',
-              style: balooThambi2RegularLarge.copyWith(
-                color: AppColors.orange,
-                decoration: TextDecoration.underline,
-                decorationColor: AppColors.orange,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.workoutsScreen,
+                  arguments: true,
+                );
+              },
+              child: Text(
+                'See All',
+                style: balooThambi2RegularLarge.copyWith(
+                  color: AppColors.orange,
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppColors.orange,
+                ),
               ),
             ),
           ],
@@ -230,8 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // _buildMuscleGroupsList(state),
         if (state is HomeLoaded && state.selectedWorkout != null)
           _buildWorkoutList(state),
-        if (state is HomeLoading)
-          _buildWorkoutList(state),
+        if (state is HomeLoading) _buildWorkoutList(state),
       ],
     );
   }

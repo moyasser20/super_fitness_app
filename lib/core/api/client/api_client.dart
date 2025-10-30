@@ -47,7 +47,7 @@ abstract class ApiClient {
   @GET(ApiEndPoints.musclesEndPoint)
   Future<AllMusclesResponse> getAllMuscles();
   @GET('${ApiEndPoints.musclesGroupEndPoint}/{id}')
-  Future<MuscleGroupDetailsResponse> getMusclesGroup(@Path('id') String id)
+  Future<MuscleGroupDetailsResponse> getMusclesGroup(@Path('id') String id);
 
   @GET(ApiEndPoints.recommendationMuscles)
   Future<MusclesResponse> getRandomMuscles();
