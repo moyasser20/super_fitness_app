@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:super_fitness_app/core/l10n/translation/app_localizations.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'dart:convert';
 import '../../../../core/common/widgets/custom_card_shimmer_widget.dart';
@@ -27,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final ScrollController _effectiveController;
+  late var local = AppLocalizations.of(context);
 
   @override
   void initState() {
@@ -177,7 +179,10 @@ class _HomeScreenState extends State<HomeScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Upcoming Workouts', style: balooThambi2BoldExtraLarge),
+            Text(
+              local?.upcomingWorkouts ?? '',
+              style: balooThambi2BoldExtraLarge,
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(
@@ -187,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
               child: Text(
-                'See All',
+                local?.seeAll ?? '',
                 style: balooThambi2RegularLarge.copyWith(
                   color: AppColors.orange,
                   decoration: TextDecoration.underline,
@@ -201,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is HomeError)
           SizedBox(
             height: 40,
-            child: Center(child: Text('Failed to load workouts')),
+            child: Center(child: Text(local?.failedToLoadWorkouts ?? '')),
           ),
         if (state is HomeLoaded)
           Column(
@@ -246,6 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildWorkoutList(HomeState state) {
+    local = AppLocalizations.of(context);
     if (state is! HomeLoaded) {
       return SizedBox(
         height: MediaQuery.of(context).size.height * 0.12,
@@ -279,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Text(
-            'No workouts available',
+            local!.noWorkoutsAvailable,
             style: balooThambi2MediumLarge.copyWith(),
           ),
         ),
@@ -312,40 +318,46 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildRecommendationForYouSection(HomeState state) {
     return Column(
       children: [
-        FutureBuilder<String>(
-          future: DefaultAssetBundle.of(
-            context,
-          ).loadString('assets/json_files/recommendation_for_you.json'),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              log(snapshot.error.toString());
-              return Text('Failed to load recommendations');
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Text('No recommendations found');
-            }
-            final data = json.decode(snapshot.data!);
-            final List categories = data['categories'] ?? [];
-            return SizedBox(
-              height: 115,
+        if (state is HomeLoaded && state.mealCategories.isNotEmpty)
+          SizedBox(
+            height: 115,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: state.mealCategories.length,
+              itemBuilder: (context, index) {
+                final category = state.mealCategories[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: RecommendationFoodCard(
+                    name: category.name,
+                    imageUrl: category.thumbnail,
+                  ),
+                );
+              },
+            ),
+          ),
+        if (state is HomeLoading)
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.12,
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  final cat = categories[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: RecommendationFoodCard(
-                      name: cat['strCategory'],
-                      imageUrl: cat['strCategoryThumb'],
-                    ),
-                  );
-                },
+                itemCount: 5,
+                itemBuilder: (_, __) => const CustomCardShimmerWidget(),
               ),
-            );
-          },
-        ),
+            ),
+          ),
+        if (state is HomeLoaded && state.mealCategories.isEmpty)
+          SizedBox(
+            height: 115,
+            child: Center(child: Text('No recommendations found')),
+          ),
+        if (state is HomeError)
+          SizedBox(
+            height: 115,
+            child: Center(child: Text('Failed to load recommendations')),
+          ),
       ],
     );
   }

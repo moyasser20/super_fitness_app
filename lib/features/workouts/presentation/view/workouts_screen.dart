@@ -8,6 +8,7 @@ import 'package:super_fitness_app/features/workouts/presentation/viewmodel/worko
 import 'package:super_fitness_app/features/workouts/presentation/viewmodel/workouts_view_model.dart';
 
 import '../../../../core/contants/app_images.dart';
+import '../../../../core/l10n/translation/app_localizations.dart';
 
 class WorkoutsScreen extends StatelessWidget {
   final bool isFromHome;
@@ -39,9 +40,15 @@ class WorkoutsScreen extends StatelessWidget {
                   .toList();
 
           if (categories.isEmpty) {
-            return const Scaffold(
+            var local = AppLocalizations.of(context);
+            return Scaffold(
               backgroundColor: Colors.transparent,
-              body: Center(child: Text('No muscle categories available')),
+              body: Center(
+                child: Text(
+                  local?.noMuscleCategoriesAvailable ??
+                      "No muscle categories available",
+                ),
+              ),
             );
           }
 
@@ -65,6 +72,7 @@ class WorkoutsScreen extends StatelessWidget {
     WorkoutsState state,
     bool isFromHome,
   ) {
+    var local = AppLocalizations.of(context);
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -77,7 +85,7 @@ class WorkoutsScreen extends StatelessWidget {
                 onPressed: () => Navigator.pop(context),
               ),
       title: Text(
-        'Workouts',
+        local?.workouts ?? 'Workouts',
         style: balooThambi2BoldExtraLarge.copyWith(fontSize: 24),
       ),
       bottom: TabBar(
@@ -118,6 +126,7 @@ class WorkoutsScreen extends StatelessWidget {
           ),
         ),
         TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
           children:
               state.muscleGroups.map((_) {
                 if (state.muscleDetailsStatus == DataStatus.loading) {
