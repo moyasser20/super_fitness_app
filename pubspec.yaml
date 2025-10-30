@@ -76,7 +76,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-    - assets/json_files/recommendation_for_you.json
   fonts:
     - family: Inter
       fonts:

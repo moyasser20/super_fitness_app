@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/config/di.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
+import 'package:super_fitness_app/core/utils/styles.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart';
 import 'package:super_fitness_app/features/workouts/presentation/viewmodel/workouts_states.dart';
 import 'package:super_fitness_app/features/workouts/presentation/viewmodel/workouts_view_model.dart';
 
+import '../../../../core/contants/app_images.dart';
+import '../../../../core/l10n/translation/app_localizations.dart';
+
 class WorkoutsScreen extends StatelessWidget {
-  const WorkoutsScreen({super.key});
+  final bool isFromHome;
+
+  const WorkoutsScreen({super.key, this.isFromHome = false});
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +40,24 @@ class WorkoutsScreen extends StatelessWidget {
                   .toList();
 
           if (categories.isEmpty) {
-            return const Scaffold(
+            var local = AppLocalizations.of(context);
+            return Scaffold(
               backgroundColor: Colors.transparent,
-              body: Center(child: Text('No muscle categories available')),
+              body: Center(
+                child: Text(
+                  local?.noMuscleCategoriesAvailable ??
+                      "No muscle categories available",
+                ),
+              ),
             );
           }
 
           return DefaultTabController(
             length: categories.length,
             child: Scaffold(
+              extendBodyBehindAppBar: true,
               backgroundColor: Colors.transparent,
-              appBar: _buildAppBar(context, categories, state),
+              appBar: _buildAppBar(context, categories, state, isFromHome),
               body: _buildBody(state),
             ),
           );
@@ -57,19 +70,23 @@ class WorkoutsScreen extends StatelessWidget {
     BuildContext context,
     List<String> categories,
     WorkoutsState state,
+    bool isFromHome,
   ) {
+    var local = AppLocalizations.of(context);
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
+      leading:
+          !isFromHome
+              ? null
+              : IconButton(
+                icon: const Icon(Icons.arrow_back, color: AppColors.white),
+                onPressed: () => Navigator.pop(context),
+              ),
       title: Text(
-        'Workouts',
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: AppColors.white,
-          fontFamily: "Baloo Thambi 2",
-        ),
+        local?.workouts ?? 'Workouts',
+        style: balooThambi2BoldExtraLarge.copyWith(fontSize: 24),
       ),
       bottom: TabBar(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -84,10 +101,7 @@ class WorkoutsScreen extends StatelessWidget {
         ),
         dividerColor: Colors.transparent,
         labelColor: AppColors.white,
-        labelStyle: const TextStyle(
-          fontSize: 12.0,
-          fontWeight: FontWeight.w600,
-        ),
+        labelStyle: balooThambi2Bold,
         unselectedLabelColor: AppColors.white,
         tabs: categories.map((category) => Tab(text: category)).toList(),
         onTap: (index) {
@@ -101,30 +115,45 @@ class WorkoutsScreen extends StatelessWidget {
   }
 
   Widget _buildBody(WorkoutsState state) {
-    return TabBarView(
-      children:
-          state.muscleGroups.map((_) {
-            if (state.muscleDetailsStatus == DataStatus.loading) {
-              return const Center(
-                child: CircularProgressIndicator(color: AppColors.orange),
-              );
-            } else if (state.muscleDetailsStatus == DataStatus.error) {
-              return Center(child: Text('Error: ${state.muscleDetailsError}'));
-            } else if (state.muscleDetailsStatus == DataStatus.success) {
-              return _buildWorkoutGrid(state.muscles);
-            } else {
-              return const SizedBox.shrink();
-            }
-          }).toList(),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImages.homeBc),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          children:
+              state.muscleGroups.map((_) {
+                if (state.muscleDetailsStatus == DataStatus.loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(color: AppColors.orange),
+                  );
+                } else if (state.muscleDetailsStatus == DataStatus.error) {
+                  return Center(
+                    child: Text('Error: ${state.muscleDetailsError}'),
+                  );
+                } else if (state.muscleDetailsStatus == DataStatus.success) {
+                  return _buildWorkoutGrid(state.muscles);
+                } else {
+                  return const SizedBox.shrink();
+                }
+              }).toList(),
+        ),
+      ],
     );
   }
 
   Widget _buildWorkoutGrid(List<Muscle> workouts) {
     if (workouts.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'No workouts available for this category.',
-          style: TextStyle(color: Colors.white),
+          style: balooThambi2MediumLarge,
         ),
       );
     }
@@ -141,41 +170,45 @@ class WorkoutsScreen extends StatelessWidget {
         itemCount: workouts.length,
         itemBuilder: (context, index) {
           final workout = workouts[index];
-          return Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              image: DecorationImage(
-                image: NetworkImage(
-                  workout.image ??
-                      "https://static.thenounproject.com/png/261694-200.png",
-                ),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: double.infinity,
+          return Stack(
+            children: [
+              Container(
                 padding: const EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.5),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0),
-                  ),
-                ),
-                child: Text(
-                  workout.name ?? 'Unnamed Workout',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
+                  borderRadius: BorderRadius.circular(30.0),
+                  image: DecorationImage(
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withValues(alpha: 0.4),
+                      BlendMode.colorBurn,
+                    ),
+                    image: NetworkImage(
+                      workout.image ??
+                          "https://static.thenounproject.com/png/261694-200.png",
+                    ),
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
-            ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    // color: Colors.black.withValues(alpha: 0.5),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(30.0),
+                      bottomRight: Radius.circular(30.0),
+                    ),
+                  ),
+                  child: Text(
+                    workout.name ?? 'Unnamed Workout',
+                    textAlign: TextAlign.center,
+                    style: balooThambi2BoldExtraLarge,
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
