@@ -3,25 +3,27 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
-import 'package:super_fitness_app/core/api/client/api_client.dart' as _i4;
+import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:super_fitness_app/core/api/client/api_client.dart' as _i5;
 import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/forget_password_request_model.dart'
-    as _i7;
+    as _i8;
 import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/reset_password_request_model.dart'
-    as _i10;
-import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart'
-    as _i9;
-import 'package:super_fitness_app/features/auth/data/models/login_models/login_request_model.dart'
     as _i11;
+import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart'
+    as _i10;
+import 'package:super_fitness_app/features/auth/data/models/login_models/login_request_model.dart'
+    as _i12;
 import 'package:super_fitness_app/features/auth/data/models/login_models/login_response_model.dart'
     as _i3;
 import 'package:super_fitness_app/features/auth/domain/responses/register_request_model.dart'
-    as _i6;
+    as _i7;
 import 'package:super_fitness_app/features/auth/domain/responses/register_response.dart'
     as _i2;
+import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart'
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -57,96 +59,133 @@ class _FakeLoginResponse_1 extends _i1.SmartFake implements _i3.LoginResponse {
         );
 }
 
+class _FakeMuscleGroupDetailsResponse_2 extends _i1.SmartFake
+    implements _i4.MuscleGroupDetailsResponse {
+  _FakeMuscleGroupDetailsResponse_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ApiClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiClient extends _i1.Mock implements _i4.ApiClient {
+class MockApiClient extends _i1.Mock implements _i5.ApiClient {
   MockApiClient() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.RegisterResponse> register(
-          _i6.RegisterRequestModel? registerRequest) =>
+  _i6.Future<_i2.RegisterResponse> register(
+          _i7.RegisterRequestModel? registerRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #register,
           [registerRequest],
         ),
         returnValue:
-            _i5.Future<_i2.RegisterResponse>.value(_FakeRegisterResponse_0(
+            _i6.Future<_i2.RegisterResponse>.value(_FakeRegisterResponse_0(
           this,
           Invocation.method(
             #register,
             [registerRequest],
           ),
         )),
-      ) as _i5.Future<_i2.RegisterResponse>);
+      ) as _i6.Future<_i2.RegisterResponse>);
 
   @override
-  _i5.Future<String> forgetPassword(
-          _i7.ForgetPasswordRequestModel? forgetPasswordRequestModel) =>
+  _i6.Future<String> forgetPassword(
+          _i8.ForgetPasswordRequestModel? forgetPasswordRequestModel) =>
       (super.noSuchMethod(
         Invocation.method(
           #forgetPassword,
           [forgetPasswordRequestModel],
         ),
-        returnValue: _i5.Future<String>.value(_i8.dummyValue<String>(
+        returnValue: _i6.Future<String>.value(_i9.dummyValue<String>(
           this,
           Invocation.method(
             #forgetPassword,
             [forgetPasswordRequestModel],
           ),
         )),
-      ) as _i5.Future<String>);
+      ) as _i6.Future<String>);
 
   @override
-  _i5.Future<String> verifyResetCode(
-          _i9.VerifyCodeRequestModel? verifyResetCode) =>
+  _i6.Future<String> verifyResetCode(
+          _i10.VerifyCodeRequestModel? verifyResetCode) =>
       (super.noSuchMethod(
         Invocation.method(
           #verifyResetCode,
           [verifyResetCode],
         ),
-        returnValue: _i5.Future<String>.value(_i8.dummyValue<String>(
+        returnValue: _i6.Future<String>.value(_i9.dummyValue<String>(
           this,
           Invocation.method(
             #verifyResetCode,
             [verifyResetCode],
           ),
         )),
-      ) as _i5.Future<String>);
+      ) as _i6.Future<String>);
 
   @override
-  _i5.Future<String> resetPassword(
-          _i10.ResetPasswordRequestModel? resetPasswordRequestModel) =>
+  _i6.Future<String> resetPassword(
+          _i11.ResetPasswordRequestModel? resetPasswordRequestModel) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
           [resetPasswordRequestModel],
         ),
-        returnValue: _i5.Future<String>.value(_i8.dummyValue<String>(
+        returnValue: _i6.Future<String>.value(_i9.dummyValue<String>(
           this,
           Invocation.method(
             #resetPassword,
             [resetPasswordRequestModel],
           ),
         )),
-      ) as _i5.Future<String>);
+      ) as _i6.Future<String>);
 
   @override
-  _i5.Future<_i3.LoginResponse> login(_i11.LoginRequest? loginRequest) =>
+  _i6.Future<_i3.LoginResponse> login(_i12.LoginRequest? loginRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #login,
           [loginRequest],
         ),
-        returnValue: _i5.Future<_i3.LoginResponse>.value(_FakeLoginResponse_1(
+        returnValue: _i6.Future<_i3.LoginResponse>.value(_FakeLoginResponse_1(
           this,
           Invocation.method(
             #login,
             [loginRequest],
           ),
         )),
-      ) as _i5.Future<_i3.LoginResponse>);
+      ) as _i6.Future<_i3.LoginResponse>);
+
+  @override
+  _i6.Future<dynamic> getAllMuscles() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllMuscles,
+          [],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<_i4.MuscleGroupDetailsResponse> getMusclesGroup(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMusclesGroup,
+          [id],
+        ),
+        returnValue: _i6.Future<_i4.MuscleGroupDetailsResponse>.value(
+            _FakeMuscleGroupDetailsResponse_2(
+          this,
+          Invocation.method(
+            #getMusclesGroup,
+            [id],
+          ),
+        )),
+      ) as _i6.Future<_i4.MuscleGroupDetailsResponse>);
 }

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness_app/features/workouts/presentation/view/workouts_screen.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/features/home/presentation/views/home_screen.dart';
 import '../../../../core/Widgets/custom_Elevated_Button.dart';
@@ -153,6 +154,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
               ),
+            ),
+          ),
+        ),
+      ),
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: <Widget>[
+          Center(
+            child: Text(
+              'Explore page',
+              key: const Key('explorePageText'),
+              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+          ),
+          Center(
+            child: Text(
+              'Chat page',
+              key: const Key('chatPageText'),
+              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+          ),
+          Center(
+            child: WorkoutsScreen(),
+          ),
+          Center(
+            child: CustomElevatedButton(
+              text: "Logout",
+              onPressed: () async {
+                await AuthService.logout();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.login,
+                  (route) => false,
+                );
+              },
             ),
           ),
         ],
