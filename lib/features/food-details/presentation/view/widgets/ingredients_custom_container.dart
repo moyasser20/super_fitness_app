@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:super_fitness_app/core/theme/app_colors.dart';
 import '../../../domain/entities/meal_details_entity.dart';
 import 'ingredient_row.dart';
 
@@ -7,8 +8,8 @@ class IngredientsCustomContainer extends StatelessWidget {
   final MealDetailsEntity meal;
   const IngredientsCustomContainer({super.key, required this.meal});
 
-  static const double blurIntensity = 85.0;
-  static const double borderRadius = 50.0;
+  static const double blurIntensity = 25.0;
+  static const double borderRadius = 30.0;
   static const EdgeInsetsGeometry padding =
   EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0);
 
@@ -30,54 +31,67 @@ class IngredientsCustomContainer extends StatelessWidget {
       }
     }
 
+    final ingredientWidgets = ingredients
+        .map((ing) => IngredientRow(
+      name: ing['name']!,
+      quantity: ing['quantity']!,
+    ))
+        .toList();
+
+    final widgetsWithDividers = <Widget>[];
+    for (int i = 0; i < ingredientWidgets.length; i++) {
+      widgetsWithDividers.add(ingredientWidgets[i]);
+      if (i < ingredientWidgets.length - 1) {
+        widgetsWithDividers.add(
+          Divider(
+            color: AppColors.black,
+            thickness: 1.0,
+            height: 16.0,
+          ),
+        );
+      }
+    }
 
     return SizedBox(
       width: 380,
       height: 242,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
-        child: Container(
-          child: Stack(
-            children: [
-              BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: blurIntensity,
-                  sigmaY: blurIntensity,
-                ),
-                child: Container(color: Colors.transparent),
+        child: Stack(
+          children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: blurIntensity,
+                sigmaY: blurIntensity,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.15),
-                    width: 1.0,
-                  ),
+              child: Container(color: Colors.transparent),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderRadius),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.15),
+                  width: 1.0,
                 ),
               ),
-              Padding(
-                padding: padding,
-                child: ingredients.isNotEmpty
-                    ? SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: ingredients
-                        .map((ing) => IngredientRow(
-                      name: ing['name']!,
-                      quantity: ing['quantity']!,
-                    ))
-                        .toList(),
-                  ),
-                )
-                    : const Center(
-                  child: Text(
-                    "No Ingredients Found",
-                    style: TextStyle(color: Colors.white),
-                  ),
+            ),
+            Padding(
+              padding: padding,
+              child: widgetsWithDividers.isNotEmpty
+                  ? SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: widgetsWithDividers,
+                ),
+              )
+                  : const Center(
+                child: Text(
+                  "No Ingredients Found",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
