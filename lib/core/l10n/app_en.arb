@@ -100,5 +100,8 @@
   "emailRequired": "Email is required",
   "emailInvalid": "Please enter a valid email address",
   "ingredients": "Ingredients",
-  "recommendation": "Recommendation"
+  "recommendation": "Recommendation",
+  "video_opened_successfully": "Video opened successfully",
+  "could_not_open_video_link": "Could not open the video link",
+  "video_link_not_available": "Video link not available"
 }

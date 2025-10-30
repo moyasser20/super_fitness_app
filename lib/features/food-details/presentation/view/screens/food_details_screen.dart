@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/features/food-details/presentation/view/widgets/ingredients_custom_container.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../core/common/widgets/custome_loading_indicator.dart';
 import '../../../../../core/config/di.dart';
 import '../../../../../core/l10n/translation/app_localizations.dart';
@@ -98,30 +99,33 @@ class FoodDetailsScreen extends StatelessWidget {
                         ),
                       ),
 
-                      Positioned(
-                        top: 200,
-                        left: 24,
-                        child: GestureDetector(
-                          onTap: () async {
-                            final url = meal.strYoutube;
+                        Positioned(
+                          top: 200,
+                          left: 24,
+                          child: GestureDetector(
+                            onTap: () async {
+                              final url = meal.strYoutube;
 
-                            if (url != null && url.isNotEmpty) {
-                              final uri = Uri.parse(url);
-                              if (await canLaunchUrl(uri)) {
-                                await launchUrl(
-                                  uri,
-                                  mode: LaunchMode.externalApplication,
-                                );
+                              if (url != null && url.isNotEmpty) {
+                                final uri = Uri.parse(url);
+                                if (await canLaunchUrl(uri)) {
+                                  await launchUrl(
+                                    uri,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                  await showCustomSnackBar(context, local.video_opened_successfully, isError: false);
+                                } else {
+                                  await showCustomSnackBar(context,   local.could_not_open_video_link,
+                                      isError: true);
+                                }
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Could not open the video')),
-                                );
+                                await showCustomSnackBar(context,   local.video_link_not_available,
+                                    isError: true);
                               }
-                            }
-                          },
-                          child: Image.asset("assets/images/video_run.png"),
+                            },
+                            child: Image.asset("assets/images/video_run.png"),
+                          ),
                         ),
-                      ),
 
                       Positioned(
                         top: 240,

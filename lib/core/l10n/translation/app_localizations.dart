@@ -706,6 +706,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recommendation'**
   String get recommendation;
+
+  /// No description provided for @video_opened_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Video opened successfully'**
+  String get video_opened_successfully;
+
+  /// No description provided for @could_not_open_video_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the video link'**
+  String get could_not_open_video_link;
+
+  /// No description provided for @video_link_not_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Video link not available'**
+  String get video_link_not_available;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

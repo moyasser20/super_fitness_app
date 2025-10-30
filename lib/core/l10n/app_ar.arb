@@ -100,5 +100,8 @@
   "emailRequired": "البريد الإلكتروني مطلوب",
   "emailInvalid": "يرجى إدخال بريد إلكتروني صالح",
   "ingredients": "المكونات",
-  "recommendation": "اقتراحات"
+  "recommendation": "اقتراحات",
+  "video_opened_successfully": "تم فتح الفيديو بنجاح",
+  "could_not_open_video_link": "تعذر فتح رابط الفيديو",
+  "video_link_not_available": "رابط الفيديو غير متاح"
 }
