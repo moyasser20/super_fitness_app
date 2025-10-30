@@ -3,6 +3,7 @@ import 'package:super_fitness_app/features/home/data/models/muscle_groups_respon
 
 import '../../domain/repos/muscles_repo.dart';
 import '../data_source/muscles_remote_data_source.dart';
+import '../models/meal_categories_response_model.dart';
 import '../models/muscle_group_by_id_response_model.dart';
 import '../models/muscles_response_model.dart';
 
@@ -24,5 +25,9 @@ class MusclesRepoImpl implements MusclesRepo {
   @override
   Future<MuscleGroupByIdResponse> getMuscleGroupById(String groupId) async {
     return await _remoteDatasource.getMuscleGroupById(groupId);
+  }
+  @override
+  Future<MealCategoriesResponse> getMealCategories() async {
+    return await _remoteDatasource.getMealCategories();
   }
 }

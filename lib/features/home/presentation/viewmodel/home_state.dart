@@ -10,6 +10,7 @@ final class HomeLoading extends HomeState {}
 final class HomeLoaded extends HomeState {
   final List<Muscle> recommendedMuscles;
   final List<MuscleGroup> muscleGroups;
+  final List<MealCategory> mealCategories;
   final String? userName;
   final String? userImage;
   final MuscleGroupByIdResponse? selectedWorkout;
@@ -20,6 +21,7 @@ final class HomeLoaded extends HomeState {
   HomeLoaded({
     required this.recommendedMuscles,
     required this.muscleGroups,
+    this.mealCategories = const [],
     this.userName,
     this.userImage,
     this.selectedWorkout,
@@ -31,6 +33,7 @@ final class HomeLoaded extends HomeState {
   HomeLoaded copyWith({
     List<Muscle>? recommendedMuscles,
     List<MuscleGroup>? muscleGroups,
+    List<MealCategory>? mealCategories,
     String? userName,
     String? userImage,
     MuscleGroupByIdResponse? selectedMuscleGroupDetails,
@@ -40,6 +43,7 @@ final class HomeLoaded extends HomeState {
     return HomeLoaded(
       recommendedMuscles: recommendedMuscles ?? this.recommendedMuscles,
       muscleGroups: muscleGroups ?? this.muscleGroups,
+      mealCategories: mealCategories ?? this.mealCategories,
       userName: userName ?? this.userName,
       userImage: userImage ?? this.userImage,
       selectedWorkout: selectedMuscleGroupDetails ?? selectedWorkout,
