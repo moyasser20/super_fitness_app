@@ -46,9 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       if (_showNavBar) setState(() => _showNavBar = false);
     } else if (_scrollController.position.userScrollDirection ==
         ScrollDirection.forward) {
-      if (!_showNavBar && _scrollController.offset <= 0) {
-        setState(() => _showNavBar = true);
-      }
+      if (!_showNavBar) setState(() => _showNavBar = true);
     }
   }
 
@@ -79,38 +77,50 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
               ),
-              Container(
-                decoration: const BoxDecoration(),
-                child: Center(
-                  child: Text(
-                    'Workout page',
-                    key: const Key('workoutPageText'),
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                    ),
+              Center(
+                child: Text(
+                  'Workout page',
+                  key: const Key('workoutPageText'),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: Colors.white,
                   ),
                 ),
               ),
-              Container(
-                decoration: const BoxDecoration(),
-                child: Center(
-                  child: CustomElevatedButton(
-                    text: "Logout",
-                    onPressed: () async {
-                      await AuthService.logout();
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRoutes.login,
-                        (route) => false,
-                      );
-                    },
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: CustomElevatedButton(
+                      text: "Logout",
+                      onPressed: () async {
+                        await AuthService.logout();
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRoutes.login,
+                              (route) => false,
+                        );
+                      },
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: CustomElevatedButton(
+                      text: "Food Details",
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.foodDetailsScreen,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
+
           AnimatedPositioned(
-            duration: Duration(milliseconds: 250),
+            duration: const Duration(milliseconds: 250),
             left: 0,
             right: 0,
             bottom: _showNavBar ? 30 : -110,
@@ -124,7 +134,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   width: 334.0,
                   height: 90.0,
-                  decoration: BoxDecoration(color: Color(0xff242424)),
+                  decoration: const BoxDecoration(color: Color(0xff242424)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -155,59 +165,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             ),
-          ),
-        ),
-      ),
-      body: IndexedStack(
-        index: currentPageIndex,
-        children: <Widget>[
-          Center(
-            child: Text(
-              'Explore page',
-              key: const Key('explorePageText'),
-              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
-            ),
-          ),
-          Center(
-            child: Text(
-              'Chat page',
-              key: const Key('chatPageText'),
-              style: theme.textTheme.titleLarge?.copyWith(color: Colors.white),
-            ),
-          ),
-          Center(
-            child: WorkoutsScreen(),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: CustomElevatedButton(
-                  text: "Logout",
-                  onPressed: () async {
-                    await AuthService.logout();
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      AppRoutes.login,
-                      (route) => false,
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 30),
-              Center(
-                child: CustomElevatedButton(
-                  text: "Food Details",
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      AppRoutes.foodDetailsScreen,
-                    );
-
-                  },
-                ),
-              ),
-            ],
           ),
         ],
       ),

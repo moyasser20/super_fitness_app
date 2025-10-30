@@ -49,6 +49,19 @@ import '../../features/food-details/domain/use_cases/meals_details_usecase.dart'
     as _i51;
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart'
     as _i557;
+import '../../features/home/api/data_source_impl/muscles_remote_data_source_impl.dart'
+    as _i476;
+import '../../features/home/data/data_source/muscles_remote_data_source.dart'
+    as _i439;
+import '../../features/home/data/repo_impl/muscles_repo_impl.dart' as _i635;
+import '../../features/home/domain/repos/muscles_repo.dart' as _i732;
+import '../../features/home/domain/usecases/get_muscle_group_by_id_usecase.dart'
+    as _i585;
+import '../../features/home/domain/usecases/get_muscle_groups_usecase.dart'
+    as _i890;
+import '../../features/home/domain/usecases/get_random_muscles_usecase.dart'
+    as _i365;
+import '../../features/home/presentation/viewmodel/home_cubit.dart' as _i925;
 import '../../features/workouts/api/data_source_impl/workouts_remote_data_source_impl.dart'
     as _i61;
 import '../../features/workouts/data/datasource/workouts_data_source.dart'
@@ -107,6 +120,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i758.AuthRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i170.AuthRepo>(
         () => _i279.AuthRepoImpl(gh<_i24.AuthRemoteDatasource>()));
+    gh.lazySingleton<_i439.MusclesRemoteDatasource>(
+        () => _i476.MusclesRemoteDatasourceImpl(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i732.MusclesRepo>(
+        () => _i635.MusclesRepoImpl(gh<_i439.MusclesRemoteDatasource>()));
     gh.factory<_i532.WorkoutsUseCase>(
         () => _i532.WorkoutsUseCase(gh<_i301.WorkoutsRepo>()));
     gh.factory<_i442.LoginUseCase>(
@@ -119,11 +136,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i188.VerifyCodeUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i416.RegisterCubit>(
         () => _i416.RegisterCubit(gh<_i170.AuthRepo>()));
+    gh.factory<_i890.GetMuscleGroupsUseCase>(
+        () => _i890.GetMuscleGroupsUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i585.GetMuscleGroupByIdUseCase>(
+        () => _i585.GetMuscleGroupByIdUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i365.GetRandomMusclesUseCase>(
+        () => _i365.GetRandomMusclesUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i462.LoginViewModel>(
         () => _i462.LoginViewModel(gh<_i442.LoginUseCase>()));
     gh.factory<_i0.VerifyCodeCubit>(() => _i0.VerifyCodeCubit(
           gh<_i188.VerifyCodeUseCase>(),
           gh<_i957.ForgetPasswordUseCase>(),
+        ));
+    gh.factory<_i925.HomeCubit>(() => _i925.HomeCubit(
+          gh<_i365.GetRandomMusclesUseCase>(),
+          gh<_i890.GetMuscleGroupsUseCase>(),
+          gh<_i585.GetMuscleGroupByIdUseCase>(),
         ));
     gh.factory<_i433.WorkoutsViewModel>(
         () => _i433.WorkoutsViewModel(gh<_i532.WorkoutsUseCase>()));
