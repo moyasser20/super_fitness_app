@@ -4,7 +4,7 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../../../../core/api/api_constants/api_end_points.dart';
-import '../../data/models/meals_model.dart';
+import '../../data/models/meal_details_model.dart';
 
 part 'meal_details_api_client.g.dart';
 
@@ -16,5 +16,5 @@ abstract class MealsApiClient {
   factory MealsApiClient(@Named('mealsDio') Dio dio) = _MealsApiClient;
 
   @GET(ApiEndPoints.mealById)
-  Future<MealsModel> getMealById(@Query('i') String id);
+  Future<MealDetailsModel> getMealById(@Query("i") String id);
 }

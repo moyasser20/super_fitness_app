@@ -29,9 +29,9 @@ class RecommendationWidget extends StatelessWidget {
           ),
 
           Positioned(
-            bottom: 80,
-            left: 12,
-            right: 12,
+            bottom: 30,
+            left: 0,
+            right: 40,
             child: Text(
               foodName,
               textAlign: TextAlign.center,

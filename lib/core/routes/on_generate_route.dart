@@ -77,10 +77,10 @@ class Routes {
           builder: (_) => BlocProvider(
             create: (context) {
               final cubit = getIt<MealDetailsCubit>();
-              cubit.getMealById("52936");
+              cubit.getMealById("52959");
               return cubit;
             },
-            child: const FoodDetailsScreen(),
+            child: const FoodDetailsScreen(mealId: '52959',),
           ),
         );
 
