@@ -1,13 +1,14 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness_app/features/workouts/presentation/view/workouts_screen.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/features/home/presentation/views/home_screen.dart';
 import '../../../../core/Widgets/custom_Elevated_Button.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../auth/domain/services/auth_services.dart';
-import '../../../workouts/presentation/view/workouts_screen.dart';
 
 class DashboardScreenApp extends StatelessWidget {
   const DashboardScreenApp({super.key});
@@ -45,9 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       if (_showNavBar) setState(() => _showNavBar = false);
     } else if (_scrollController.position.userScrollDirection ==
         ScrollDirection.forward) {
-      if (!_showNavBar && _scrollController.offset <= 0) {
-        setState(() => _showNavBar = true);
-      }
+      if (!_showNavBar) setState(() => _showNavBar = true);
     }
   }
 
@@ -79,26 +78,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               WorkoutsScreen(isFromHome: false),
-              Container(
-                decoration: const BoxDecoration(),
-                child: Center(
-                  child: CustomElevatedButton(
-                    text: "Logout",
-                    onPressed: () async {
-                      await AuthService.logout();
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRoutes.login,
-                        (route) => false,
-                      );
-                    },
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: CustomElevatedButton(
+                      text: "Logout",
+                      onPressed: () async {
+                        await AuthService.logout();
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRoutes.login,
+                              (route) => false,
+                        );
+                      },
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: CustomElevatedButton(
+                      text: "Food Details",
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.foodDetailsScreen,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
+
           AnimatedPositioned(
-            duration: Duration(milliseconds: 250),
+            duration: const Duration(milliseconds: 250),
             left: 0,
             right: 0,
             bottom: _showNavBar ? 30 : -110,
@@ -112,7 +126,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   width: 334.0,
                   height: 90.0,
-                  decoration: BoxDecoration(color: Color(0xff242424)),
+                  decoration: const BoxDecoration(color: Color(0xff242424)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
