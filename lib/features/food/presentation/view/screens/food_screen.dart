@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,10 +27,12 @@ class _FoodScreenState extends State<FoodScreen>
   TabController? _tabController;
   List<String> _categories = [];
   List<dynamic> _meals = [];
+  bool _isInitialLoad = true;
 
   @override
   void initState() {
     super.initState();
+    context.read<MealsCubit>().clearCategories();
     context.read<MealsCubit>().loadCategories();
   }
 
@@ -64,9 +68,10 @@ class _FoodScreenState extends State<FoodScreen>
 
           _tabController!.index = validIndex;
 
-          context
-              .read<MealsCubit>()
-              .getMealsByCategory(_categories[validIndex]);
+          if (_isInitialLoad) {
+            context.read<MealsCubit>().getMealsByCategory(_categories[validIndex]);
+            _isInitialLoad = false;
+          }
         } else if (state is FoodLoaded) {
           _meals = state.meals;
         }
@@ -82,7 +87,10 @@ class _FoodScreenState extends State<FoodScreen>
             leading: Padding(
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () {
+                  context.read<MealsCubit>().clearCategories();
+                  Navigator.pop(context);
+                },
                 child: Container(
                   padding: const EdgeInsets.all(12.0),
                   decoration: BoxDecoration(
@@ -143,9 +151,7 @@ class _FoodScreenState extends State<FoodScreen>
                         .toList(),
                     onTap: (index) {
                       final selectedCategory = _categories[index];
-                      context
-                          .read<MealsCubit>()
-                          .getMealsByCategory(selectedCategory);
+                      context.read<MealsCubit>().getMealsByCategory(selectedCategory);
                     },
                   ),
                 ),
@@ -163,7 +169,7 @@ class _FoodScreenState extends State<FoodScreen>
                   ),
                 ),
               ),
-              if (state is FoodLoading)
+              if (state is FoodLoading || (state is! FoodLoaded && _meals.isEmpty))
                 const AppLoadingIndicator()
               else if (state is FoodError)
                 Center(

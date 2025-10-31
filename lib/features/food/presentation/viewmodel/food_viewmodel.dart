@@ -9,7 +9,8 @@ class MealsCubit extends Cubit<FoodStates> {
   final GetMealCategoriesUseCase _getMealCategoriesUseCase;
   final GetFoodByCategoryUseCase _getFoodByCategoryUseCase;
 
-  MealsCubit(this._getFoodByCategoryUseCase, this._getMealCategoriesUseCase) : super(FoodInitial());
+  MealsCubit(this._getFoodByCategoryUseCase, this._getMealCategoriesUseCase)
+    : super(FoodInitial());
 
   Future<void> loadCategories() async {
     emit(FoodLoading());
@@ -17,9 +18,6 @@ class MealsCubit extends Cubit<FoodStates> {
       final response = await _getMealCategoriesUseCase();
       final categories = response.categories.map((c) => c.name).toList();
       emit(FoodCategoriesLoaded(categories));
-      if (categories.isNotEmpty) {
-        getMealsByCategory(categories.first);
-      }
     } catch (e) {
       emit(FoodError(e.toString()));
     }
@@ -33,5 +31,9 @@ class MealsCubit extends Cubit<FoodStates> {
     } catch (e) {
       emit(FoodError(e.toString()));
     }
+  }
+
+  void clearCategories() {
+    emit(FoodInitial());
   }
 }
