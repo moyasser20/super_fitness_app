@@ -51,6 +51,8 @@ class RecommendationFoodCard extends StatelessWidget {
                           name,
                           style: balooThambi2Regular,
                           textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),

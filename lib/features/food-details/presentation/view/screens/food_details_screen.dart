@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/features/food-details/presentation/view/widgets/ingredients_custom_container.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../core/common/widgets/custome_loading_indicator.dart';
 import '../../../../../core/config/di.dart';
+import '../../../../../core/contants/app_icons.dart';
 import '../../../../../core/l10n/translation/app_localizations.dart';
+import '../../../../exercise/presentation/view/widgets/youtube_web_view_screen.dart';
 import '../../viewmodel/meals_details_cubit.dart';
 import '../../viewmodel/meals_details_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +36,7 @@ class FoodDetailsScreen extends StatelessWidget {
             return Scaffold(
               body: Center(
                 child: Text(
-                  "Error: ${state.message}",
+                  "${local.error_prefix}${state.message}",
                   style: const TextStyle(color: Colors.red),
                 ),
               ),
@@ -49,7 +51,7 @@ class FoodDetailsScreen extends StatelessWidget {
                 onRefresh: () async {
                   context.read<MealDetailsCubit>().getMealById(mealId);
                   await context.read<MealDetailsCubit>().stream.firstWhere(
-                    (state) => state is! MealDetailsLoading,
+                        (state) => state is! MealDetailsLoading,
                   );
                 },
                 child: SingleChildScrollView(
@@ -62,9 +64,7 @@ class FoodDetailsScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 1.15,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/food_details_bg.png",
-                            ),
+                            image: AssetImage("assets/images/food_details_bg.png"),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -80,11 +80,8 @@ class FoodDetailsScreen extends StatelessWidget {
                           child: Image.network(
                             meal.strMealThumb,
                             fit: BoxFit.fitWidth,
-                            errorBuilder:
-                                (context, error, stackTrace) => Image.asset(
-                                  "assets/images/food_details_stack_image.png",
-                                  fit: BoxFit.fitWidth,
-                                ),
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset("assets/images/food_details_stack_image.png", fit: BoxFit.fitWidth),
                           ),
                         ),
                       ),
@@ -111,10 +108,13 @@ class FoodDetailsScreen extends StatelessWidget {
                         left: 20,
                         child: GestureDetector(
                           onTap: () => Navigator.pop(context),
-                          child: Image.asset(
-                            "assets/icons/back_fitness_icon.png",
-                            height: 40,
-                            width: 40,
+                          child: Container(
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: AppColors.main,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: SvgPicture.asset(AppIcons.backIcon),
                           ),
                         ),
                       ),
@@ -127,24 +127,15 @@ class FoodDetailsScreen extends StatelessWidget {
                             final url = meal.strYoutube;
 
                             if (url != null && url.isNotEmpty) {
-                              final uri = Uri.parse(url);
-                              if (await canLaunchUrl(uri)) {
-                                await launchUrl(
-                                  uri,
-                                  mode: LaunchMode.externalApplication,
-                                );
-                                await showCustomSnackBar(
-                                  context,
-                                  local.video_opened_successfully,
-                                  isError: false,
-                                );
-                              } else {
-                                await showCustomSnackBar(
-                                  context,
-                                  local.could_not_open_video_link,
-                                  isError: true,
-                                );
-                              }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => YouTubeWebViewScreen(
+                                    videoUrl: url,
+                                    isFood: true,
+                                  ),
+                                ),
+                              );
                             } else {
                               await showCustomSnackBar(
                                 context,
@@ -196,24 +187,17 @@ class FoodDetailsScreen extends StatelessWidget {
                             builder: (context) {
                               final tags = meal.strTags?.split(",") ?? [];
                               final displayedTags = tags.take(4).toList();
-                              final staticValues = [
-                                "100 K",
-                                "15 G",
-                                "58 G",
-                                "20 G",
-                              ];
+                              final staticValues = ["100 K", "15 G", "58 G", "20 G"];
 
                               return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: List.generate(
                                   4,
-                                  (index) => CustomContainerValues(
+                                      (index) => CustomContainerValues(
                                     value: staticValues[index],
-                                    label:
-                                        index < displayedTags.length
-                                            ? displayedTags[index]
-                                            : "N/A",
+                                    label: index < displayedTags.length
+                                        ? displayedTags[index]
+                                        : local.na,
                                   ),
                                 ),
                               );
@@ -269,16 +253,15 @@ class FoodDetailsScreen extends StatelessWidget {
                               child: ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: 6,
-                                separatorBuilder:
-                                    (_, __) => const SizedBox(width: 16),
+                                separatorBuilder: (_, __) => const SizedBox(width: 16),
                                 itemBuilder: (context, index) {
                                   final recommendations = [
-                                    "Salmon Bowl",
-                                    "Tuna Pasta",
-                                    "Grilled Chicken",
-                                    "Avocado Salad",
-                                    "Beef Steak",
-                                    "Veggie Wrap",
+                                    local.salmon_bowl,
+                                    local.tuna_pasta,
+                                    local.grilled_chicken,
+                                    local.avocado_salad,
+                                    local.beef_steak,
+                                    local.veggie_wrap,
                                   ];
 
                                   return RecommendationWidget(
@@ -287,7 +270,6 @@ class FoodDetailsScreen extends StatelessWidget {
                                 },
                               ),
                             ),
-
                             const SizedBox(height: 10),
                           ],
                         ),

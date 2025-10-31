@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -90,18 +89,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           context,
                           AppRoutes.login,
                               (route) => false,
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Center(
-                    child: CustomElevatedButton(
-                      text: "Food Details",
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.foodDetailsScreen,
                         );
                       },
                     ),

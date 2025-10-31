@@ -82,7 +82,7 @@ class WorkoutCardWidget extends StatelessWidget {
                                 muscle.name,
                                 style: balooThambi2Medium,
                                 textAlign: TextAlign.center,
-                                maxLines: 2,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ],

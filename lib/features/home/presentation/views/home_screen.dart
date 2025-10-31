@@ -27,7 +27,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final ScrollController _effectiveController;
-  late var local = AppLocalizations.of(context);
 
   @override
   void initState() {
@@ -40,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -67,23 +68,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildAppBar(state),
+                          _buildAppBar(context, state, local),
                           SizedBox(height: Dimensions.paddingDefault),
-                          Text('Category', style: balooThambi2BoldExtraLarge),
+                          Text(
+                            local.category,
+                            style: balooThambi2BoldExtraLarge,
+                          ),
                           SizedBox(height: Dimensions.paddingSmall),
-                          _buildCategorySection(),
+                          _buildCategorySection(local),
                           SizedBox(height: Dimensions.paddingDefault),
                           RecommendationToDayWidget(state: state),
                           SizedBox(height: Dimensions.paddingDefault),
-                          _buildUpcomingWorkoutsSection(state),
+                          _buildUpcomingWorkoutsSection(context, state, local),
                           SizedBox(height: Dimensions.paddingDefault),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Recommendation for you',
+                                local.recommendationForYou,
                                 style: balooThambi2BoldExtraLarge,
                               ),
+                              const Spacer(),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
@@ -93,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: Text(
-                                  local?.seeAll ?? '',
+                                  local.seeAll,
                                   style: balooThambi2RegularLarge.copyWith(
                                     color: AppColors.orange,
                                     decoration: TextDecoration.underline,
@@ -104,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           SizedBox(height: Dimensions.paddingSmall),
-                          _buildRecommendationForYouSection(state),
+                          _buildRecommendationForYouSection(state, local),
                           SizedBox(height: Dimensions.paddingSmall),
-                          _buildPopularTrainingSection(),
+                          _buildPopularTrainingSection(local),
                         ],
                       ),
                     ),
@@ -120,8 +124,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildAppBar(HomeState state) {
-    final userName = state is HomeLoaded ? state.userName : 'Omar';
+  Widget _buildAppBar(
+    BuildContext context,
+    HomeState state,
+    AppLocalizations local,
+  ) {
+    final userName = state is HomeLoaded ? state.userName : 'User';
     final userImage =
         state is HomeLoaded ? state.userImage : AppImages.mainImage;
 
@@ -131,8 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hi $userName,', style: balooThambi2MediumExtraLarge),
-            Text('Let\'s start your day', style: balooThambi2BoldExtraLarge),
+            Text(local.hiUser(userName!), style: balooThambi2MediumExtraLarge),
+            Text(local.startYourDay, style: balooThambi2BoldExtraLarge),
           ],
         ),
         CircleAvatar(
@@ -144,47 +152,47 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCategorySection() {
+  Widget _buildCategorySection(AppLocalizations local) {
     return Container(
       height: 90,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Color(0xff242424),
+        color: const Color(0xff242424),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
           Expanded(
             child: CategoryItemWidget(
-              catName: 'Gym',
+              catName: local.gym,
               icon: AppIcons.gymIcon,
               showDivider: true,
             ),
           ),
           Expanded(
             child: CategoryItemWidget(
-              catName: 'Fitness',
+              catName: local.fitness,
               icon: AppIcons.fitnessIcon,
               showDivider: true,
             ),
           ),
           Expanded(
             child: CategoryItemWidget(
-              catName: 'Yoga',
+              catName: local.yoga,
               icon: AppIcons.yogaIcon,
               showDivider: true,
             ),
           ),
           Expanded(
             child: CategoryItemWidget(
-              catName: 'Aerobics',
+              catName: local.aerobics,
               icon: AppIcons.aerobicsIcon,
               showDivider: true,
             ),
           ),
           Expanded(
             child: CategoryItemWidget(
-              catName: 'Trainer',
+              catName: local.trainer,
               icon: AppIcons.trainerIcon,
               showDivider: false,
             ),
@@ -194,18 +202,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildUpcomingWorkoutsSection(HomeState state) {
+  Widget _buildUpcomingWorkoutsSection(
+    BuildContext context,
+    HomeState state,
+    AppLocalizations local,
+  ) {
     final muscleGroups = state is HomeLoaded ? state.muscleGroups : [];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              local?.upcomingWorkouts ?? '',
-              style: balooThambi2BoldExtraLarge,
-            ),
+            Text(local.upcomingWorkouts, style: balooThambi2BoldExtraLarge),
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(
@@ -215,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
               child: Text(
-                local?.seeAll ?? '',
+                local.seeAll,
                 style: balooThambi2RegularLarge.copyWith(
                   color: AppColors.orange,
                   decoration: TextDecoration.underline,
@@ -229,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is HomeError)
           SizedBox(
             height: 40,
-            child: Center(child: Text(local?.failedToLoadWorkouts ?? '')),
+            child: Center(child: Text(local.failedToLoadWorkouts)),
           ),
         if (state is HomeLoaded)
           Column(
@@ -246,9 +256,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                     final isDetailsShowing =
                         state.selectedWorkout?.muscleGroup.id == group.id;
-                    /*final isLoadingThisGroup =
-                    state.isLoadingMuscleGroupDetails && isDetailsShowing;
-*/
                     return GestureDetector(
                       onTap: () {
                         context.read<HomeCubit>().loadMuscleGroupDetails(
@@ -265,58 +272,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-        // _buildMuscleGroupsList(state),
         if (state is HomeLoaded && state.selectedWorkout != null)
-          _buildWorkoutList(state),
-        if (state is HomeLoading) _buildWorkoutList(state),
+          _buildWorkoutList(context, state, local),
+        if (state is HomeLoading) _buildWorkoutList(context, state, local),
       ],
     );
   }
 
-  Widget _buildWorkoutList(HomeState state) {
-    local = AppLocalizations.of(context);
-    if (state is! HomeLoaded) {
-      return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.12,
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            itemBuilder: (_, __) => const CustomCardShimmerWidget(),
-          ),
-        ),
-      );
-    }
-
-    if (state is HomeLoading) {
-      return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.12,
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            itemBuilder: (_, __) => const CustomCardShimmerWidget(),
-          ),
-        ),
-      );
-    }
-    if (state.selectedWorkout == null ||
+  Widget _buildWorkoutList(
+    BuildContext context,
+    HomeState state,
+    AppLocalizations local,
+  ) {
+    if (state is! HomeLoaded ||
+        state.selectedWorkout == null ||
         state.selectedWorkout!.muscles.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Text(
-            local!.noWorkoutsAvailable,
-            style: balooThambi2MediumLarge.copyWith(),
+            local.noWorkoutsAvailable,
+            style: balooThambi2MediumLarge,
           ),
         ),
       );
     }
 
     final details = state.selectedWorkout!;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -326,82 +308,91 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: details.muscles.length,
-            itemBuilder:
-                (context, index) => Container(
-                  width: MediaQuery.of(context).size.width * 0.24,
-                  margin: EdgeInsets.only(right: 16),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.exercisesScreen,
-                        arguments: ExerciseData(
-                          id: details.muscles[index].id,
-                          name: details.muscles[index].name,
-                        ),
-                      );
-                    },
-                    child: WorkoutCardWidget(details.muscles[index]),
-                  ),
+            itemBuilder: (context, index) {
+              final muscle = details.muscles[index];
+              return Container(
+                width: MediaQuery.of(context).size.width * 0.24,
+                margin: const EdgeInsets.only(right: 16),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.exercisesScreen,
+                      arguments: ExerciseData(id: muscle.id, name: muscle.name),
+                    );
+                  },
+                  child: WorkoutCardWidget(muscle),
                 ),
+              );
+            },
           ),
         ),
       ],
     );
   }
 
-  Widget _buildRecommendationForYouSection(HomeState state) {
-    return Column(
-      children: [
-        if (state is HomeLoaded && state.mealCategories.isNotEmpty)
-          SizedBox(
-            height: 115,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: state.mealCategories.length,
-              itemBuilder: (context, index) {
-                final category = state.mealCategories[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: RecommendationFoodCard(
-                    name: category.name,
-                    imageUrl: category.thumbnail,
-                  ),
-                );
-              },
-            ),
-          ),
-        if (state is HomeLoading)
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.12,
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (_, __) => const CustomCardShimmerWidget(),
+  Widget _buildRecommendationForYouSection(
+    HomeState state,
+    AppLocalizations local,
+  ) {
+    if (state is HomeLoaded && state.mealCategories.isEmpty) {
+      return SizedBox(
+        height: 115,
+        child: Center(child: Text(local.noRecommendationsFound)),
+      );
+    }
+    if (state is HomeError) {
+      return SizedBox(
+        height: 115,
+        child: Center(child: Text(local.failedToLoadRecommendations)),
+      );
+    }
+
+    if (state is HomeLoaded && state.mealCategories.isNotEmpty) {
+      return SizedBox(
+        height: 115,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: state.mealCategories.length,
+          itemBuilder: (context, index) {
+            final category = state.mealCategories[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GestureDetector(
+                onTap: () {
+                  // 👇 Navigate to FoodScreen with selected category
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.foodScreen,
+                    arguments: category.name,
+                  );
+                },
+                child: RecommendationFoodCard(
+                  name: category.name,
+                  imageUrl: category.thumbnail,
+                ),
               ),
-            ),
-          ),
-        if (state is HomeLoaded && state.mealCategories.isEmpty)
-          SizedBox(
-            height: 115,
-            child: Center(child: Text('No recommendations found')),
-          ),
-        if (state is HomeError)
-          SizedBox(
-            height: 115,
-            child: Center(child: Text('Failed to load recommendations')),
-          ),
-      ],
+            );
+          },
+        ),
+      );
+    }
+
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.12,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (_, __) => const CustomCardShimmerWidget(),
+      ),
     );
   }
 
-  Widget _buildPopularTrainingSection() {
+  Widget _buildPopularTrainingSection(AppLocalizations local) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Popular Training', style: balooThambi2BoldExtraLarge),
+        Text(local.popularTraining, style: balooThambi2BoldExtraLarge),
         SizedBox(height: Dimensions.paddingSmall),
         SizedBox(
           height: 220,
@@ -411,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder:
                 (context, index) => Container(
                   width: 250,
-                  margin: EdgeInsets.only(right: 16),
+                  margin: const EdgeInsets.only(right: 16),
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
@@ -430,13 +421,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(30.0),
-                          ),
-                        ),
                         child: Text(
-                          'Exercises That Strengthen Your Chest',
+                          local.exerciseStrengthenChest,
                           textAlign: TextAlign.center,
                           style: balooThambi2BoldExtraLarge,
                         ),
@@ -453,7 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               child: Text(
-                                '24 Tasks',
+                                local.tasksCount("24"),
                                 style: balooThambi2MediumLarge,
                               ),
                             ),
@@ -464,7 +450,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               child: Text(
-                                'Beginner',
+                                local.difficultyBeginner,
                                 style: balooThambi2BoldLarge.copyWith(
                                   color: AppColors.orange,
                                 ),

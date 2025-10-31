@@ -38,7 +38,7 @@ dependencies:
   logger: ^2.6.1
   mockito: null
   path_provider: ^2.1.5
-  leak_tracker: 10.0.8
+  leak_tracker: 10.0.9
   percent_indicator: ^4.2.5
   retrofit: ^4.1.0
   shared_preferences: ^2.5.3

@@ -20,6 +20,8 @@ class WorkoutsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (context) => getIt<WorkoutsViewModel>()..getAllMuscles(),
       child: BlocBuilder<WorkoutsViewModel, WorkoutsState>(
@@ -34,25 +36,24 @@ class WorkoutsScreen extends StatelessWidget {
           } else if (state.allMusclesStatus == DataStatus.error) {
             return Scaffold(
               backgroundColor: Colors.transparent,
-              body: Center(child: Text('Error: ${state.allMusclesError}')),
+              body: Center(
+                child: Text(
+                  local.errorWithMessage(state.allMusclesError ?? ''),
+                ),
+              ),
             );
           }
 
-          final categories =
-              state.muscleGroups
-                  .map((e) => e.name ?? '')
-                  .where((name) => name.isNotEmpty)
-                  .toList();
+          final categories = state.muscleGroups
+              .map((e) => e.name ?? '')
+              .where((name) => name.isNotEmpty)
+              .toList();
 
           if (categories.isEmpty) {
-            var local = AppLocalizations.of(context);
             return Scaffold(
               backgroundColor: Colors.transparent,
               body: Center(
-                child: Text(
-                  local?.noMuscleCategoriesAvailable ??
-                      "No muscle categories available",
-                ),
+                child: Text(local.noMuscleCategoriesAvailable),
               ),
             );
           }
@@ -63,7 +64,7 @@ class WorkoutsScreen extends StatelessWidget {
               extendBodyBehindAppBar: true,
               backgroundColor: Colors.transparent,
               appBar: _buildAppBar(context, categories, state, isFromHome),
-              body: _buildBody(state),
+              body: _buildBody(context, state),
             ),
           );
         },
@@ -72,37 +73,37 @@ class WorkoutsScreen extends StatelessWidget {
   }
 
   AppBar _buildAppBar(
-    BuildContext context,
-    List<String> categories,
-    WorkoutsState state,
-    bool isFromHome,
-  ) {
-    var local = AppLocalizations.of(context);
+      BuildContext context,
+      List<String> categories,
+      WorkoutsState state,
+      bool isFromHome,
+      ) {
+    final local = AppLocalizations.of(context)!;
+
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
-      leading:
-          !isFromHome
-              ? null
-              : Padding(
-            padding: EdgeInsets.all(10),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  color: AppColors.main,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: SvgPicture.asset(AppIcons.backIcon),
-              ),
+      leading: !isFromHome
+          ? null
+          : Padding(
+        padding: const EdgeInsets.all(10),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: AppColors.main,
+              borderRadius: BorderRadius.circular(20),
             ),
+            child: SvgPicture.asset(AppIcons.backIcon),
           ),
+        ),
+      ),
       title: Text(
-        local?.workouts ?? 'Workouts',
+        local.workouts,
         style: balooThambi2BoldExtraLarge.copyWith(fontSize: 24),
       ),
       bottom: TabBar(
@@ -131,7 +132,9 @@ class WorkoutsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(WorkoutsState state) {
+  Widget _buildBody(BuildContext context, WorkoutsState state) {
+    final local = AppLocalizations.of(context)!;
+
     return Stack(
       children: [
         Container(
@@ -144,36 +147,40 @@ class WorkoutsScreen extends StatelessWidget {
         ),
         TabBarView(
           physics: const NeverScrollableScrollPhysics(),
-          children:
-              state.muscleGroups.map((_) {
-                if (state.muscleDetailsStatus == DataStatus.loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(color: AppColors.orange),
-                  );
-                } else if (state.muscleDetailsStatus == DataStatus.error) {
-                  return Center(
-                    child: Text('Error: ${state.muscleDetailsError}'),
-                  );
-                } else if (state.muscleDetailsStatus == DataStatus.success) {
-                  return _buildWorkoutGrid(state.muscles);
-                } else {
-                  return const SizedBox.shrink();
-                }
-              }).toList(),
+          children: state.muscleGroups.map((_) {
+            if (state.muscleDetailsStatus == DataStatus.loading) {
+              return const Center(
+                child: CircularProgressIndicator(color: AppColors.orange),
+              );
+            } else if (state.muscleDetailsStatus == DataStatus.error) {
+              return Center(
+                child: Text(
+                  local.errorWithMessage(state.muscleDetailsError ?? ''),
+                ),
+              );
+            } else if (state.muscleDetailsStatus == DataStatus.success) {
+              return _buildWorkoutGrid(context, state.muscles);
+            } else {
+              return const SizedBox.shrink();
+            }
+          }).toList(),
         ),
       ],
     );
   }
 
-  Widget _buildWorkoutGrid(List<Muscle> workouts) {
+  Widget _buildWorkoutGrid(BuildContext context, List<Muscle> workouts) {
+    final local = AppLocalizations.of(context)!;
+
     if (workouts.isEmpty) {
       return Center(
         child: Text(
-          'No workouts available for this category.',
+          local.noWorkoutsAvailable,
           style: balooThambi2MediumLarge,
         ),
       );
     }
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: GridView.builder(
@@ -188,8 +195,15 @@ class WorkoutsScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final workout = workouts[index];
           return GestureDetector(
-            onTap: (){
-              Navigator.pushNamed(context, AppRoutes.exercisesScreen,arguments: ExerciseData(id: workout.id!, name: workout.name!));
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.exercisesScreen,
+                arguments: ExerciseData(
+                  id: workout.id!,
+                  name: workout.name!,
+                ),
+              );
             },
             child: Stack(
               children: [
@@ -215,15 +229,14 @@ class WorkoutsScreen extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(12.0),
-                    decoration: BoxDecoration(
-                      // color: Colors.black.withValues(alpha: 0.5),
-                      borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(30.0),
                         bottomRight: Radius.circular(30.0),
                       ),
                     ),
                     child: Text(
-                      workout.name ?? 'Unnamed Workout',
+                      workout.name ?? local.unnamedWorkout,
                       textAlign: TextAlign.center,
                       style: balooThambi2BoldExtraLarge,
                     ),

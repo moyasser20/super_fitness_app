@@ -12,6 +12,7 @@ import '../../../features/auth/data/models/forgetpasswordmodels/reset_password_r
 import '../../../features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart';
 import '../../../features/exercise/data/models/difficulty_levels_response.dart';
 import '../../../features/exercise/data/models/get_exercise_by_muscle_and_difficulty.dart';
+import '../../../features/food/data/models/meals_by_category_model.dart';
 import '../../../features/home/data/models/meal_categories_response_model.dart';
 import '../../../features/home/data/models/muscle_group_by_id_response_model.dart';
 import '../../../features/home/data/models/muscles_response_model.dart';
@@ -79,4 +80,7 @@ abstract class ApiClient {
       @Query('primeMoverMuscleId') String primeMoverMuscleId,
       @Query('difficultyLevelId') String difficultyLevelId,
       );
+
+  @GET(ApiEndPoints.foodByCategory)
+  Future<MealsByCategoryModel> getMealsByCategory(@Query("c") String category);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:super_fitness_app/features/exercise/presentation/view/widgets/youtube_web_view_screen.dart';
+import '../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/styles.dart';
 
@@ -19,6 +20,7 @@ class ExerciseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       decoration: BoxDecoration(color: Color(0xff242424)),
@@ -44,7 +46,7 @@ class ExerciseCard extends StatelessWidget {
           children: [
             SizedBox(height: 8),
             Text(
-              "3 Groups * 15 Times",
+              local.exercise_reps_info,
               style: balooThambi2BoldLarge.copyWith(
                 color: Colors.white70,
                 fontSize: 16,
@@ -69,7 +71,7 @@ class ExerciseCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => YouTubeWebViewScreen(videoUrl: videoUrl),
+                builder: (_) => YouTubeWebViewScreen(videoUrl: videoUrl,isFood: false,),
               ),
             );
           },

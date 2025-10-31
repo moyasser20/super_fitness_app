@@ -9,7 +9,7 @@ class MealsModel {
   @JsonKey(name: "strMeal")
   final String? strMeal;
   @JsonKey(name: "strMealAlternate")
-  final dynamic? strMealAlternate;
+  final dynamic strMealAlternate;
   @JsonKey(name: "strCategory")
   final String? strCategory;
   @JsonKey(name: "strArea")
@@ -105,11 +105,11 @@ class MealsModel {
   @JsonKey(name: "strSource")
   final String? strSource;
   @JsonKey(name: "strImageSource")
-  final dynamic? strImageSource;
+  final dynamic strImageSource;
   @JsonKey(name: "strCreativeCommonsConfirmed")
-  final dynamic? strCreativeCommonsConfirmed;
+  final dynamic strCreativeCommonsConfirmed;
   @JsonKey(name: "dateModified")
-  final dynamic? dateModified;
+  final dynamic dateModified;
 
   MealsModel ({
     this.idMeal,
