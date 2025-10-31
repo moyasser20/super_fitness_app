@@ -85,3 +85,10 @@ class ExerciseViewModel extends Cubit<ExerciseState> {
     return "https://img.youtube.com/vi/$videoId/hqdefault.jpg";
   }
 }
+
+class ExerciseData{
+  final String id;
+  final String name;
+
+  ExerciseData({required this.id, required this.name});
+}

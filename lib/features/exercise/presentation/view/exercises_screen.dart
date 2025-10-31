@@ -11,8 +11,9 @@ import '../viewmodel/exercise_viewmodel.dart';
 
 class ExerciseScreen extends StatefulWidget {
   final String primeMoverMuscleId;
+  final String primeMoverMuscleName;
 
-  const ExerciseScreen({super.key, required this.primeMoverMuscleId});
+  const ExerciseScreen({super.key, required this.primeMoverMuscleId, required this.primeMoverMuscleName});
 
   @override
   State<ExerciseScreen> createState() => _ExerciseScreenState();
@@ -98,13 +99,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       backgroundThumbnail!,
                       fit: BoxFit.cover,
                       width: double.infinity,
-                      height: 250,
+                      height: 260,
                     ),
                   ),
 
                   Container(
                     width: double.infinity,
-                    height: 250,
+                    height: 270,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -149,10 +150,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 children: [
                   SizedBox(height: 20),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
-                        "Chest Exercise",
+                        "${widget.primeMoverMuscleName} Exercise",
                         style: balooThambi2BoldLarge.copyWith(
                           color: AppColors.white,
                           fontSize: 26,
@@ -160,8 +161,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       ),
                     ),
                   ),
+                  Center(
+                    child: Text(
+                      "Explore exercises tailored to your difficulty level.",
+                      style: balooThambi2BoldLarge.copyWith(
+                        color: AppColors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400
+                      ),
+                    ),
+                  ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

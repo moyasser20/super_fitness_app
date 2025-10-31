@@ -66,7 +66,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get done => 'Done';
 
   @override
-  String get passwordInvalidError => 'Password must contain at least 8 characters, including letters, numbers, and a special symbol';
+  String get passwordInvalidError =>
+      'Password must contain at least 8 characters, including letters, numbers, and a special symbol';
 
   @override
   String get passwordMismatchError => 'Passwords do not match';
@@ -114,13 +115,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get step_subtitle_age => 'This Helps Us Create Your Personalized Plan';
 
   @override
-  String get step_subtitle_weight => 'This Helps Us Create Your Personalized Plan';
+  String get step_subtitle_weight =>
+      'This Helps Us Create Your Personalized Plan';
 
   @override
   String get step_subtitle_height => 'Select your height in cm';
 
   @override
-  String get step_subtitle_goal => 'This Helps Us Create Your Personalized Workout Plan';
+  String get step_subtitle_goal =>
+      'This Helps Us Create Your Personalized Workout Plan';
 
   @override
   String get goal_gain_weight => 'Gain Weight';
@@ -225,7 +228,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_password_short => 'Password must be at least 6 characters';
 
   @override
-  String get error_password_invalid => 'Password must contain at least one uppercase letter and one special character';
+  String get error_password_invalid =>
+      'Password must contain at least one uppercase letter and one special character';
 
   @override
   String get hint_confirm_password => 'Confirm Password';
@@ -270,7 +274,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordRequiredErrorMsg => 'Password is required';
 
   @override
-  String get passwordValidationErrorMsg => 'Password must be at least 6 characters and include M#12m';
+  String get passwordValidationErrorMsg =>
+      'Password must be at least 6 characters and include M#12m';
 
   @override
   String get rememberMe => 'Remember me';
@@ -294,7 +299,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordRequired => 'Password is required';
 
   @override
-  String get passwordInvalid => 'Password must be at least 8 characters, include letters, numbers, and special characters.';
+  String get passwordInvalid =>
+      'Password must be at least 8 characters, include letters, numbers, and special characters.';
 
   @override
   String get confirmPasswordRequired => 'Confirmation is required';

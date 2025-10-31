@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/l10n/translation/app_localizations.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
-import 'dart:convert';
+import 'package:super_fitness_app/features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
 import '../../../../core/common/widgets/custom_card_shimmer_widget.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
@@ -84,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'Recommendation for you',
                                 style: balooThambi2BoldExtraLarge,
                               ),
-                              const SizedBox(width: 110,),
+                              const SizedBox(width: 110),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
@@ -102,7 +101,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
-
                             ],
                           ),
                           SizedBox(height: Dimensions.paddingSmall),
@@ -331,10 +329,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width * 0.24,
                   margin: EdgeInsets.only(right: 16),
                   child: GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, AppRoutes.exercisesScreen);
-                      },
-                      child: WorkoutCardWidget(details.muscles[index])),
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.exercisesScreen,
+                        arguments: ExerciseData(
+                          id: details.muscles[index].id,
+                          name: details.muscles[index].name,
+                        ),
+                      );
+                    },
+                    child: WorkoutCardWidget(details.muscles[index]),
+                  ),
                 ),
           ),
         ),

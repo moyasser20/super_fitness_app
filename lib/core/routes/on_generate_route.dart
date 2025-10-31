@@ -84,12 +84,14 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const FoodScreen());
 
       case AppRoutes.exercisesScreen:
+        final args = settings.arguments as ExerciseData;
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
                 create: (context) => getIt<ExerciseViewModel>(),
                 child: ExerciseScreen(
-                  primeMoverMuscleId: "67c8499726895f87ce0aa9bc",
+                  primeMoverMuscleId: args.id,
+                  primeMoverMuscleName: args.name,
                 ),
               ),
         );
