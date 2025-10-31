@@ -13,6 +13,7 @@ abstract class ApiEndPoints {
   static const String recommendationMuscles = 'muscles/random';
   static const String muscleGroups = 'muscles';
   static const String muscleGroupsById = 'musclesGroup/{groupId}';
-  static const String mealCategoriesUri =
-      'https://www.themealdb.com/api/json/v1/1/categories.php';
+  static const String getAllDifficultyLevels = 'levels/difficulty-levels/by-prime-mover';
+  static const String getExerciseByMuscleAndDifficulty = 'exercises/by-muscle-difficulty';
+  static const String mealCategoriesUri = 'https://www.themealdb.com/api/json/v1/1/categories.php';
 }
