@@ -343,4 +343,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noMuscleCategoriesAvailable => 'No muscle categories available';
+
+  @override
+  String get ingredients => 'Ingredients';
+
+  @override
+  String get recommendation => 'Recommendation';
+
+  @override
+  String get video_opened_successfully => 'Video opened successfully';
+
+  @override
+  String get could_not_open_video_link => 'Could not open the video link';
+
+  @override
+  String get video_link_not_available => 'Video link not available';
 }

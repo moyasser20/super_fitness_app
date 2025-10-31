@@ -9,6 +9,7 @@ import '../../features/food-details/presentation/viewmodel/meals_details_cubit.d
 import '../../features/exercise/presentation/view/exercises_screen.dart';
 import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
 import '../../features/food/presentation/view/screens/food_screen.dart';
+import '../../features/food/presentation/viewmodel/food_viewmodel.dart';
 import '../../features/home/presentation/views/home_screen.dart';
 import '../../features/workouts/presentation/view/workouts_screen.dart';
 import '../routes/route_names.dart';
@@ -71,30 +72,39 @@ class Routes {
               (_) => BlocProvider<ResetPasswordCubit>(
                 create: (context) => getIt<ResetPasswordCubit>(),
                 child: ResetPasswordScreen(email: email),
-              ),        );
+              ),
+        );
 
       case AppRoutes.foodDetailsScreen:
+        final args = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) {
-              final cubit = getIt<MealDetailsCubit>();
-              cubit.getMealById("52959");
-              return cubit;
-            },
-            child: const FoodDetailsScreen(mealId: '52959',),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create: (context) {
+                  final cubit = getIt<MealDetailsCubit>();
+                  cubit.getMealById(args);
+                  return cubit;
+                },
+                child: FoodDetailsScreen(mealId: args),
+              ),
         );
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 
-        case AppRoutes.workoutsScreen:
+      case AppRoutes.workoutsScreen:
         final bool isFromHome = settings.arguments as bool? ?? false;
         return MaterialPageRoute(
           builder: (_) => WorkoutsScreen(isFromHome: isFromHome),
         );
 
-        case AppRoutes.foodScreen:
-        return MaterialPageRoute(builder: (_) => const FoodScreen());
+      case AppRoutes.foodScreen:
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<MealsCubit>(),
+                child: const FoodScreen(),
+              ),
+        );
 
       case AppRoutes.exercisesScreen:
         final args = settings.arguments as ExerciseData;

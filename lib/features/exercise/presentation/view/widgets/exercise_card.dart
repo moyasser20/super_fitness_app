@@ -69,7 +69,7 @@ class ExerciseCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => YouTubeWebViewScreen(videoUrl: videoUrl),
+                builder: (_) => YouTubeWebViewScreen(videoUrl: videoUrl,isFood: false,),
               ),
             );
           },

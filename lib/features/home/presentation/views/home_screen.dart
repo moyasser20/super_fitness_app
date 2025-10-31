@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'Recommendation for you',
                                 style: balooThambi2BoldExtraLarge,
                               ),
-                              const SizedBox(width: 110),
+                              Spacer(),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(

@@ -344,4 +344,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noMuscleCategoriesAvailable => 'لا توجد فئات متاحة';
+
+  @override
+  String get ingredients => 'المكونات';
+
+  @override
+  String get recommendation => 'اقتراحات';
+
+  @override
+  String get video_opened_successfully => 'تم فتح الفيديو بنجاح';
+
+  @override
+  String get could_not_open_video_link => 'تعذر فتح رابط الفيديو';
+
+  @override
+  String get video_link_not_available => 'رابط الفيديو غير متاح';
 }

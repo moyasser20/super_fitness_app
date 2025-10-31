@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/features/food-details/presentation/view/widgets/ingredients_custom_container.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../core/common/widgets/custome_loading_indicator.dart';
 import '../../../../../core/config/di.dart';
+import '../../../../../core/contants/app_icons.dart';
 import '../../../../../core/l10n/translation/app_localizations.dart';
+import '../../../../exercise/presentation/view/widgets/youtube_web_view_screen.dart';
 import '../../viewmodel/meals_details_cubit.dart';
 import '../../viewmodel/meals_details_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -110,11 +112,16 @@ class FoodDetailsScreen extends StatelessWidget {
                         top: 50,
                         left: 20,
                         child: GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Image.asset(
-                            "assets/icons/back_fitness_icon.png",
-                            height: 40,
-                            width: 40,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: AppColors.main,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: SvgPicture.asset(AppIcons.backIcon),
                           ),
                         ),
                       ),
@@ -127,24 +134,12 @@ class FoodDetailsScreen extends StatelessWidget {
                             final url = meal.strYoutube;
 
                             if (url != null && url.isNotEmpty) {
-                              final uri = Uri.parse(url);
-                              if (await canLaunchUrl(uri)) {
-                                await launchUrl(
-                                  uri,
-                                  mode: LaunchMode.externalApplication,
-                                );
-                                await showCustomSnackBar(
+                                Navigator.push(
                                   context,
-                                  local.video_opened_successfully,
-                                  isError: false,
+                                  MaterialPageRoute(
+                                    builder: (_) => YouTubeWebViewScreen(videoUrl: url, isFood: true,),
+                                  ),
                                 );
-                              } else {
-                                await showCustomSnackBar(
-                                  context,
-                                  local.could_not_open_video_link,
-                                  isError: true,
-                                );
-                              }
                             } else {
                               await showCustomSnackBar(
                                 context,
