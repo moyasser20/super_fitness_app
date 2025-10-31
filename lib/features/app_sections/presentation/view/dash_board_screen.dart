@@ -93,18 +93,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  Center(
-                    child: CustomElevatedButton(
-                      text: "Food Details",
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.foodDetailsScreen,
-                        );
-                      },
-                    ),
-                  ),
                 ],
               ),
             ],

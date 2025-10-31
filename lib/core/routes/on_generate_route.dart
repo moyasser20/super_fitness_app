@@ -98,11 +98,12 @@ class Routes {
         );
 
       case AppRoutes.foodScreen:
+        final arg = settings.arguments;
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
                 create: (context) => getIt<MealsCubit>(),
-                child: const FoodScreen(),
+                child: FoodScreen(initialCategory: arg is String ? arg : null),
               ),
         );
 

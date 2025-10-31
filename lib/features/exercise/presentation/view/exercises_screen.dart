@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:super_fitness_app/features/exercise/presentation/view/widgets/exercise_card.dart';
+import '../../../../core/common/widgets/custome_loading_indicator.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
+import '../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/styles.dart';
 import '../viewmodel/exercise_states.dart';
@@ -13,7 +15,11 @@ class ExerciseScreen extends StatefulWidget {
   final String primeMoverMuscleId;
   final String primeMoverMuscleName;
 
-  const ExerciseScreen({super.key, required this.primeMoverMuscleId, required this.primeMoverMuscleName});
+  const ExerciseScreen({
+    super.key,
+    required this.primeMoverMuscleId,
+    required this.primeMoverMuscleName,
+  });
 
   @override
   State<ExerciseScreen> createState() => _ExerciseScreenState();
@@ -44,34 +50,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
+
     return BlocConsumer<ExerciseViewModel, ExerciseState>(
       listener: (context, state) {
-        if (state is ExerciseDataLoaded &&
-            state.exercises.exercises.isNotEmpty) {
-          if (state.exercises.exercises.first.shortYoutubeDemonstrationLink !=
-              null) {
-            final firstVideoUrl =
-                state.exercises.exercises.first.shortYoutubeDemonstrationLink;
-            backgroundThumbnail = context
-                .read<ExerciseViewModel>()
-                .getYouTubeThumbnail(firstVideoUrl);
-          } else if (state
-                  .exercises
-                  .exercises
-                  .first
-                  .inDepthYoutubeExplanationLink !=
-              null) {
-            final firstVideoUrl =
-                state.exercises.exercises.first.inDepthYoutubeExplanationLink;
-            backgroundThumbnail = context
-                .read<ExerciseViewModel>()
-                .getYouTubeThumbnail(firstVideoUrl);
-          } else {
-            final firstVideoUrl = "https://youtu.be/2zVNyi5Uk44";
-            backgroundThumbnail = context
-                .read<ExerciseViewModel>()
-                .getYouTubeThumbnail(firstVideoUrl);
-          }
+        if (state is ExerciseDataLoaded && state.exercises.exercises.isNotEmpty) {
+          final exercises = state.exercises.exercises;
+          final firstVideoUrl = exercises.first.shortYoutubeDemonstrationLink ??
+              exercises.first.inDepthYoutubeExplanationLink ??
+              "https://youtu.be/2zVNyi5Uk44";
+
+          backgroundThumbnail =
+              context.read<ExerciseViewModel>().getYouTubeThumbnail(firstVideoUrl);
         }
       },
       builder: (context, state) {
@@ -102,7 +92,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       height: 260,
                     ),
                   ),
-
                   Container(
                     width: double.infinity,
                     height: 270,
@@ -128,11 +117,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 leading: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
+                    onTap: () => Navigator.pop(context),
                     child: Container(
                       padding: const EdgeInsets.all(12.0),
                       decoration: BoxDecoration(
@@ -148,12 +135,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
-                        "${widget.primeMoverMuscleName} Exercise",
+                        "${widget.primeMoverMuscleName}  ${local.exercise_title}",
                         style: balooThambi2BoldLarge.copyWith(
                           color: AppColors.white,
                           fontSize: 26,
@@ -163,24 +150,21 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ),
                   Center(
                     child: Text(
-                      "Explore exercises tailored to your difficulty level.",
+                      local.exercise_subtitle,
                       style: balooThambi2BoldLarge.copyWith(
                         color: AppColors.white,
                         fontSize: 16,
-                        fontWeight: FontWeight.w400
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 6,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(30),
@@ -190,19 +174,15 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             ),
                           ),
                           child: Text(
-                            "30 MIN",
+                            local.exercise_duration,
                             style: balooThambi2BoldLarge.copyWith(
                               color: AppColors.white,
                               fontSize: 16,
                             ),
                           ),
                         ),
-
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 10,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(30),
@@ -212,7 +192,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             ),
                           ),
                           child: Text(
-                            "130 Cal",
+                            local.exercise_calories,
                             style: balooThambi2BoldLarge.copyWith(
                               color: AppColors.orange,
                               fontSize: 16,
@@ -222,101 +202,76 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
                   if (levels.isNotEmpty)
-                    Stack(
-                      children: [
-                        Container(
-                          height: 70,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Color(0xff242424),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 14.0),
-                            child: SizedBox(
-                              height: 45,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                itemCount: levels.length,
-                                itemBuilder: (context, index) {
-                                  final level = levels[index];
-                                  final isSelected = selectedId == level.id;
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: GestureDetector(
-                                      onTap:
-                                          () => cubit
-                                              .getExerciseByMuscleAndDifficulty(
-                                                widget.primeMoverMuscleId,
-                                                level.id ?? '',
-                                                difficultyLevels: levels,
-                                              ),
-                                      child: AnimatedContainer(
-                                        duration: const Duration(
-                                          milliseconds: 250,
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 20,
-                                          vertical: 10,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              isSelected
-                                                  ? AppColors.orange
-                                                  : Colors.transparent,
-                                          borderRadius: BorderRadius.circular(
-                                            30,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          level.name ?? '',
-                                          style: balooThambi2BoldLarge.copyWith(
-                                            color:
-                                                isSelected
-                                                    ? Colors.white
-                                                    : Colors.white.withOpacity(
-                                                      0.8,
-                                                    ),
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
+                    Container(
+                      height: 70,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff242424),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 14.0),
+                        child: SizedBox(
+                          height: 45,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            itemCount: levels.length,
+                            itemBuilder: (context, index) {
+                              final level = levels[index];
+                              final isSelected = selectedId == level.id;
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: GestureDetector(
+                                  onTap: () => cubit.getExerciseByMuscleAndDifficulty(
+                                    widget.primeMoverMuscleId,
+                                    level.id ?? '',
+                                    difficultyLevels: levels,
+                                  ),
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 250),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: isSelected
+                                          ? AppColors.orange
+                                          : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(30),
                                     ),
-                                  );
-                                },
-                              ),
-                            ),
+                                    child: Text(
+                                      level.name ?? '',
+                                      style: balooThambi2BoldLarge.copyWith(
+                                        color: isSelected
+                                            ? Colors.white
+                                            : Colors.white.withOpacity(0.8),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
-                      ],
+                      ),
                     ),
-
                   const SizedBox(height: 10),
-
                   Expanded(
                     child: Builder(
                       builder: (_) {
-                        if (state is GetLevelsLoading ||
-                            state is ExerciseLoading) {
+                        if (state is GetLevelsLoading || state is ExerciseLoading) {
                           return const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.orange,
-                            ),
+                            child: AppLoadingIndicator(),
                           );
                         } else if (state is ExerciseDataLoaded) {
                           final exercises = state.exercises.exercises ?? [];
                           if (exercises.isEmpty) {
-                            return const Center(
+                            return Center(
                               child: Text(
-                                "No exercises found",
-                                style: TextStyle(color: Colors.white70),
+                                local.no_exercises_found,
+                                style: const TextStyle(color: Colors.white70),
                               ),
                             );
                           }
@@ -329,29 +284,22 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: ListView.builder(
-                                shrinkWrap:
-                                    true, // if inside a scrollable parent
                                 itemCount: exercises.length,
                                 itemBuilder: (context, index) {
                                   final ex = exercises[index];
-                                  if (ex.shortYoutubeDemonstrationLink ==
-                                          null ||
-                                      ex
-                                          .shortYoutubeDemonstrationLink!
-                                          .isEmpty) {
+                                  if (ex.shortYoutubeDemonstrationLink == null ||
+                                      ex.shortYoutubeDemonstrationLink!.isEmpty) {
                                     return const SizedBox.shrink();
                                   }
-
                                   final thumb = cubit.getYouTubeThumbnail(
                                     ex.shortYoutubeDemonstrationLink ??
                                         ex.inDepthYoutubeExplanationLink ??
                                         "",
                                   );
-
                                   return ExerciseCard(
                                     title: ex.exercise,
-                                    description:
-                                        ex.primaryEquipment ?? 'No description',
+                                    description: ex.primaryEquipment ??
+                                        local.no_description,
                                     thumbnailUrl: thumb,
                                     videoUrl: ex.shortYoutubeDemonstrationLink!,
                                   );
@@ -359,12 +307,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               ),
                             ),
                           );
-                        } else if (state is ExerciseError ||
-                            state is GetLevelsError) {
-                          final msg =
-                              (state is ExerciseError)
-                                  ? state.message
-                                  : (state as GetLevelsError).message;
+                        } else if (state is ExerciseError || state is GetLevelsError) {
+                          final msg = (state is ExerciseError)
+                              ? state.message
+                              : (state as GetLevelsError).message;
                           return Center(
                             child: Text(
                               msg,

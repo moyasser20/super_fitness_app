@@ -63,6 +63,16 @@ import '../../features/food-details/domain/use_cases/meals_details_usecase.dart'
     as _i51;
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart'
     as _i557;
+import '../../features/food/api/datasource_impl/food_remote_datasource_impl.dart'
+    as _i637;
+import '../../features/food/data/datasource/food_remote_datasource.dart'
+    as _i674;
+import '../../features/food/data/repo_impl/food_repo_impl.dart' as _i55;
+import '../../features/food/domain/repo/food_repo.dart' as _i164;
+import '../../features/food/domain/usecases/get_food_by_category_usecase.dart'
+    as _i565;
+import '../../features/food/presentation/viewmodel/food_viewmodel.dart'
+    as _i322;
 import '../../features/home/api/data_source_impl/muscles_remote_data_source_impl.dart'
     as _i476;
 import '../../features/home/data/data_source/muscles_remote_data_source.dart'
@@ -132,6 +142,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i940.WorkoutRepoImpl(gh<_i194.WorkoutsRemoteDataSource>()));
     gh.factory<_i697.ResetPasswordCubit>(
         () => _i697.ResetPasswordCubit(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i674.FoodRemoteDatasource>(
+        () => _i637.FoodRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i153.ExerciseRemoteDatasource>(
         () => _i1030.ExerciseRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i24.AuthRemoteDatasource>(
@@ -148,22 +160,26 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i442.LoginUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i957.ForgetPasswordUseCase>(
         () => _i957.ForgetPasswordUseCase(gh<_i170.AuthRepo>()));
-    gh.factory<_i188.VerifyCodeUseCase>(
-        () => _i188.VerifyCodeUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i135.ResetPasswordUseCase>(
         () => _i135.ResetPasswordUseCase(gh<_i170.AuthRepo>()));
+    gh.factory<_i188.VerifyCodeUseCase>(
+        () => _i188.VerifyCodeUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i416.RegisterCubit>(
         () => _i416.RegisterCubit(gh<_i170.AuthRepo>()));
-    gh.factory<_i890.GetMuscleGroupsUseCase>(
-        () => _i890.GetMuscleGroupsUseCase(gh<_i732.MusclesRepo>()));
-    gh.factory<_i365.GetRandomMusclesUseCase>(
-        () => _i365.GetRandomMusclesUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i91.GetMealCategoriesUseCase>(
         () => _i91.GetMealCategoriesUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i890.GetMuscleGroupsUseCase>(
+        () => _i890.GetMuscleGroupsUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i585.GetMuscleGroupByIdUseCase>(
         () => _i585.GetMuscleGroupByIdUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i365.GetRandomMusclesUseCase>(
+        () => _i365.GetRandomMusclesUseCase(gh<_i732.MusclesRepo>()));
+    gh.lazySingleton<_i164.FoodRepository>(
+        () => _i55.FoodRepositoryImpl(gh<_i674.FoodRemoteDatasource>()));
     gh.factory<_i204.ExerciseRepo>(
         () => _i917.ExerciseRepoImpl(gh<_i153.ExerciseRemoteDatasource>()));
+    gh.lazySingleton<_i565.GetFoodByCategoryUseCase>(
+        () => _i565.GetFoodByCategoryUseCase(gh<_i164.FoodRepository>()));
     gh.factory<_i462.LoginViewModel>(
         () => _i462.LoginViewModel(gh<_i442.LoginUseCase>()));
     gh.factory<_i925.HomeCubit>(() => _i925.HomeCubit(
@@ -180,16 +196,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i433.WorkoutsViewModel(gh<_i532.WorkoutsUseCase>()));
     gh.factory<_i556.ForgetPasswordCubit>(
         () => _i556.ForgetPasswordCubit(gh<_i957.ForgetPasswordUseCase>()));
+    gh.lazySingleton<_i196.GetAllDifficultyLevelsUseCase>(
+        () => _i196.GetAllDifficultyLevelsUseCase(gh<_i204.ExerciseRepo>()));
     gh.lazySingleton<_i486.GetExerciseByMuscleAndDifficultyUseCase>(() =>
         _i486.GetExerciseByMuscleAndDifficultyUseCase(
             gh<_i204.ExerciseRepo>()));
-    gh.lazySingleton<_i196.GetAllDifficultyLevelsUseCase>(
-        () => _i196.GetAllDifficultyLevelsUseCase(gh<_i204.ExerciseRepo>()));
     gh.factory<_i1042.ExerciseViewModel>(() => _i1042.ExerciseViewModel(
           getAllDifficultyLevelsUseCase:
               gh<_i196.GetAllDifficultyLevelsUseCase>(),
           getExerciseByMuscleAndDifficultyUseCase:
               gh<_i486.GetExerciseByMuscleAndDifficultyUseCase>(),
+        ));
+    gh.factory<_i322.MealsCubit>(() => _i322.MealsCubit(
+          gh<_i565.GetFoodByCategoryUseCase>(),
+          gh<_i91.GetMealCategoriesUseCase>(),
         ));
     return this;
   }

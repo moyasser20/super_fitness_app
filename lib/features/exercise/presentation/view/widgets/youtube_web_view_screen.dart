@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../../core/contants/app_icons.dart';
+import '../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/utils/styles.dart';
 
@@ -36,12 +37,13 @@ class _YouTubeWebViewScreenState extends State<YouTubeWebViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: AppColors.black,
         title: Text(
-          widget.isFood ? 'Recipe Video' : "Exercise Video",
+          widget.isFood ? local.recipe_video : local.exercise_video,
           style: balooThambi2BoldLarge.copyWith(
             color: AppColors.white,
             fontSize: 22,
