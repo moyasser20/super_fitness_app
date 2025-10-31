@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import '../../../../core/api/client/api_client.dart';
 import '../../data/data_source/muscles_remote_data_source.dart';
+import '../../data/models/meal_categories_response_model.dart';
 import '../../data/models/muscle_group_by_id_response_model.dart';
 import '../../data/models/muscle_groups_response_model.dart';
 import '../../data/models/muscles_response_model.dart';
@@ -35,6 +36,14 @@ class MusclesRemoteDatasourceImpl implements MusclesRemoteDatasource {
       return await _apiClient.getMuscleGroupById(groupId);
     } catch (e) {
       throw Exception('Failed to load muscle group by id: $e');
+    }
+  }
+  @override
+  Future<MealCategoriesResponse> getMealCategories() async {
+    try {
+      return await _apiClient.getMealCategories();
+    } catch (e) {
+      throw Exception('Failed to load meal categories: $e');
     }
   }
 }
