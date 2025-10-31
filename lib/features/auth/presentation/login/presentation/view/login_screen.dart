@@ -79,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (BuildContext context, LoginStates state) {
           final viewModel = context.read<LoginViewModel>();
 
-          // Show loading while credentials are being loaded
           if (_isLoadingCredentials) {
             return Scaffold(
               backgroundColor: AppColors.black,
