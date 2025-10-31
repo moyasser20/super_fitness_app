@@ -99,6 +99,11 @@
   "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
   "emailRequired": "البريد الإلكتروني مطلوب",
   "emailInvalid": "يرجى إدخال بريد إلكتروني صالح",
+  "ingredients": "المكونات",
+  "recommendation": "اقتراحات",
+  "video_opened_successfully": "تم فتح الفيديو بنجاح",
+  "could_not_open_video_link": "تعذر فتح رابط الفيديو",
+  "video_link_not_available": "رابط الفيديو غير متاح",
   "category": "الفئات",
   "upcomingWorkouts": "التدريبات القادمة",
   "seeAll": "عرض الكل",
@@ -109,5 +114,4 @@
   "letUsStartYourDay": "لنبدأ يومك",
   "workouts": "التدريبات",
   "noMuscleCategoriesAvailable": "لا توجد فئات متاحة"
-
 }

@@ -4,6 +4,8 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/comp
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
+import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
+import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
 import '../../features/exercise/presentation/view/exercises_screen.dart';
 import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
 import '../../features/food/presentation/view/screens/food_screen.dart';
@@ -69,7 +71,18 @@ class Routes {
               (_) => BlocProvider<ResetPasswordCubit>(
                 create: (context) => getIt<ResetPasswordCubit>(),
                 child: ResetPasswordScreen(email: email),
-              ),
+              ),        );
+
+      case AppRoutes.foodDetailsScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) {
+              final cubit = getIt<MealDetailsCubit>();
+              cubit.getMealById("52959");
+              return cubit;
+            },
+            child: const FoodDetailsScreen(mealId: '52959',),
+          ),
         );
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());

@@ -108,5 +108,10 @@
   "hiOmar": "Hi Omar",
   "letUsStartYourDay": "Let\\'s start your day",
   "workouts": "Workouts",
-  "noMuscleCategoriesAvailable": "No muscle categories available"
+  "noMuscleCategoriesAvailable": "No muscle categories available",
+  "ingredients": "Ingredients",
+  "recommendation": "Recommendation",
+  "video_opened_successfully": "Video opened successfully",
+  "could_not_open_video_link": "Could not open the video link",
+  "video_link_not_available": "Video link not available"
 }
