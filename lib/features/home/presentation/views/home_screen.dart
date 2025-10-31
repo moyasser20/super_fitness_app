@@ -78,12 +78,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           _buildUpcomingWorkoutsSection(state),
                           SizedBox(height: Dimensions.paddingDefault),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Recommendation for you',
                                 style: balooThambi2BoldExtraLarge,
                               ),
-                              const SizedBox(width: 110),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
@@ -105,6 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(height: Dimensions.paddingSmall),
                           _buildRecommendationForYouSection(state),
+                          SizedBox(height: Dimensions.paddingSmall),
+                          _buildPopularTrainingSection(),
                         ],
                       ),
                     ),
@@ -395,52 +397,89 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  //   Widget _buildMuscleGroupsList(HomeState state) {
-  //     if (state is HomeError) {
-  //       return SizedBox(
-  //         height: 40,
-  //         child: Center(child: Text('Failed to load workouts')),
-  //       );
-  //     }
-  //
-  //     if (state is HomeLoaded) {
-  //       final muscleGroups = state.muscleGroups;
-  //
-  //       return Column(
-  //         children: [
-  //           SizedBox(
-  //             height: 40,
-  //             child: ListView.builder(
-  //               scrollDirection: Axis.horizontal,
-  //               itemCount: muscleGroups.length,
-  //               itemBuilder: (context, index) {
-  //                 final group = muscleGroups[index];
-  //                 final isSelected = state.selectedMuscleIds.contains(group.id);
-  //                 final isDetailsShowing =
-  //                     state.selectedMuscleGroupDetails?.muscleGroup.id ==
-  //                         group.id;
-  //                 /*final isLoadingThisGroup =
-  //                     state.isLoadingMuscleGroupDetails && isDetailsShowing;
-  // */
-  //                 return GestureDetector(
-  //                   onTap: () {
-  //                     context.read<HomeCubit>().loadMuscleGroupDetails(group.id);
-  //                   },
-  //                   child: MuscleGroupItemWidget(
-  //                     title: group.name,
-  //                     isSelected: isSelected || isDetailsShowing,
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //           ),
-  //         ],
-  //       );
-  //     }
-  //
-  //     return SizedBox(
-  //       height: 40,
-  //       child: Center(child: CircularProgressIndicator(color: AppColors.orange)),
-  //     );
-  //   }
+  Widget _buildPopularTrainingSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Popular Training', style: balooThambi2BoldExtraLarge),
+        SizedBox(height: Dimensions.paddingSmall),
+        SizedBox(
+          height: 220,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            itemBuilder:
+                (context, index) => Container(
+                  width: 250,
+                  margin: EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    image: DecorationImage(
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.4),
+                        BlendMode.colorBurn,
+                      ),
+                      image: AssetImage(AppImages.popularImage),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(30.0),
+                          ),
+                        ),
+                        child: Text(
+                          'Exercises That Strengthen Your Chest',
+                          textAlign: TextAlign.center,
+                          style: balooThambi2BoldExtraLarge,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.122),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Text(
+                                '24 Tasks',
+                                style: balooThambi2MediumLarge,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.122),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Text(
+                                'Beginner',
+                                style: balooThambi2BoldLarge.copyWith(
+                                  color: AppColors.orange,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: Dimensions.paddingSmall - 2),
+                    ],
+                  ),
+                ),
+          ),
+        ),
+      ],
+    );
+  }
 }

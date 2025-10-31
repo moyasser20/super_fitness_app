@@ -120,20 +120,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i442.LoginUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i957.ForgetPasswordUseCase>(
         () => _i957.ForgetPasswordUseCase(gh<_i170.AuthRepo>()));
-    gh.factory<_i135.ResetPasswordUseCase>(
-        () => _i135.ResetPasswordUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i188.VerifyCodeUseCase>(
         () => _i188.VerifyCodeUseCase(gh<_i170.AuthRepo>()));
+    gh.factory<_i135.ResetPasswordUseCase>(
+        () => _i135.ResetPasswordUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i416.RegisterCubit>(
         () => _i416.RegisterCubit(gh<_i170.AuthRepo>()));
-    gh.factory<_i91.GetMealCategoriesUseCase>(
-        () => _i91.GetMealCategoriesUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i890.GetMuscleGroupsUseCase>(
         () => _i890.GetMuscleGroupsUseCase(gh<_i732.MusclesRepo>()));
-    gh.factory<_i585.GetMuscleGroupByIdUseCase>(
-        () => _i585.GetMuscleGroupByIdUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i365.GetRandomMusclesUseCase>(
         () => _i365.GetRandomMusclesUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i91.GetMealCategoriesUseCase>(
+        () => _i91.GetMealCategoriesUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i585.GetMuscleGroupByIdUseCase>(
+        () => _i585.GetMuscleGroupByIdUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i204.ExerciseRepo>(
         () => _i917.ExerciseRepoImpl(gh<_i153.ExerciseRemoteDatasource>()));
     gh.factory<_i462.LoginViewModel>(
@@ -152,11 +152,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i433.WorkoutsViewModel(gh<_i532.WorkoutsUseCase>()));
     gh.factory<_i556.ForgetPasswordCubit>(
         () => _i556.ForgetPasswordCubit(gh<_i957.ForgetPasswordUseCase>()));
-    gh.lazySingleton<_i196.GetAllDifficultyLevelsUseCase>(
-        () => _i196.GetAllDifficultyLevelsUseCase(gh<_i204.ExerciseRepo>()));
     gh.lazySingleton<_i486.GetExerciseByMuscleAndDifficultyUseCase>(() =>
         _i486.GetExerciseByMuscleAndDifficultyUseCase(
             gh<_i204.ExerciseRepo>()));
+    gh.lazySingleton<_i196.GetAllDifficultyLevelsUseCase>(
+        () => _i196.GetAllDifficultyLevelsUseCase(gh<_i204.ExerciseRepo>()));
     gh.factory<_i1042.ExerciseViewModel>(() => _i1042.ExerciseViewModel(
           getAllDifficultyLevelsUseCase:
               gh<_i196.GetAllDifficultyLevelsUseCase>(),

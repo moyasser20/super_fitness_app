@@ -3,4 +3,5 @@ class AppImages {
   static const String fitnessBc = "assets/images/fitness_bc.png";
   static const String homeBc = "assets/images/home_background.png";
   static const String jogging = "assets/images/running_image.jpg";
+  static const String popularImage = "assets/images/popular_image.jpg";
 }
