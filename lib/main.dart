@@ -9,6 +9,7 @@ import 'core/l10n/translation/app_localizations.dart';
 import 'core/routes/on_generate_route.dart';
 import 'core/utils/dimensions.dart';
 import 'features/auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart';
+import 'features/food/presentation/viewmodel/food_viewmodel.dart';
 import 'features/localization/data/localization_preference.dart';
 import 'features/localization/localization_controller/localization_cubit.dart';
 import 'features/localization/localization_controller/localization_state.dart';
@@ -36,6 +37,9 @@ Future<void> main() async {
         ),
         BlocProvider<HomeCubit>(
           create: (BuildContext context) => getIt<HomeCubit>(),
+        ),
+        BlocProvider<MealsCubit>(
+          create: (BuildContext context) => getIt<MealsCubit>(),
         ),
       ],
       child: const MyApp(),

@@ -9,6 +9,7 @@ import '../../../../core/contants/app_images.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../../core/utils/dimensions.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../food/presentation/viewmodel/food_viewmodel.dart';
 import '../viewmodel/home_cubit.dart';
 import '../widgets/category_item_widget.dart';
 import '../widgets/muscle_group_item_widget.dart';
@@ -332,9 +333,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildRecommendationForYouSection(
-    HomeState state,
-    AppLocalizations local,
-  ) {
+      HomeState state,
+      AppLocalizations local,
+      ) {
     if (state is HomeLoaded && state.mealCategories.isEmpty) {
       return SizedBox(
         height: 115,
@@ -360,7 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: GestureDetector(
                 onTap: () {
-                  // 👇 Navigate to FoodScreen with selected category
+                  context.read<MealsCubit>().clearCategories();
                   Navigator.pushNamed(
                     context,
                     AppRoutes.foodScreen,
