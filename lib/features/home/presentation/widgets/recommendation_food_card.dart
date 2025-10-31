@@ -22,7 +22,7 @@ class RecommendationFoodCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         image: DecorationImage(
           image: NetworkImage(imageUrl),
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         ),
       ),
       child: Stack(

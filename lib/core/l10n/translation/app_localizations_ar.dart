@@ -314,4 +314,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get emailInvalid => 'يرجى إدخال بريد إلكتروني صالح';
+
+  @override
+  String get category => 'الفئات';
+
+  @override
+  String get upcomingWorkouts => 'التدريبات القادمة';
+
+  @override
+  String get seeAll => 'عرض الكل';
+
+  @override
+  String get failedToLoadWorkouts => 'فشل تحميل التدريبات\'';
+
+  @override
+  String get noWorkoutsAvailable => 'لا توجد تدريبات متاحة';
+
+  @override
+  String get recommendationForYou => 'مقترحات لك';
+
+  @override
+  String get hiOmar => 'مرحباً بك عمر';
+
+  @override
+  String get letUsStartYourDay => 'لنبدأ يومك';
+
+  @override
+  String get workouts => 'التدريبات';
+
+  @override
+  String get noMuscleCategoriesAvailable => 'لا توجد فئات متاحة';
 }

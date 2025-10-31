@@ -4,15 +4,16 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/comp
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
+import '../../features/exercise/presentation/view/exercises_screen.dart';
+import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
+import '../../features/food/presentation/view/screens/food_screen.dart';
 import '../../features/home/presentation/views/home_screen.dart';
+import '../../features/workouts/presentation/view/workouts_screen.dart';
 import '../routes/route_names.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
 import '../../features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart';
 import '../config/di.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:super_fitness_app/core/routes/route_names.dart';
-
 import '../../features/auth/presentation/forgetpassword/view/screens/email_verification_screen.dart';
 import '../../features/auth/presentation/forgetpassword/view/screens/forget_password_screen.dart';
 import '../../features/auth/presentation/forgetpassword/view/screens/reset_password_screen.dart';
@@ -72,6 +73,28 @@ class Routes {
         );
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+
+        case AppRoutes.workoutsScreen:
+        final bool isFromHome = settings.arguments as bool? ?? false;
+        return MaterialPageRoute(
+          builder: (_) => WorkoutsScreen(isFromHome: isFromHome),
+        );
+
+        case AppRoutes.foodScreen:
+        return MaterialPageRoute(builder: (_) => const FoodScreen());
+
+      case AppRoutes.exercisesScreen:
+        final args = settings.arguments as ExerciseData;
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ExerciseViewModel>(),
+                child: ExerciseScreen(
+                  primeMoverMuscleId: args.id,
+                  primeMoverMuscleName: args.name,
+                ),
+              ),
+        );
 
       default:
         return MaterialPageRoute(

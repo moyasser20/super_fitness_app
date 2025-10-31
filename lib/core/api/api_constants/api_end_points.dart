@@ -8,7 +8,12 @@ abstract class ApiEndPoints {
   static const String profileData = 'auth/profile-data';
   static const String changePassword = 'auth/change-password';
   static const String editProfile = 'auth/editProfile';
+  static const String musclesEndPoint = 'muscles';
+  static const String musclesGroupEndPoint = 'musclesGroup';
   static const String recommendationMuscles = 'muscles/random';
   static const String muscleGroups = 'muscles';
   static const String muscleGroupsById = 'musclesGroup/{groupId}';
+  static const String getAllDifficultyLevels = 'levels/difficulty-levels/by-prime-mover';
+  static const String getExerciseByMuscleAndDifficulty = 'exercises/by-muscle-difficulty';
+  static const String mealCategoriesUri = 'https://www.themealdb.com/api/json/v1/1/categories.php';
 }

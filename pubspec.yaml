@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   dio: ^5.7.0
+  equatable: ^2.0.5
   file_picker: ^8.1.2
   firebase_messaging: ^16.0.2
   flutter:
@@ -44,6 +45,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   step_progress_indicator: ^1.0.2
   url_launcher: ^6.3.2
+  webview_flutter: ^4.2.1
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -71,7 +73,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-    - assets/json_files/recommendation_for_you.json
   fonts:
     - family: Inter
       fonts:

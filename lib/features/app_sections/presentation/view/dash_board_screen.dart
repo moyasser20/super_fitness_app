@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +7,7 @@ import '../../../../core/Widgets/custom_Elevated_Button.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/routes/route_names.dart';
 import '../../../auth/domain/services/auth_services.dart';
+import '../../../workouts/presentation/view/workouts_screen.dart';
 
 class DashboardScreenApp extends StatelessWidget {
   const DashboardScreenApp({super.key});
@@ -78,18 +78,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
               ),
-              Container(
-                decoration: const BoxDecoration(),
-                child: Center(
-                  child: Text(
-                    'Workout page',
-                    key: const Key('workoutPageText'),
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              WorkoutsScreen(isFromHome: false),
               Container(
                 decoration: const BoxDecoration(),
                 child: Center(

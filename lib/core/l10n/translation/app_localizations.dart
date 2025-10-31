@@ -697,6 +697,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid email address'**
   String get emailInvalid;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @upcomingWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming Workouts'**
+  String get upcomingWorkouts;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get seeAll;
+
+  /// No description provided for @failedToLoadWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load workouts'**
+  String get failedToLoadWorkouts;
+
+  /// No description provided for @noWorkoutsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No workouts available'**
+  String get noWorkoutsAvailable;
+
+  /// No description provided for @recommendationForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendation for you'**
+  String get recommendationForYou;
+
+  /// No description provided for @hiOmar.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi Omar'**
+  String get hiOmar;
+
+  /// No description provided for @letUsStartYourDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\\\'s start your day'**
+  String get letUsStartYourDay;
+
+  /// No description provided for @workouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get workouts;
+
+  /// No description provided for @noMuscleCategoriesAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No muscle categories available'**
+  String get noMuscleCategoriesAvailable;
 }
 
 class _AppLocalizationsDelegate

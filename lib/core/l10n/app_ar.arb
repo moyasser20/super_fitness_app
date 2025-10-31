@@ -98,5 +98,16 @@
   "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
   "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
   "emailRequired": "البريد الإلكتروني مطلوب",
-  "emailInvalid": "يرجى إدخال بريد إلكتروني صالح"
+  "emailInvalid": "يرجى إدخال بريد إلكتروني صالح",
+  "category": "الفئات",
+  "upcomingWorkouts": "التدريبات القادمة",
+  "seeAll": "عرض الكل",
+  "failedToLoadWorkouts": "فشل تحميل التدريبات'",
+  "noWorkoutsAvailable": "لا توجد تدريبات متاحة",
+  "recommendationForYou": "مقترحات لك",
+  "hiOmar": "مرحباً بك عمر",
+  "letUsStartYourDay": "لنبدأ يومك",
+  "workouts": "التدريبات",
+  "noMuscleCategoriesAvailable": "لا توجد فئات متاحة"
+
 }

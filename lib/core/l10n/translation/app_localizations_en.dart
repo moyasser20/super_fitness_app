@@ -313,4 +313,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailInvalid => 'Please enter a valid email address';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get upcomingWorkouts => 'Upcoming Workouts';
+
+  @override
+  String get seeAll => 'See all';
+
+  @override
+  String get failedToLoadWorkouts => 'Failed to load workouts';
+
+  @override
+  String get noWorkoutsAvailable => 'No workouts available';
+
+  @override
+  String get recommendationForYou => 'Recommendation for you';
+
+  @override
+  String get hiOmar => 'Hi Omar';
+
+  @override
+  String get letUsStartYourDay => 'Let\\\'s start your day';
+
+  @override
+  String get workouts => 'Workouts';
+
+  @override
+  String get noMuscleCategoriesAvailable => 'No muscle categories available';
 }
