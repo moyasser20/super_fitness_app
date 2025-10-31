@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/common/widgets/container_with_blur_widget.dart';
 import 'package:super_fitness_app/core/common/widgets/custome_loading_indicator.dart';
 import 'package:super_fitness_app/core/extensions/extensions.dart';
+import 'package:super_fitness_app/core/utils/styles.dart';
 import '../../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../../core/contants/app_icons.dart';
 import '../../../../../../core/contants/app_images.dart';
@@ -24,6 +25,31 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  bool _isLoadingCredentials = true;
+  bool _rememberMe = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRememberedCredentials();
+  }
+
+  Future<void> _loadRememberedCredentials() async {
+    final viewModel = context.read<LoginViewModel>();
+    await viewModel.loadRememberedCredentials();
+    setState(() {
+      _rememberMe = viewModel.rememberMe;
+      _isLoadingCredentials = false;
+    });
+  }
+
+  void _toggleRememberMe(bool value) {
+    setState(() {
+      _rememberMe = value;
+    });
+    final viewModel = context.read<LoginViewModel>();
+    viewModel.toggleRememberMe(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
             showDialog(
               context: context,
               barrierDismissible: false,
-              builder:
-                  (_) => AppLoadingIndicator(color: AppColors.orange,),
+              builder: (_) => AppLoadingIndicator(color: AppColors.orange),
             );
           } else if (state is LoginSuccessState) {
             Navigator.pop(context);
@@ -53,6 +78,15 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         builder: (BuildContext context, LoginStates state) {
           final viewModel = context.read<LoginViewModel>();
+
+          // Show loading while credentials are being loaded
+          if (_isLoadingCredentials) {
+            return Scaffold(
+              backgroundColor: AppColors.black,
+              body: Center(child: AppLoadingIndicator(color: AppColors.orange)),
+            );
+          }
+
           return Container(
             width: double.infinity,
             height: double.infinity,
@@ -68,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20),
                     SafeArea(
                       child: Center(
                         child: Image.asset(AppIcons.fitnessLogo, width: 90),
@@ -150,8 +184,25 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(height: 5),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    checkColor: AppColors.white,
+                                    activeColor: AppColors.orange,
+
+                                    value: _rememberMe,
+                                    onChanged: (value) {
+                                      _toggleRememberMe(value ?? false);
+                                    },
+                                  ),
+                                  Text(
+                                    local.rememberMe,
+                                    style: balooThambi2Medium,
+                                  ),
+                                ],
+                              ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.pushNamed(
@@ -192,7 +243,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Text(
                                 local.dontHaveAnAccount,
-                                style: const TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.w400),
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {

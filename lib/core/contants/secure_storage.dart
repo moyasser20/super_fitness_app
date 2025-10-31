@@ -108,6 +108,35 @@ abstract class SecureStorage {
     await delete('token');
   }
 
+  static Future<void> saveRememberMe(bool rememberMe) async {
+    await write(key: 'remember_me', value: rememberMe.toString());
+  }
+
+  static Future<bool> getRememberMe() async {
+    final value = await read('remember_me');
+    return value == 'true';
+  }
+
+  static Future<void> deleteRememberMe() async {
+    await delete('remember_me');
+  }
+
+  static Future<void> saveUserCredentials(String email, String password) async {
+    await write(key: 'remembered_email', value: email);
+    await write(key: 'remembered_password', value: password);
+  }
+
+  static Future<Map<String, String?>> getRememberedCredentials() async {
+    final email = await read('remembered_email');
+    final password = await read('remembered_password');
+    return {'email': email, 'password': password};
+  }
+
+  static Future<void> deleteRememberedCredentials() async {
+    await delete('remembered_email');
+    await delete('remembered_password');
+  }
+
   static Future<void> resetForDevelopment() async {
     await delete('onboarding_seen');
     await delete('token');
@@ -116,5 +145,7 @@ abstract class SecureStorage {
 
   static Future<void> clearUserData() async {
     await deleteToken();
+    await deleteRememberMe();
+    await deleteRememberedCredentials();
   }
 }
