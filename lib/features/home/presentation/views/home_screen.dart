@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/l10n/translation/app_localizations.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
-import 'dart:convert';
+import 'package:super_fitness_app/features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
 import '../../../../core/common/widgets/custom_card_shimmer_widget.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
@@ -78,9 +77,31 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(height: Dimensions.paddingDefault),
                           _buildUpcomingWorkoutsSection(state),
                           SizedBox(height: Dimensions.paddingDefault),
-                          Text(
-                            'Recommendation for you',
-                            style: balooThambi2BoldExtraLarge,
+                          Row(
+                            children: [
+                              Text(
+                                'Recommendation for you',
+                                style: balooThambi2BoldExtraLarge,
+                              ),
+                              const SizedBox(width: 110),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.foodScreen,
+                                    arguments: true,
+                                  );
+                                },
+                                child: Text(
+                                  local?.seeAll ?? '',
+                                  style: balooThambi2RegularLarge.copyWith(
+                                    color: AppColors.orange,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.orange,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: Dimensions.paddingSmall),
                           _buildRecommendationForYouSection(state),
@@ -307,7 +328,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 (context, index) => Container(
                   width: MediaQuery.of(context).size.width * 0.24,
                   margin: EdgeInsets.only(right: 16),
-                  child: WorkoutCardWidget(details.muscles[index]),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.exercisesScreen,
+                        arguments: ExerciseData(
+                          id: details.muscles[index].id,
+                          name: details.muscles[index].name,
+                        ),
+                      );
+                    },
+                    child: WorkoutCardWidget(details.muscles[index]),
+                  ),
                 ),
           ),
         ),

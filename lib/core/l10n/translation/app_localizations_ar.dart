@@ -48,7 +48,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resendCode => 'إعادة إرسال الرمز؟';
 
   @override
-  String get passwordRequirement => 'تأكد من أن كلمة المرور تحتوي على 8 أحرف أو أكثر';
+  String get passwordRequirement =>
+      'تأكد من أن كلمة المرور تحتوي على 8 أحرف أو أكثر';
 
   @override
   String get createNewPassword => 'إنشاء كلمة مرور جديدة';
@@ -66,7 +67,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get done => 'تم';
 
   @override
-  String get passwordInvalidError => 'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص';
+  String get passwordInvalidError =>
+      'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص';
 
   @override
   String get passwordMismatchError => 'كلمتا المرور غير متطابقتين';
@@ -120,7 +122,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get step_subtitle_height => 'اختر طولك بالسنتيمتر';
 
   @override
-  String get step_subtitle_goal => 'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
+  String get step_subtitle_goal =>
+      'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
 
   @override
   String get goal_gain_weight => 'زيادة الوزن';
@@ -222,10 +225,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error_password => 'يرجى إدخال كلمة المرور';
 
   @override
-  String get error_password_short => 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
+  String get error_password_short =>
+      'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
 
   @override
-  String get error_password_invalid => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
+  String get error_password_invalid =>
+      'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
 
   @override
   String get hint_confirm_password => 'تأكيد كلمة المرور';
@@ -270,7 +275,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordRequiredErrorMsg => 'كلمة المرور مطلوبة';
 
   @override
-  String get passwordValidationErrorMsg => 'يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m';
+  String get passwordValidationErrorMsg =>
+      'يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m';
 
   @override
   String get rememberMe => 'تذكرني';
@@ -294,7 +300,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordRequired => 'كلمة المرور مطلوبة';
 
   @override
-  String get passwordInvalid => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتشمل أحرفًا وأرقامًا ورموزًا خاصة.';
+  String get passwordInvalid =>
+      'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتشمل أحرفًا وأرقامًا ورموزًا خاصة.';
 
   @override
   String get confirmPasswordRequired => 'تأكيد كلمة المرور مطلوب';
@@ -309,17 +316,32 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emailInvalid => 'يرجى إدخال بريد إلكتروني صالح';
 
   @override
-  String get ingredients => 'المكونات';
+  String get category => 'الفئات';
 
   @override
-  String get recommendation => 'اقتراحات';
+  String get upcomingWorkouts => 'التدريبات القادمة';
 
   @override
-  String get video_opened_successfully => 'تم فتح الفيديو بنجاح';
+  String get seeAll => 'عرض الكل';
 
   @override
-  String get could_not_open_video_link => 'تعذر فتح رابط الفيديو';
+  String get failedToLoadWorkouts => 'فشل تحميل التدريبات\'';
 
   @override
-  String get video_link_not_available => 'رابط الفيديو غير متاح';
+  String get noWorkoutsAvailable => 'لا توجد تدريبات متاحة';
+
+  @override
+  String get recommendationForYou => 'مقترحات لك';
+
+  @override
+  String get hiOmar => 'مرحباً بك عمر';
+
+  @override
+  String get letUsStartYourDay => 'لنبدأ يومك';
+
+  @override
+  String get workouts => 'التدريبات';
+
+  @override
+  String get noMuscleCategoriesAvailable => 'لا توجد فئات متاحة';
 }

@@ -10,6 +10,8 @@ import '../../../features/auth/domain/responses/register_response.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/forget_password_request_model.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/reset_password_request_model.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart';
+import '../../../features/exercise/data/models/difficulty_levels_response.dart';
+import '../../../features/exercise/data/models/get_exercise_by_muscle_and_difficulty.dart';
 import '../../../features/home/data/models/meal_categories_response_model.dart';
 import '../../../features/home/data/models/muscle_group_by_id_response_model.dart';
 import '../../../features/home/data/models/muscles_response_model.dart';
@@ -61,9 +63,20 @@ abstract class ApiClient {
 
   @GET(ApiEndPoints.muscleGroupsById)
   Future<MuscleGroupByIdResponse> getMuscleGroupById(
-    @Path('groupId') String groupId,
-  );
+      @Path('groupId') String groupId,
+      );
 
   @GET(ApiEndPoints.mealCategoriesUri)
   Future<MealCategoriesResponse> getMealCategories();
+
+  @GET(ApiEndPoints.getAllDifficultyLevels)
+  Future<DifficultyLevelResponse> getAllDifficultyLevels(
+      @Query('primeMoverMuscleId') String primeMoverMuscleId,
+      );
+
+  @GET(ApiEndPoints.getExerciseByMuscleAndDifficulty)
+  Future<GetExerciseByMuscleAndDifficulty> getExerciseByMuscleAndDifficulty(
+      @Query('primeMoverMuscleId') String primeMoverMuscleId,
+      @Query('difficultyLevelId') String difficultyLevelId,
+      );
 }

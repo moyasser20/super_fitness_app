@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/reset_password_request_model.dart';
 import 'package:super_fitness_app/features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart';
 import 'dart:convert';
-import '../../../../core/api/client/api_client.dart' as _apiClient;
 import '../../../../core/errors/failure.dart';
 import '../../../../core/api/client/api_client.dart';
 import '../../data/datasource/auth_remote_data_source.dart';
@@ -11,7 +10,6 @@ import '../../data/models/forgetpasswordmodels/forget_password_request_model.dar
 import '../../domain/responses/auth_response.dart';
 import '../../data/models/login_models/login_request_model.dart';
 import '../../data/models/login_models/login_response_model.dart';
-import '../../domain/responses/auth_response.dart';
 import '../../domain/responses/register_request_model.dart';
 import '../../domain/responses/register_response.dart';
 

@@ -35,26 +35,28 @@ import '../../features/auth/presentation/login/presentation/viewmodel/login_view
     as _i462;
 import '../../features/auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart'
     as _i416;
-import '../../features/food-details/api/client/meal_details_api_client.dart'
-    as _i979;
-import '../../features/food-details/api/data_source_impl/meal_details_remote_data_source_impl.dart'
-    as _i221;
-import '../../features/food-details/data/data_sources/meal_details_remote_data_source.dart'
-    as _i991;
-import '../../features/food-details/data/repositories_impl/meals_details_repo_impl.dart'
-    as _i871;
-import '../../features/food-details/domain/repositories/meals_details_repo.dart'
-    as _i143;
-import '../../features/food-details/domain/use_cases/meals_details_usecase.dart'
-    as _i51;
-import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart'
-    as _i557;
+import '../../features/exercise/api/datasource_impl/exercise_remote_datasource_impl.dart'
+    as _i1030;
+import '../../features/exercise/data/datasource/exercise_remote_datasource.dart'
+    as _i153;
+import '../../features/exercise/data/repositories_impl/exercise_repo_impl.dart'
+    as _i917;
+import '../../features/exercise/domain/repositories/exercise_repo.dart'
+    as _i204;
+import '../../features/exercise/domain/use_cases/get_all_difficulty_levels_usecase.dart'
+    as _i196;
+import '../../features/exercise/domain/use_cases/get_exercise_by_muscle_and_difficulty_usecase.dart'
+    as _i486;
+import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart'
+    as _i1042;
 import '../../features/home/api/data_source_impl/muscles_remote_data_source_impl.dart'
     as _i476;
 import '../../features/home/data/data_source/muscles_remote_data_source.dart'
     as _i439;
 import '../../features/home/data/repo_impl/muscles_repo_impl.dart' as _i635;
 import '../../features/home/domain/repos/muscles_repo.dart' as _i732;
+import '../../features/home/domain/usecases/get_meal_categories_usecase.dart'
+    as _i91;
 import '../../features/home/domain/usecases/get_muscle_group_by_id_usecase.dart'
     as _i585;
 import '../../features/home/domain/usecases/get_muscle_groups_usecase.dart'
@@ -91,20 +93,6 @@ extension GetItInjectableX on _i174.GetIt {
       instanceName: 'baseurl',
     );
     gh.lazySingleton<_i361.Dio>(
-      () => dioModule.mealsDio,
-      instanceName: 'mealsDio',
-    );
-    gh.factory<_i979.MealsApiClient>(
-        () => _i979.MealsApiClient(gh<_i361.Dio>(instanceName: 'mealsDio')));
-    gh.lazySingleton<_i991.MealsDetailsRemoteDataSource>(() =>
-        _i221.MealsDetailsRemoteDataSourceImpl(gh<_i979.MealsApiClient>()));
-    gh.lazySingleton<_i143.MealsRepo>(() =>
-        _i871.MealsRepositoryImpl(gh<_i991.MealsDetailsRemoteDataSource>()));
-    gh.factory<_i51.MealsDetailsUseCase>(
-        () => _i51.MealsDetailsUseCase(gh<_i143.MealsRepo>()));
-    gh.factory<_i557.MealDetailsCubit>(
-        () => _i557.MealDetailsCubit(gh<_i51.MealsDetailsUseCase>()));
-    gh.lazySingleton<_i361.Dio>(
         () => dioModule.dio(gh<String>(instanceName: 'baseurl')));
     gh.factory<_i364.ApiClient>(() => _i364.ApiClient(
           gh<_i361.Dio>(),
@@ -116,6 +104,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i940.WorkoutRepoImpl(gh<_i194.WorkoutsRemoteDataSource>()));
     gh.factory<_i697.ResetPasswordCubit>(
         () => _i697.ResetPasswordCubit(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i153.ExerciseRemoteDatasource>(
+        () => _i1030.ExerciseRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i24.AuthRemoteDatasource>(
         () => _i758.AuthRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i170.AuthRepo>(
@@ -136,27 +126,43 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i188.VerifyCodeUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i416.RegisterCubit>(
         () => _i416.RegisterCubit(gh<_i170.AuthRepo>()));
+    gh.factory<_i91.GetMealCategoriesUseCase>(
+        () => _i91.GetMealCategoriesUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i890.GetMuscleGroupsUseCase>(
         () => _i890.GetMuscleGroupsUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i585.GetMuscleGroupByIdUseCase>(
         () => _i585.GetMuscleGroupByIdUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i365.GetRandomMusclesUseCase>(
         () => _i365.GetRandomMusclesUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i204.ExerciseRepo>(
+        () => _i917.ExerciseRepoImpl(gh<_i153.ExerciseRemoteDatasource>()));
     gh.factory<_i462.LoginViewModel>(
         () => _i462.LoginViewModel(gh<_i442.LoginUseCase>()));
-    gh.factory<_i0.VerifyCodeCubit>(() => _i0.VerifyCodeCubit(
-          gh<_i188.VerifyCodeUseCase>(),
-          gh<_i957.ForgetPasswordUseCase>(),
-        ));
     gh.factory<_i925.HomeCubit>(() => _i925.HomeCubit(
           gh<_i365.GetRandomMusclesUseCase>(),
           gh<_i890.GetMuscleGroupsUseCase>(),
           gh<_i585.GetMuscleGroupByIdUseCase>(),
+          gh<_i91.GetMealCategoriesUseCase>(),
+        ));
+    gh.factory<_i0.VerifyCodeCubit>(() => _i0.VerifyCodeCubit(
+          gh<_i188.VerifyCodeUseCase>(),
+          gh<_i957.ForgetPasswordUseCase>(),
         ));
     gh.factory<_i433.WorkoutsViewModel>(
         () => _i433.WorkoutsViewModel(gh<_i532.WorkoutsUseCase>()));
     gh.factory<_i556.ForgetPasswordCubit>(
         () => _i556.ForgetPasswordCubit(gh<_i957.ForgetPasswordUseCase>()));
+    gh.lazySingleton<_i196.GetAllDifficultyLevelsUseCase>(
+        () => _i196.GetAllDifficultyLevelsUseCase(gh<_i204.ExerciseRepo>()));
+    gh.lazySingleton<_i486.GetExerciseByMuscleAndDifficultyUseCase>(() =>
+        _i486.GetExerciseByMuscleAndDifficultyUseCase(
+            gh<_i204.ExerciseRepo>()));
+    gh.factory<_i1042.ExerciseViewModel>(() => _i1042.ExerciseViewModel(
+          getAllDifficultyLevelsUseCase:
+              gh<_i196.GetAllDifficultyLevelsUseCase>(),
+          getExerciseByMuscleAndDifficultyUseCase:
+              gh<_i486.GetExerciseByMuscleAndDifficultyUseCase>(),
+        ));
     return this;
   }
 }

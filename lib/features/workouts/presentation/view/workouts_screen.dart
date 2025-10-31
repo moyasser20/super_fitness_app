@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:super_fitness_app/core/config/di.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/core/utils/styles.dart';
+import 'package:super_fitness_app/features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart';
 import 'package:super_fitness_app/features/workouts/presentation/viewmodel/workouts_states.dart';
 import 'package:super_fitness_app/features/workouts/presentation/viewmodel/workouts_view_model.dart';
-
+import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
 import '../../../../core/l10n/translation/app_localizations.dart';
+import '../../../../core/routes/route_names.dart';
 
 class WorkoutsScreen extends StatelessWidget {
   final bool isFromHome;
@@ -24,7 +27,9 @@ class WorkoutsScreen extends StatelessWidget {
           if (state.allMusclesStatus == DataStatus.loading) {
             return const Scaffold(
               backgroundColor: Colors.transparent,
-              body: Center(child: CircularProgressIndicator()),
+              body: Center(
+                child: CircularProgressIndicator(color: AppColors.orange),
+              ),
             );
           } else if (state.allMusclesStatus == DataStatus.error) {
             return Scaffold(
@@ -80,10 +85,22 @@ class WorkoutsScreen extends StatelessWidget {
       leading:
           !isFromHome
               ? null
-              : IconButton(
-                icon: const Icon(Icons.arrow_back, color: AppColors.white),
-                onPressed: () => Navigator.pop(context),
+              : Padding(
+            padding: EdgeInsets.all(10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: AppColors.main,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: SvgPicture.asset(AppIcons.backIcon),
               ),
+            ),
+          ),
       title: Text(
         local?.workouts ?? 'Workouts',
         style: balooThambi2BoldExtraLarge.copyWith(fontSize: 24),
@@ -170,45 +187,50 @@ class WorkoutsScreen extends StatelessWidget {
         itemCount: workouts.length,
         itemBuilder: (context, index) {
           final workout = workouts[index];
-          return Stack(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  image: DecorationImage(
-                    colorFilter: ColorFilter.mode(
-                      Colors.black.withValues(alpha: 0.4),
-                      BlendMode.colorBurn,
-                    ),
-                    image: NetworkImage(
-                      workout.image ??
-                          "https://static.thenounproject.com/png/261694-200.png",
-                    ),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: double.infinity,
+          return GestureDetector(
+            onTap: (){
+              Navigator.pushNamed(context, AppRoutes.exercisesScreen,arguments: ExerciseData(id: workout.id!, name: workout.name!));
+            },
+            child: Stack(
+              children: [
+                Container(
                   padding: const EdgeInsets.all(12.0),
                   decoration: BoxDecoration(
-                    // color: Colors.black.withValues(alpha: 0.5),
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(30.0),
-                      bottomRight: Radius.circular(30.0),
+                    borderRadius: BorderRadius.circular(30.0),
+                    image: DecorationImage(
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withValues(alpha: 0.4),
+                        BlendMode.colorBurn,
+                      ),
+                      image: NetworkImage(
+                        workout.image ??
+                            "https://static.thenounproject.com/png/261694-200.png",
+                      ),
+                      fit: BoxFit.fill,
                     ),
                   ),
-                  child: Text(
-                    workout.name ?? 'Unnamed Workout',
-                    textAlign: TextAlign.center,
-                    style: balooThambi2BoldExtraLarge,
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      // color: Colors.black.withValues(alpha: 0.5),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(30.0),
+                        bottomRight: Radius.circular(30.0),
+                      ),
+                    ),
+                    child: Text(
+                      workout.name ?? 'Unnamed Workout',
+                      textAlign: TextAlign.center,
+                      style: balooThambi2BoldExtraLarge,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

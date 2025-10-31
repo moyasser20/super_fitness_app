@@ -2,7 +2,6 @@ import '../responses/auth_response.dart';
 
 import '../../data/models/login_models/login_request_model.dart';
 import '../../data/models/login_models/login_response_model.dart';
-import '../responses/auth_response.dart';
 import '../responses/register_request_model.dart';
 import '../responses/register_response.dart';
 

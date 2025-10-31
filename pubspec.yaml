@@ -48,8 +48,6 @@ dependencies:
   url_launcher: ^6.3.2
   webview_flutter: ^4.7.0
 
-
-
 dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.4.13
