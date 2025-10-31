@@ -103,5 +103,15 @@
   "recommendation": "اقتراحات",
   "video_opened_successfully": "تم فتح الفيديو بنجاح",
   "could_not_open_video_link": "تعذر فتح رابط الفيديو",
-  "video_link_not_available": "رابط الفيديو غير متاح"
+  "video_link_not_available": "رابط الفيديو غير متاح",
+  "category": "الفئات",
+  "upcomingWorkouts": "التدريبات القادمة",
+  "seeAll": "عرض الكل",
+  "failedToLoadWorkouts": "فشل تحميل التدريبات'",
+  "noWorkoutsAvailable": "لا توجد تدريبات متاحة",
+  "recommendationForYou": "مقترحات لك",
+  "hiOmar": "مرحباً بك عمر",
+  "letUsStartYourDay": "لنبدأ يومك",
+  "workouts": "التدريبات",
+  "noMuscleCategoriesAvailable": "لا توجد فئات متاحة"
 }

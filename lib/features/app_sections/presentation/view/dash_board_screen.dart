@@ -77,15 +77,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
               ),
-              Center(
-                child: Text(
-                  'Workout page',
-                  key: const Key('workoutPageText'),
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              WorkoutsScreen(isFromHome: false),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

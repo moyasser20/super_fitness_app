@@ -72,17 +72,37 @@ class FoodDetailsScreen extends StatelessWidget {
 
                       // Meal Image
                       Positioned(
-                        top: 40,
+                        top: 0,
                         left: 0,
                         right: 0,
-                        child: Image.network(
-                          meal.strMealThumb,
-                          fit: BoxFit.fitWidth,
-                          errorBuilder:
-                              (context, error, stackTrace) => Image.asset(
-                                "assets/images/food_details_stack_image.png",
-                                fit: BoxFit.fitWidth,
-                              ),
+                        child: SizedBox(
+                          height: 450,
+                          child: Image.network(
+                            meal.strMealThumb,
+                            fit: BoxFit.fitWidth,
+                            errorBuilder:
+                                (context, error, stackTrace) => Image.asset(
+                                  "assets/images/food_details_stack_image.png",
+                                  fit: BoxFit.fitWidth,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 450,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black54,
+                              Colors.black87,
+                              AppColors.black,
+                            ],
+                            stops: [0.2, 0.5, 0.7, 1.0],
+                          ),
                         ),
                       ),
 
@@ -99,33 +119,43 @@ class FoodDetailsScreen extends StatelessWidget {
                         ),
                       ),
 
-                        Positioned(
-                          top: 200,
-                          left: 24,
-                          child: GestureDetector(
-                            onTap: () async {
-                              final url = meal.strYoutube;
+                      Positioned(
+                        top: 200,
+                        left: 24,
+                        child: GestureDetector(
+                          onTap: () async {
+                            final url = meal.strYoutube;
 
-                              if (url != null && url.isNotEmpty) {
-                                final uri = Uri.parse(url);
-                                if (await canLaunchUrl(uri)) {
-                                  await launchUrl(
-                                    uri,
-                                    mode: LaunchMode.externalApplication,
-                                  );
-                                  await showCustomSnackBar(context, local.video_opened_successfully, isError: false);
-                                } else {
-                                  await showCustomSnackBar(context,   local.could_not_open_video_link,
-                                      isError: true);
-                                }
+                            if (url != null && url.isNotEmpty) {
+                              final uri = Uri.parse(url);
+                              if (await canLaunchUrl(uri)) {
+                                await launchUrl(
+                                  uri,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                                await showCustomSnackBar(
+                                  context,
+                                  local.video_opened_successfully,
+                                  isError: false,
+                                );
                               } else {
-                                await showCustomSnackBar(context,   local.video_link_not_available,
-                                    isError: true);
+                                await showCustomSnackBar(
+                                  context,
+                                  local.could_not_open_video_link,
+                                  isError: true,
+                                );
                               }
-                            },
-                            child: Image.asset("assets/images/video_run.png"),
-                          ),
+                            } else {
+                              await showCustomSnackBar(
+                                context,
+                                local.video_link_not_available,
+                                isError: true,
+                              );
+                            }
+                          },
+                          child: Image.asset("assets/images/video_run.png"),
                         ),
+                      ),
 
                       Positioned(
                         top: 240,
