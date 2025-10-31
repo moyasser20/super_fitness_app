@@ -48,8 +48,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resendCode => 'إعادة إرسال الرمز؟';
 
   @override
-  String get passwordRequirement =>
-      'تأكد من أن كلمة المرور تحتوي على 8 أحرف أو أكثر';
+  String get passwordRequirement => 'تأكد من أن كلمة المرور تحتوي على 8 أحرف أو أكثر';
 
   @override
   String get createNewPassword => 'إنشاء كلمة مرور جديدة';
@@ -67,8 +66,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get done => 'تم';
 
   @override
-  String get passwordInvalidError =>
-      'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص';
+  String get passwordInvalidError => 'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص';
 
   @override
   String get passwordMismatchError => 'كلمتا المرور غير متطابقتين';
@@ -122,8 +120,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get step_subtitle_height => 'اختر طولك بالسنتيمتر';
 
   @override
-  String get step_subtitle_goal =>
-      'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
+  String get step_subtitle_goal => 'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
 
   @override
   String get goal_gain_weight => 'زيادة الوزن';
@@ -225,12 +222,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error_password => 'يرجى إدخال كلمة المرور';
 
   @override
-  String get error_password_short =>
-      'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
+  String get error_password_short => 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
 
   @override
-  String get error_password_invalid =>
-      'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
+  String get error_password_invalid => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
 
   @override
   String get hint_confirm_password => 'تأكيد كلمة المرور';
@@ -275,8 +270,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordRequiredErrorMsg => 'كلمة المرور مطلوبة';
 
   @override
-  String get passwordValidationErrorMsg =>
-      'يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m';
+  String get passwordValidationErrorMsg => 'يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m';
 
   @override
   String get rememberMe => 'تذكرني';
@@ -300,8 +294,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordRequired => 'كلمة المرور مطلوبة';
 
   @override
-  String get passwordInvalid =>
-      'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتشمل أحرفًا وأرقامًا ورموزًا خاصة.';
+  String get passwordInvalid => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتشمل أحرفًا وأرقامًا ورموزًا خاصة.';
 
   @override
   String get confirmPasswordRequired => 'تأكيد كلمة المرور مطلوب';
