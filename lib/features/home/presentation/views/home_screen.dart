@@ -6,6 +6,7 @@ import 'dart:convert';
 import '../../../../core/common/widgets/custom_card_shimmer_widget.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
+import '../../../../core/routes/route_names.dart';
 import '../../../../core/utils/dimensions.dart';
 import '../../../../core/utils/styles.dart';
 import '../viewmodel/home_cubit.dart';
@@ -292,7 +293,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 (context, index) => Container(
                   width: MediaQuery.of(context).size.width * 0.24,
                   margin: EdgeInsets.only(right: 16),
-                  child: WorkoutCardWidget(details.muscles[index]),
+                  child: GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, AppRoutes.exercisesScreen);
+                      },
+                      child: WorkoutCardWidget(details.muscles[index])),
                 ),
           ),
         ),

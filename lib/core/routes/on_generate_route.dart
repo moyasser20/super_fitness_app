@@ -4,14 +4,14 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/comp
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
+import '../../features/exercise/presentation/view/exercises_screen.dart';
+import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
 import '../../features/home/presentation/views/home_screen.dart';
 import '../routes/route_names.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
 import '../../features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart';
 import '../config/di.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:super_fitness_app/core/routes/route_names.dart';
 
 import '../../features/auth/presentation/forgetpassword/view/screens/email_verification_screen.dart';
 import '../../features/auth/presentation/forgetpassword/view/screens/forget_password_screen.dart';
@@ -72,6 +72,17 @@ class Routes {
         );
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+
+      case AppRoutes.exercisesScreen:
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ExerciseViewModel>(),
+                child: ExerciseScreen(
+                  primeMoverMuscleId: "67c8499726895f87ce0aa9bc",
+                ),
+              ),
+        );
 
       default:
         return MaterialPageRoute(

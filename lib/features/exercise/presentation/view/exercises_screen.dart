@@ -1,0 +1,376 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:super_fitness_app/features/exercise/presentation/view/widgets/exercise_card.dart';
+import '../../../../core/contants/app_icons.dart';
+import '../../../../core/contants/app_images.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/styles.dart';
+import '../viewmodel/exercise_states.dart';
+import '../viewmodel/exercise_viewmodel.dart';
+
+class ExerciseScreen extends StatefulWidget {
+  final String primeMoverMuscleId;
+
+  const ExerciseScreen({super.key, required this.primeMoverMuscleId});
+
+  @override
+  State<ExerciseScreen> createState() => _ExerciseScreenState();
+}
+
+class _ExerciseScreenState extends State<ExerciseScreen> {
+  String? selectedLevelId;
+  String? backgroundThumbnail;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final cubit = context.read<ExerciseViewModel>();
+
+    cubit.getAllDifficultyLevels(widget.primeMoverMuscleId).then((_) {
+      final levels = cubit.difficultyLevelResponse?.difficultyLevels ?? [];
+      if (levels.isNotEmpty) {
+        final firstLevel = levels.first;
+        cubit.getExerciseByMuscleAndDifficulty(
+          widget.primeMoverMuscleId,
+          firstLevel.id ?? '',
+          difficultyLevels: levels,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<ExerciseViewModel, ExerciseState>(
+      listener: (context, state) {
+        if (state is ExerciseDataLoaded &&
+            state.exercises.exercises.isNotEmpty) {
+          if (state.exercises.exercises.first.shortYoutubeDemonstrationLink !=
+              null) {
+            final firstVideoUrl =
+                state.exercises.exercises.first.shortYoutubeDemonstrationLink;
+            backgroundThumbnail = context
+                .read<ExerciseViewModel>()
+                .getYouTubeThumbnail(firstVideoUrl);
+          } else if (state
+                  .exercises
+                  .exercises
+                  .first
+                  .inDepthYoutubeExplanationLink !=
+              null) {
+            final firstVideoUrl =
+                state.exercises.exercises.first.inDepthYoutubeExplanationLink;
+            backgroundThumbnail = context
+                .read<ExerciseViewModel>()
+                .getYouTubeThumbnail(firstVideoUrl);
+          } else {
+            final firstVideoUrl = "https://youtu.be/2zVNyi5Uk44";
+            backgroundThumbnail = context
+                .read<ExerciseViewModel>()
+                .getYouTubeThumbnail(firstVideoUrl);
+          }
+        }
+      },
+      builder: (context, state) {
+        final cubit = context.read<ExerciseViewModel>();
+        final levels = cubit.difficultyLevelResponse?.difficultyLevels ?? [];
+        final selectedId = cubit.selectedDifficultyId;
+
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(AppImages.homeBc),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            if (backgroundThumbnail != null)
+              Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Image.network(
+                      backgroundThumbnail!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 250,
+                    ),
+                  ),
+
+                  Container(
+                    width: double.infinity,
+                    height: 250,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black54,
+                          Colors.black,
+                        ],
+                        stops: [0.2, 0.6, 1.0],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            else
+              Container(color: Colors.transparent),
+
+            Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                leading: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: AppColors.main,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: SvgPicture.asset(AppIcons.backIcon),
+                    ),
+                  ),
+                ),
+                backgroundColor: Colors.transparent,
+              ),
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    child: Center(
+                      child: Text(
+                        "Chest Exercise",
+                        style: balooThambi2BoldLarge.copyWith(
+                          color: AppColors.white,
+                          fontSize: 26,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.6),
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            "30 MIN",
+                            style: balooThambi2BoldLarge.copyWith(
+                              color: AppColors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.6),
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            "130 Cal",
+                            style: balooThambi2BoldLarge.copyWith(
+                              color: AppColors.orange,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  if (levels.isNotEmpty)
+                    Stack(
+                      children: [
+                        Container(
+                          height: 70,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Color(0xff242424),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 14.0),
+                            child: SizedBox(
+                              height: 45,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                itemCount: levels.length,
+                                itemBuilder: (context, index) {
+                                  final level = levels[index];
+                                  final isSelected = selectedId == level.id;
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: GestureDetector(
+                                      onTap:
+                                          () => cubit
+                                              .getExerciseByMuscleAndDifficulty(
+                                                widget.primeMoverMuscleId,
+                                                level.id ?? '',
+                                                difficultyLevels: levels,
+                                              ),
+                                      child: AnimatedContainer(
+                                        duration: const Duration(
+                                          milliseconds: 250,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                          vertical: 10,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              isSelected
+                                                  ? AppColors.orange
+                                                  : Colors.transparent,
+                                          borderRadius: BorderRadius.circular(
+                                            30,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          level.name ?? '',
+                                          style: balooThambi2BoldLarge.copyWith(
+                                            color:
+                                                isSelected
+                                                    ? Colors.white
+                                                    : Colors.white.withOpacity(
+                                                      0.8,
+                                                    ),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                  const SizedBox(height: 10),
+
+                  Expanded(
+                    child: Builder(
+                      builder: (_) {
+                        if (state is GetLevelsLoading ||
+                            state is ExerciseLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.orange,
+                            ),
+                          );
+                        } else if (state is ExerciseDataLoaded) {
+                          final exercises = state.exercises.exercises ?? [];
+                          if (exercises.isEmpty) {
+                            return const Center(
+                              child: Text(
+                                "No exercises found",
+                                style: TextStyle(color: Colors.white70),
+                              ),
+                            );
+                          }
+                          return Container(
+                            margin: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: const Color(0xff242424),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: ListView.builder(
+                                shrinkWrap:
+                                    true, // if inside a scrollable parent
+                                itemCount: exercises.length,
+                                itemBuilder: (context, index) {
+                                  final ex = exercises[index];
+                                  if (ex.shortYoutubeDemonstrationLink ==
+                                          null ||
+                                      ex
+                                          .shortYoutubeDemonstrationLink!
+                                          .isEmpty) {
+                                    return const SizedBox.shrink();
+                                  }
+
+                                  final thumb = cubit.getYouTubeThumbnail(
+                                    ex.shortYoutubeDemonstrationLink ??
+                                        ex.inDepthYoutubeExplanationLink ??
+                                        "",
+                                  );
+
+                                  return ExerciseCard(
+                                    title: ex.exercise,
+                                    description:
+                                        ex.primaryEquipment ?? 'No description',
+                                    thumbnailUrl: thumb,
+                                    videoUrl: ex.shortYoutubeDemonstrationLink!,
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        } else if (state is ExerciseError ||
+                            state is GetLevelsError) {
+                          final msg =
+                              (state is ExerciseError)
+                                  ? state.message
+                                  : (state as GetLevelsError).message;
+                          return Center(
+                            child: Text(
+                              msg,
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

@@ -35,6 +35,33 @@ import '../../features/auth/presentation/login/presentation/viewmodel/login_view
     as _i462;
 import '../../features/auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart'
     as _i416;
+import '../../features/exercise/api/datasource_impl/exercise_remote_datasource_impl.dart'
+    as _i1030;
+import '../../features/exercise/data/datasource/exercise_remote_datasource.dart'
+    as _i153;
+import '../../features/exercise/data/repositories_impl/exercise_repo_impl.dart'
+    as _i917;
+import '../../features/exercise/domain/repositories/exercise_repo.dart'
+    as _i204;
+import '../../features/exercise/domain/use_cases/get_all_difficulty_levels_usecase.dart'
+    as _i196;
+import '../../features/exercise/domain/use_cases/get_exercise_by_muscle_and_difficulty_usecase.dart'
+    as _i486;
+import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart'
+    as _i1042;
+import '../../features/home/api/data_source_impl/muscles_remote_data_source_impl.dart'
+    as _i476;
+import '../../features/home/data/data_source/muscles_remote_data_source.dart'
+    as _i439;
+import '../../features/home/data/repo_impl/muscles_repo_impl.dart' as _i635;
+import '../../features/home/domain/repos/muscles_repo.dart' as _i732;
+import '../../features/home/domain/usecases/get_muscle_group_by_id_usecase.dart'
+    as _i585;
+import '../../features/home/domain/usecases/get_muscle_groups_usecase.dart'
+    as _i890;
+import '../../features/home/domain/usecases/get_random_muscles_usecase.dart'
+    as _i365;
+import '../../features/home/presentation/viewmodel/home_cubit.dart' as _i925;
 import '../api/client/api_client.dart' as _i364;
 import 'dio_module/dio_module.dart' as _i484;
 
@@ -62,10 +89,16 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i697.ResetPasswordCubit>(
         () => _i697.ResetPasswordCubit(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i153.ExerciseRemoteDatasource>(
+        () => _i1030.ExerciseRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i24.AuthRemoteDatasource>(
         () => _i758.AuthRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i170.AuthRepo>(
         () => _i279.AuthRepoImpl(gh<_i24.AuthRemoteDatasource>()));
+    gh.lazySingleton<_i439.MusclesRemoteDatasource>(
+        () => _i476.MusclesRemoteDatasourceImpl(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i732.MusclesRepo>(
+        () => _i635.MusclesRepoImpl(gh<_i439.MusclesRemoteDatasource>()));
     gh.factory<_i442.LoginUseCase>(
         () => _i442.LoginUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i957.ForgetPasswordUseCase>(
@@ -76,14 +109,38 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i188.VerifyCodeUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i416.RegisterCubit>(
         () => _i416.RegisterCubit(gh<_i170.AuthRepo>()));
+    gh.factory<_i890.GetMuscleGroupsUseCase>(
+        () => _i890.GetMuscleGroupsUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i585.GetMuscleGroupByIdUseCase>(
+        () => _i585.GetMuscleGroupByIdUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i365.GetRandomMusclesUseCase>(
+        () => _i365.GetRandomMusclesUseCase(gh<_i732.MusclesRepo>()));
+    gh.factory<_i204.ExerciseRepo>(
+        () => _i917.ExerciseRepoImpl(gh<_i153.ExerciseRemoteDatasource>()));
     gh.factory<_i462.LoginViewModel>(
         () => _i462.LoginViewModel(gh<_i442.LoginUseCase>()));
     gh.factory<_i0.VerifyCodeCubit>(() => _i0.VerifyCodeCubit(
           gh<_i188.VerifyCodeUseCase>(),
           gh<_i957.ForgetPasswordUseCase>(),
         ));
+    gh.factory<_i925.HomeCubit>(() => _i925.HomeCubit(
+          gh<_i365.GetRandomMusclesUseCase>(),
+          gh<_i890.GetMuscleGroupsUseCase>(),
+          gh<_i585.GetMuscleGroupByIdUseCase>(),
+        ));
     gh.factory<_i556.ForgetPasswordCubit>(
         () => _i556.ForgetPasswordCubit(gh<_i957.ForgetPasswordUseCase>()));
+    gh.lazySingleton<_i196.GetAllDifficultyLevelsUseCase>(
+        () => _i196.GetAllDifficultyLevelsUseCase(gh<_i204.ExerciseRepo>()));
+    gh.lazySingleton<_i486.GetExerciseByMuscleAndDifficultyUseCase>(() =>
+        _i486.GetExerciseByMuscleAndDifficultyUseCase(
+            gh<_i204.ExerciseRepo>()));
+    gh.factory<_i1042.ExerciseViewModel>(() => _i1042.ExerciseViewModel(
+          getAllDifficultyLevelsUseCase:
+              gh<_i196.GetAllDifficultyLevelsUseCase>(),
+          getExerciseByMuscleAndDifficultyUseCase:
+              gh<_i486.GetExerciseByMuscleAndDifficultyUseCase>(),
+        ));
     return this;
   }
 }
