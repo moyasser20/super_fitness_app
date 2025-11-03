@@ -22,14 +22,14 @@ class FoodDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var local = AppLocalizations.of(context)!;
+    final local = AppLocalizations.of(context)!;
 
     return BlocProvider(
       create: (context) => getIt<MealDetailsCubit>()..getMealById(mealId),
       child: BlocBuilder<MealDetailsCubit, MealDetailsState>(
         builder: (context, state) {
           if (state is MealDetailsLoading) {
-            return AppLoadingIndicator();
+            return const Scaffold(body: Center(child: AppLoadingIndicator()));
           }
 
           if (state is MealDetailsError) {
@@ -47,198 +47,240 @@ class FoodDetailsScreen extends StatelessWidget {
             final meal = state.meal;
 
             return Scaffold(
-              body: RefreshIndicator(
-                onRefresh: () async {
-                  context.read<MealDetailsCubit>().getMealById(mealId);
-                  await context.read<MealDetailsCubit>().stream.firstWhere(
-                        (state) => state is! MealDetailsLoading,
-                  );
-                },
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Stack(
-                    children: [
-                      // Background
-                      Container(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 1.15,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/food_details_bg.png"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      "assets/images/food_details_bg.png",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
 
-                      // Meal Image
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: SizedBox(
-                          height: 450,
-                          child: Image.network(
-                            meal.strMealThumb,
-                            fit: BoxFit.fitWidth,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Image.asset("assets/images/food_details_stack_image.png", fit: BoxFit.fitWidth),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 450,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black54,
-                              Colors.black87,
-                              AppColors.black,
-                            ],
-                            stops: [0.2, 0.5, 0.7, 1.0],
-                          ),
-                        ),
-                      ),
-
-                      Positioned(
-                        top: 50,
-                        left: 20,
-                        child: GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                            padding: const EdgeInsets.all(12.0),
-                            decoration: BoxDecoration(
-                              color: AppColors.main,
-                              borderRadius: BorderRadius.circular(20),
+                  RefreshIndicator(
+                    color: AppColors.main,
+                    triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                    onRefresh: () async {
+                      context.read<MealDetailsCubit>().getMealById(mealId);
+                      await context.read<MealDetailsCubit>().stream.firstWhere(
+                            (state) => state is! MealDetailsLoading,
+                      );
+                    },
+                    child: CustomScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      slivers: [
+                        SliverAppBar(
+                          expandedHeight:
+                              MediaQuery.of(context).size.height * 0.525,
+                          pinned: false,
+                          stretch: false,
+                          leading: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () => Navigator.pop(context),
+                              child: Container(
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: AppColors.main,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: SvgPicture.asset(AppIcons.backIcon),
+                              ),
                             ),
-                            child: SvgPicture.asset(AppIcons.backIcon),
                           ),
-                        ),
-                      ),
-
-                      Positioned(
-                        top: 200,
-                        left: 24,
-                        child: GestureDetector(
-                          onTap: () async {
-                            final url = meal.strYoutube;
-
-                            if (url != null && url.isNotEmpty) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => YouTubeWebViewScreen(
-                                    videoUrl: url,
-                                    isFood: true,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          flexibleSpace: FlexibleSpaceBar(
+                            background: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.network(
+                                  meal.strMealThumb,
+                                  fit: BoxFit.fitWidth,
+                                  errorBuilder:
+                                      (
+                                        context,
+                                        error,
+                                        stackTrace,
+                                      ) => Image.asset(
+                                        "assets/images/food_details_stack_image.png",
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                ),
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.black54,
+                                        Colors.black87,
+                                        AppColors.black,
+                                      ],
+                                      stops: [0.2, 0.5, 0.7, 1.0],
+                                    ),
                                   ),
                                 ),
-                              );
-                            } else {
-                              await showCustomSnackBar(
-                                context,
-                                local.video_link_not_available,
-                                isError: true,
-                              );
-                            }
-                          },
-                          child: Image.asset("assets/images/video_run.png"),
-                        ),
-                      ),
-
-                      Positioned(
-                        top: 240,
-                        left: 24,
-                        child: Text(
-                          meal.strMeal,
-                          style: GoogleFonts.balooThambi2(
-                            color: AppColors.white,
-                            fontSize: 32,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-
-                      Positioned(
-                        top: 290,
-                        left: 24,
-                        right: 24,
-                        child: Text(
-                          meal.strInstructions,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.balooThambi2(
-                            color: AppColors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                      ),
-
-                      Positioned(
-                        top: 390,
-                        left: 0,
-                        right: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Builder(
-                            builder: (context) {
-                              final tags = meal.strTags?.split(",") ?? [];
-                              final displayedTags = tags.take(4).toList();
-                              final staticValues = ["100 K", "15 G", "58 G", "20 G"];
-
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: List.generate(
-                                  4,
-                                      (index) => CustomContainerValues(
-                                    value: staticValues[index],
-                                    label: index < displayedTags.length
-                                        ? displayedTags[index]
-                                        : local.na,
+                                // Positioned(
+                                //   top: 50,
+                                //   left: 20,
+                                //   child: GestureDetector(
+                                //     onTap: () => Navigator.pop(context),
+                                //     child: Container(
+                                //       padding: const EdgeInsets.all(12.0),
+                                //       decoration: BoxDecoration(
+                                //         color: AppColors.main,
+                                //         borderRadius:
+                                //         BorderRadius.circular(20),
+                                //       ),
+                                //       child: SvgPicture.asset(AppIcons.backIcon),
+                                //     ),
+                                //   ),
+                                // ),
+                                // Play Button
+                                Positioned(
+                                  top: 200,
+                                  left: 24,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      final url = meal.strYoutube;
+                                      if (url != null && url.isNotEmpty) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder:
+                                                (_) => YouTubeWebViewScreen(
+                                                  videoUrl: url,
+                                                  isFood: true,
+                                                ),
+                                          ),
+                                        );
+                                      } else {
+                                        await showCustomSnackBar(
+                                          context,
+                                          local.video_link_not_available,
+                                          isError: true,
+                                        );
+                                      }
+                                    },
+                                    child: Image.asset(
+                                      "assets/images/video_run.png",
+                                    ),
                                   ),
                                 ),
-                              );
-                            },
+                                // Title + Description
+                                Positioned(
+                                  top: 240,
+                                  left: 24,
+                                  right: 24,
+                                  child: Text(
+                                    meal.strMeal,
+                                    style: GoogleFonts.balooThambi2(
+                                      color: AppColors.white,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 290,
+                                  left: 24,
+                                  right: 24,
+                                  child: Text(
+                                    meal.strInstructions,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.balooThambi2(
+                                      color: AppColors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                ),
+                                // Top info containers
+                                Positioned(
+                                  top: 390,
+                                  left: 0,
+                                  right: 0,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0,
+                                    ),
+                                    child: Builder(
+                                      builder: (context) {
+                                        final tags =
+                                            meal.strTags?.split(",") ?? [];
+                                        final displayedTags =
+                                            tags.take(4).toList();
+                                        final staticValues = [
+                                          "100 K",
+                                          "15 G",
+                                          "58 G",
+                                          "20 G",
+                                        ];
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: List.generate(
+                                            4,
+                                            (index) => CustomContainerValues(
+                                              value: staticValues[index],
+                                              label:
+                                                  index < displayedTags.length
+                                                      ? displayedTags[index]
+                                                      : local.na,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
 
-                      // Ingredients Title
-                      Positioned(
-                        top: 470,
-                        left: 15,
-                        child: Text(
-                          local.ingredients,
-                          style: GoogleFonts.balooThambi2(
-                            color: AppColors.white,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w500,
+                        // Ingredients Section Title
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              top: 20,
+                              bottom: 10,
+                            ),
+                            child: Text(
+                              local.ingredients,
+                              style: GoogleFonts.balooThambi2(
+                                color: AppColors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
 
-                      // Ingredients Container
-                      Positioned(
-                        top: 520,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: IngredientsCustomContainer(meal: meal),
+                        // Ingredients Container
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: Center(
+                              child: IngredientsCustomContainer(meal: meal),
+                            ),
+                          ),
                         ),
-                      ),
 
-                      // Recommendations
-                      Positioned(
-                        top: 780,
-                        left: 15,
-                        right: 0,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
+                        // Recommendation Title
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              top: 40,
+                              bottom: 10,
+                            ),
+                            child: Text(
                               local.recommendation,
                               style: GoogleFonts.balooThambi2(
                                 color: AppColors.white,
@@ -246,37 +288,44 @@ class FoodDetailsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            const SizedBox(height: 10),
-
-                            SizedBox(
-                              height: 190,
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 6,
-                                separatorBuilder: (_, __) => const SizedBox(width: 16),
-                                itemBuilder: (context, index) {
-                                  final recommendations = [
-                                    local.salmon_bowl,
-                                    local.tuna_pasta,
-                                    local.grilled_chicken,
-                                    local.avocado_salad,
-                                    local.beef_steak,
-                                    local.veggie_wrap,
-                                  ];
-
-                                  return RecommendationWidget(
-                                    foodName: recommendations[index],
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+
+                        // Recommendation List
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 190,
+                            child: ListView.separated(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 6,
+                              separatorBuilder:
+                                  (_, __) => const SizedBox(width: 16),
+                              itemBuilder: (context, index) {
+                                final recommendations = [
+                                  local.salmon_bowl,
+                                  local.tuna_pasta,
+                                  local.grilled_chicken,
+                                  local.avocado_salad,
+                                  local.beef_steak,
+                                  local.veggie_wrap,
+                                ];
+
+                                return RecommendationWidget(
+                                  foodName: recommendations[index],
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+
+                        const SliverToBoxAdapter(child: SizedBox(height: 30)),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
             );
           }
