@@ -16,4 +16,7 @@ abstract class AppRoutes {
   static const String foodDetailsScreen = "/foodDetailsScreen";
   static const String foodScreen = "/foodScreen";
   static const String editProfileScreen = "/editProfile";
+  static const String weightStepScreen = "/weightStepScreen";
+  static const String goalStepScreen = "/goalStepScreen";
+  static const String activityStepScreen = "/activityStepScreen";
 }
