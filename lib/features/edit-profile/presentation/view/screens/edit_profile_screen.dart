@@ -43,7 +43,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     "assets/icons/back_fitness_icon.png",
                     height: 30,
                   ),
-                  const SizedBox(width: 100),
+                  const SizedBox(width: 85),
                   Text(
                     locale.editProfile,
                     style: balooThambi2RegularLarge.copyWith(fontSize: 26),

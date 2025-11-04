@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:super_fitness_app/features/edit-profile/data/models/edit_profile_response.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/all_muscles_response.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart';
 import '../../../features/auth/data/models/login_models/login_request_model.dart';
@@ -10,6 +11,7 @@ import '../../../features/auth/domain/responses/register_response.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/forget_password_request_model.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/reset_password_request_model.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart';
+import '../../../features/edit-profile/data/models/edit_profile_request.dart';
 import '../../../features/exercise/data/models/difficulty_levels_response.dart';
 import '../../../features/exercise/data/models/get_exercise_by_muscle_and_difficulty.dart';
 import '../../../features/food/data/models/meals_by_category_model.dart';
@@ -83,4 +85,9 @@ abstract class ApiClient {
 
   @GET(ApiEndPoints.foodByCategory)
   Future<MealsByCategoryModel> getMealsByCategory(@Query("c") String category);
+
+  @PUT(ApiEndPoints.editProfile)
+  @Extra({'auth': true})
+  Future<EditProfileResponse> editProfile(
+      @Body() EditProfileRequest model);
 }
