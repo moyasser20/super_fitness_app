@@ -10,10 +10,10 @@ abstract class AppRoutes {
   static const String dashboard = "/dashboard";
   static const String homeScreen = "/homeScreen";
   static const String changePasswordScreen = "/changePasswordScreen";
-  static const String editProfile = "/editProfile";
   static const String completeRegistration = "/completeRegistration";
   static const String exercisesScreen = "/exercisesScreen";
   static const String workoutsScreen = "/workoutsScreen";
   static const String foodDetailsScreen = "/foodDetailsScreen";
   static const String foodScreen = "/foodScreen";
+  static const String editProfileScreen = "/editProfile";
 }

@@ -150,5 +150,13 @@
   "exercise_reps_info": "3 Groups * 15 Times",
   "recipe_video": "Recipe Video",
   "exercise_video": "Exercise Video",
-  "recommendation_to_you": "Recommendation to Day"
+  "recommendation_to_you": "Recommendation to Day",
+  "editProfile": "Edit Profile",
+  "yourWeight": "Your weight",
+  "tapToEdit": "(tap to edit)",
+  "kilo": "kilo",
+  "yourGoal": "Your goal",
+  "gainWeight": "Gain weight",
+  "yourActivityLevel": "Your activity level",
+  "rookie": "Rookie"
 }

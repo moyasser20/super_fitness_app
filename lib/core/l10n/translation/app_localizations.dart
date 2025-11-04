@@ -784,6 +784,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Video link not available'**
   String get video_link_not_available;
+
+  /// No description provided for @errorWithMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {message}'**
+  String errorWithMessage(Object message);
+
+  /// No description provided for @unnamedWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Unnamed Workout'**
+  String get unnamedWorkout;
+
+  /// No description provided for @hiUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi {userName},'**
+  String hiUser(Object userName);
+
+  /// No description provided for @startYourDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s start your day'**
+  String get startYourDay;
+
+  /// No description provided for @gym.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym'**
+  String get gym;
+
+  /// No description provided for @fitness.
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness'**
+  String get fitness;
+
+  /// No description provided for @yoga.
+  ///
+  /// In en, this message translates to:
+  /// **'Yoga'**
+  String get yoga;
+
+  /// No description provided for @aerobics.
+  ///
+  /// In en, this message translates to:
+  /// **'Aerobics'**
+  String get aerobics;
+
+  /// No description provided for @trainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Trainer'**
+  String get trainer;
+
+  /// No description provided for @noRecommendationsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No recommendations found'**
+  String get noRecommendationsFound;
+
+  /// No description provided for @failedToLoadRecommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load recommendations'**
+  String get failedToLoadRecommendations;
+
+  /// No description provided for @popularTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Training'**
+  String get popularTraining;
+
+  /// No description provided for @exerciseStrengthenChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises That Strengthen Your Chest'**
+  String get exerciseStrengthenChest;
+
+  /// No description provided for @tasksCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Tasks'**
+  String tasksCount(Object count);
+
+  /// No description provided for @difficultyBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get difficultyBeginner;
+
+  /// No description provided for @error_prefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: '**
+  String get error_prefix;
+
+  /// No description provided for @na.
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get na;
+
+  /// No description provided for @salmon_bowl.
+  ///
+  /// In en, this message translates to:
+  /// **'Salmon Bowl'**
+  String get salmon_bowl;
+
+  /// No description provided for @tuna_pasta.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuna Pasta'**
+  String get tuna_pasta;
+
+  /// No description provided for @grilled_chicken.
+  ///
+  /// In en, this message translates to:
+  /// **'Grilled Chicken'**
+  String get grilled_chicken;
+
+  /// No description provided for @avocado_salad.
+  ///
+  /// In en, this message translates to:
+  /// **'Avocado Salad'**
+  String get avocado_salad;
+
+  /// No description provided for @beef_steak.
+  ///
+  /// In en, this message translates to:
+  /// **'Beef Steak'**
+  String get beef_steak;
+
+  /// No description provided for @veggie_wrap.
+  ///
+  /// In en, this message translates to:
+  /// **'Veggie Wrap'**
+  String get veggie_wrap;
+
+  /// No description provided for @loading_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load meal details'**
+  String get loading_failed;
+
+  /// No description provided for @food_recommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Food Recommendation'**
+  String get food_recommendation;
+
+  /// No description provided for @no_foods_available.
+  ///
+  /// In en, this message translates to:
+  /// **'No foods available in this category.'**
+  String get no_foods_available;
+
+  /// No description provided for @unnamed_food.
+  ///
+  /// In en, this message translates to:
+  /// **'Unnamed Food'**
+  String get unnamed_food;
+
+  /// No description provided for @exercise_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get exercise_title;
+
+  /// No description provided for @exercise_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore exercises tailored to your difficulty level.'**
+  String get exercise_subtitle;
+
+  /// No description provided for @exercise_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'30 MIN'**
+  String get exercise_duration;
+
+  /// No description provided for @exercise_calories.
+  ///
+  /// In en, this message translates to:
+  /// **'130 Cal'**
+  String get exercise_calories;
+
+  /// No description provided for @no_exercises_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises found'**
+  String get no_exercises_found;
+
+  /// No description provided for @no_description.
+  ///
+  /// In en, this message translates to:
+  /// **'No description'**
+  String get no_description;
+
+  /// No description provided for @exercise_reps_info.
+  ///
+  /// In en, this message translates to:
+  /// **'3 Groups * 15 Times'**
+  String get exercise_reps_info;
+
+  /// No description provided for @recipe_video.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe Video'**
+  String get recipe_video;
+
+  /// No description provided for @exercise_video.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise Video'**
+  String get exercise_video;
+
+  /// No description provided for @recommendation_to_you.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendation to Day'**
+  String get recommendation_to_you;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfile;
+
+  /// No description provided for @yourWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight'**
+  String get yourWeight;
+
+  /// No description provided for @tapToEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'(tap to edit)'**
+  String get tapToEdit;
+
+  /// No description provided for @kilo.
+  ///
+  /// In en, this message translates to:
+  /// **'kilo'**
+  String get kilo;
+
+  /// No description provided for @yourGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal'**
+  String get yourGoal;
+
+  /// No description provided for @gainWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Gain weight'**
+  String get gainWeight;
+
+  /// No description provided for @yourActivityLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your activity level'**
+  String get yourActivityLevel;
+
+  /// No description provided for @rookie.
+  ///
+  /// In en, this message translates to:
+  /// **'Rookie'**
+  String get rookie;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

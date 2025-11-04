@@ -4,6 +4,7 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/comp
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
+import '../../features/edit-profile/presentation/view/screens/edit_profile_screen.dart';
 import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
 import '../../features/exercise/presentation/view/exercises_screen.dart';
@@ -119,6 +120,9 @@ class Routes {
                 ),
               ),
         );
+
+      case AppRoutes.editProfileScreen:
+        return MaterialPageRoute(builder: (_) => EditProfileScreen());
 
       default:
         return MaterialPageRoute(

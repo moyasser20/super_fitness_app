@@ -150,5 +150,13 @@
   "exercise_reps_info": "٣ مجموعات × ١٥ مرة",
   "recipe_video": "فيديو الوصفة",
   "exercise_video": "فيديو التمرين",
-  "recommendation_to_you": "توصيات اليوم"
+  "recommendation_to_you": "توصيات اليوم",
+  "editProfile": "تعديل الملف الشخصي",
+  "yourWeight": "وزنك",
+  "tapToEdit": "(اضغط للتعديل)",
+  "kilo": "كيلو",
+  "yourGoal": "هدفك",
+  "gainWeight": "زيادة الوزن",
+  "yourActivityLevel": "مستوى نشاطك",
+  "rookie": "مبتدئ"
 }

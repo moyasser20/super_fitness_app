@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/core/l10n/translation/app_localizations.dart';
+import 'package:super_fitness_app/core/routes/route_names.dart';
 
 import '../../../../core/common/widgets/custom_card_shimmer_widget.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -24,7 +25,9 @@ class RecommendationToDayWidget extends StatelessWidget {
           children: [
             Text(local.recommendation_to_you, style: balooThambi2BoldExtraLarge),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, AppRoutes.editProfileScreen);
+              },
               child: Text(
                 local.seeAll,
                 style: balooThambi2RegularLarge.copyWith(
