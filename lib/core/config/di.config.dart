@@ -88,6 +88,18 @@ import '../../features/home/domain/usecases/get_muscle_groups_usecase.dart'
 import '../../features/home/domain/usecases/get_random_muscles_usecase.dart'
     as _i365;
 import '../../features/home/presentation/viewmodel/home_cubit.dart' as _i925;
+import '../../features/profile/api/datasource_impl/profile_remote_datasource_impl.dart'
+    as _i121;
+import '../../features/profile/data/datasource/profile_remote_datasource.dart'
+    as _i1031;
+import '../../features/profile/data/repositories_impl/profile_repository_impl.dart'
+    as _i357;
+import '../../features/profile/domain/repositories/profile_repository.dart'
+    as _i894;
+import '../../features/profile/domain/usecases/get_profile_data_usecase.dart'
+    as _i68;
+import '../../features/profile/presentation/viewmodel/profile_viewmodel.dart'
+    as _i351;
 import '../../features/workouts/api/data_source_impl/workouts_remote_data_source_impl.dart'
     as _i61;
 import '../../features/workouts/data/datasource/workouts_data_source.dart'
@@ -138,6 +150,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i194.WorkoutsRemoteDataSource>(
         () => _i61.WorkoutsRemoteDataSourceImpl(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i1031.ProfileRemoteDatasource>(() =>
+        _i121.ProfileRemoteDatasourceImpl(apiClient: gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i894.ProfileRepository>(() =>
+        _i357.ProfileRepositoryImpl(gh<_i1031.ProfileRemoteDatasource>()));
     gh.lazySingleton<_i301.WorkoutsRepo>(
         () => _i940.WorkoutRepoImpl(gh<_i194.WorkoutsRemoteDataSource>()));
     gh.factory<_i697.ResetPasswordCubit>(
@@ -148,6 +164,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1030.ExerciseRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i24.AuthRemoteDatasource>(
         () => _i758.AuthRemoteDatasourceImpl(gh<_i364.ApiClient>()));
+    gh.factory<_i68.GetProfileDataUseCase>(
+        () => _i68.GetProfileDataUseCase(gh<_i894.ProfileRepository>()));
     gh.lazySingleton<_i170.AuthRepo>(
         () => _i279.AuthRepoImpl(gh<_i24.AuthRemoteDatasource>()));
     gh.lazySingleton<_i439.MusclesRemoteDatasource>(
@@ -156,6 +174,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i635.MusclesRepoImpl(gh<_i439.MusclesRemoteDatasource>()));
     gh.factory<_i532.WorkoutsUseCase>(
         () => _i532.WorkoutsUseCase(gh<_i301.WorkoutsRepo>()));
+    gh.factory<_i351.ProfileViewModel>(
+        () => _i351.ProfileViewModel(gh<_i68.GetProfileDataUseCase>()));
     gh.factory<_i442.LoginUseCase>(
         () => _i442.LoginUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i957.ForgetPasswordUseCase>(

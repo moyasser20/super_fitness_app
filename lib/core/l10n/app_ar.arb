@@ -150,5 +150,19 @@
   "exercise_reps_info": "٣ مجموعات × ١٥ مرة",
   "recipe_video": "فيديو الوصفة",
   "exercise_video": "فيديو التمرين",
-  "recommendation_to_you": "توصيات اليوم"
+  "recommendation_to_you": "توصيات اليوم",
+  "profileTitle": "الملف الشخصي",
+  "editProfile": "تعديل الملف الشخصي",
+  "changePassword": "تغيير كلمة المرور",
+  "security": "الأمان",
+  "privacyPolicy": "سياسة الخصوصية",
+  "help": "المساعدة",
+  "logout": "تسجيل الخروج",
+  "selectLanguage": "اختيار اللغة",
+  "changeLanguage": "تغيير اللغة",
+  "arabic": "العربية",
+  "english": "الإنجليزية",
+  "profile": "الملف",
+  "chat": "الدردشة",
+  "explore": "استكشف"
 }
