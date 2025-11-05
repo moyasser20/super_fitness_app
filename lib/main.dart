@@ -13,6 +13,7 @@ import 'features/food/presentation/viewmodel/food_viewmodel.dart';
 import 'features/localization/data/localization_preference.dart';
 import 'features/localization/localization_controller/localization_cubit.dart';
 import 'features/localization/localization_controller/localization_state.dart';
+import 'features/profile/presentation/viewmodel/profile_viewmodel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +41,9 @@ Future<void> main() async {
         ),
         BlocProvider<MealsCubit>(
           create: (BuildContext context) => getIt<MealsCubit>(),
+        ),
+        BlocProvider<ProfileViewModel>(
+          create: (_) => getIt<ProfileViewModel>()..getProfile(),
         ),
       ],
       child: const MyApp(),

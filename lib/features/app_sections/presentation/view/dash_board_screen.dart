@@ -4,10 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:super_fitness_app/features/workouts/presentation/view/workouts_screen.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/features/home/presentation/views/home_screen.dart';
-import '../../../../core/Widgets/custom_Elevated_Button.dart';
 import '../../../../core/contants/app_icons.dart';
-import '../../../../core/routes/route_names.dart';
-import '../../../auth/domain/services/auth_services.dart';
+import '../../../../core/l10n/translation/app_localizations.dart';
+import '../../../profile/presentation/view/profile_screen.dart';
 
 class DashboardScreenApp extends StatelessWidget {
   const DashboardScreenApp({super.key});
@@ -59,6 +58,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final local = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -77,24 +77,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               WorkoutsScreen(isFromHome: false),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: CustomElevatedButton(
-                      text: "Logout",
-                      onPressed: () async {
-                        await AuthService.logout();
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          AppRoutes.login,
-                              (route) => false,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              const ProfileScreen(),
             ],
           ),
 
@@ -119,24 +102,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     children: [
                       _buildNavItem(
                         imagePath: AppIcons.homeIcon,
-                        label: 'Explore',
+                        label: local.explore,
                         index: 0,
                       ),
                       _buildNavItem(
                         imagePath: AppIcons.chatIcon,
-                        label: 'Chat',
+                        label: local.chat,
                         index: 1,
                       ),
                       _buildNavItem(
                         imagePath: AppIcons.workoutIcon,
-                        label: 'Workouts',
+                        label: local.workouts,
                         index: 2,
                       ),
                       _buildNavItem(
                         imagePath: AppIcons.profileIcon,
                         width: 40,
                         height: 40,
-                        label: 'Profile',
+                        label: local.profile,
                         index: 3,
                       ),
                     ],

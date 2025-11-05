@@ -19,6 +19,7 @@ import '../../../features/home/data/models/meal_categories_response_model.dart';
 import '../../../features/home/data/models/muscle_group_by_id_response_model.dart';
 import '../../../features/home/data/models/muscles_response_model.dart';
 import '../../../features/home/data/models/muscle_groups_response_model.dart'; // Add this import
+import '../../../features/profile/data/models/profile_response.dart';
 import '../api_constants/api_end_points.dart';
 
 part 'api_client.g.dart';
@@ -90,4 +91,8 @@ abstract class ApiClient {
 
   @GET(ApiEndPoints.foodByCategory)
   Future<MealsByCategoryModel> getMealsByCategory(@Query("c") String category);
+
+  @GET(ApiEndPoints.profileData)
+  @Extra({'auth': true})
+  Future<ProfileResponse> getProfile();
 }

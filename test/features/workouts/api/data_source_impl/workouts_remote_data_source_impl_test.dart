@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 import 'package:super_fitness_app/core/api/client/api_client.dart';
-import 'package:super_fitness_app/features/auth/domain/responses/auth_response.dart';
 import 'package:super_fitness_app/features/workouts/api/data_source_impl/workouts_remote_data_source_impl.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/all_muscles_response.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart';
