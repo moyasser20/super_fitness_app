@@ -7,6 +7,7 @@ import 'package:super_fitness_app/features/profile/presentation/view/widgets/hel
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/privacy_policy_screen.dart';
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/security_roles_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
+import '../../features/auth/presentation/change_password/views/change_password_screen.dart';
 import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
 import '../../features/exercise/presentation/view/exercises_screen.dart';
@@ -122,6 +123,12 @@ class Routes {
                 ),
               ),
         );
+        case AppRoutes.changePasswordScreen:
+          return MaterialPageRoute(
+            builder:
+                (_) => const ChangePasswordScreen(),
+          );
+
 
       case AppRoutes.securityScreen:
         return MaterialPageRoute(builder: (_) => const SecurityRolesScreen());

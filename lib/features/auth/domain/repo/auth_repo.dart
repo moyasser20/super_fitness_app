@@ -11,4 +11,4 @@ abstract class AuthRepo {
   Future<AuthResponse<String>> resetPassword(String email, String newPassword);
   Future<AuthResponse<RegisterResponse>> register(RegisterRequestModel registerRequest);
   Future<AuthResponse<LoginResponse>> login(LoginRequest loginRequest);
-}
+  Future<AuthResponse<String>> changePassword(String oldPassword, String newPassword);}

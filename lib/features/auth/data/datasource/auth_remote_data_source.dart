@@ -18,6 +18,7 @@ abstract class AuthRemoteDatasource {
   Future<AuthResponse<String>> resetPassword(
       ResetPasswordRequestModel resetPasswordRequestModel,
       );
+  Future<AuthResponse<String>> changePassword(String oldPassword, String newPassword);
   Future<AuthResponse<RegisterResponse>> register(RegisterRequestModel registerRequest);
   Future<AuthResponse<LoginResponse>> login(LoginRequest loginRequest);
 }

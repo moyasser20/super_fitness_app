@@ -3,8 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/all_muscles_response.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart';
+import '../../../features/auth/data/models/change_password_request_model.dart';
 import '../../../features/auth/data/models/login_models/login_request_model.dart';
 import '../../../features/auth/data/models/login_models/login_response_model.dart';
+import '../../../features/auth/domain/responses/auth_response.dart';
 import '../../../features/auth/domain/responses/register_request_model.dart';
 import '../../../features/auth/domain/responses/register_response.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/forget_password_request_model.dart';
@@ -18,6 +20,7 @@ import '../../../features/home/data/models/muscle_group_by_id_response_model.dar
 import '../../../features/home/data/models/muscles_response_model.dart';
 import '../../../features/home/data/models/muscle_groups_response_model.dart'; // Add this import
 import '../../../features/profile/data/models/profile_response.dart';
+import '../../contants/secure_storage.dart';
 import '../api_constants/api_end_points.dart';
 
 part 'api_client.g.dart';
@@ -27,6 +30,7 @@ part 'api_client.g.dart';
 abstract class ApiClient {
   @factoryMethod
   factory ApiClient(Dio dio, {@Named('baseurl') String? baseUrl}) = _ApiClient;
+
 
   @POST(ApiEndPoints.signup)
   Future<RegisterResponse> register(
@@ -48,6 +52,12 @@ abstract class ApiClient {
     @Body() ResetPasswordRequestModel resetPasswordRequestModel,
   );
 
+  @PATCH(ApiEndPoints.changePassword)
+  @Extra({'auth': true})
+  Future<String> changePassword(
+    @Body() ChangePasswordRequestModel changePasswordRequestModel,
+  );
+
   @POST(ApiEndPoints.login)
   Future<LoginResponse> login(@Body() LoginRequest loginRequest);
 
@@ -65,22 +75,22 @@ abstract class ApiClient {
 
   @GET(ApiEndPoints.muscleGroupsById)
   Future<MuscleGroupByIdResponse> getMuscleGroupById(
-      @Path('groupId') String groupId,
-      );
+    @Path('groupId') String groupId,
+  );
 
   @GET(ApiEndPoints.mealCategoriesUri)
   Future<MealCategoriesResponse> getMealCategories();
 
   @GET(ApiEndPoints.getAllDifficultyLevels)
   Future<DifficultyLevelResponse> getAllDifficultyLevels(
-      @Query('primeMoverMuscleId') String primeMoverMuscleId,
-      );
+    @Query('primeMoverMuscleId') String primeMoverMuscleId,
+  );
 
   @GET(ApiEndPoints.getExerciseByMuscleAndDifficulty)
   Future<GetExerciseByMuscleAndDifficulty> getExerciseByMuscleAndDifficulty(
-      @Query('primeMoverMuscleId') String primeMoverMuscleId,
-      @Query('difficultyLevelId') String difficultyLevelId,
-      );
+    @Query('primeMoverMuscleId') String primeMoverMuscleId,
+    @Query('difficultyLevelId') String difficultyLevelId,
+  );
 
   @GET(ApiEndPoints.foodByCategory)
   Future<MealsByCategoryModel> getMealsByCategory(@Query("c") String category);
