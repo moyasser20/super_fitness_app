@@ -35,7 +35,6 @@ class EditProfileViewModel extends Cubit<EditProfileState> {
       selectedWeight = 90;
       selectedGoal = "Gain Weight";
       selectedActivity = "Rookie";
-      profilePhotoUrl = "assets/images/test_food.png";
 
       emit(EditProfileLoaded());
     } catch (e) {
