@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -13,6 +15,7 @@ import '../../../features/auth/data/models/forgetpasswordmodels/forget_password_
 import '../../../features/auth/data/models/forgetpasswordmodels/reset_password_request_model.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/verify_code_request_model.dart';
 import '../../../features/edit-profile/data/models/edit_profile_request.dart';
+import '../../../features/edit-profile/data/models/upload_photo_response.dart';
 import '../../../features/exercise/data/models/difficulty_levels_response.dart';
 import '../../../features/exercise/data/models/get_exercise_by_muscle_and_difficulty.dart';
 import '../../../features/food/data/models/meals_by_category_model.dart';
@@ -103,4 +106,9 @@ abstract class ApiClient {
   @Extra({'auth': true})
   Future<EditProfileResponse> editProfile(
       @Body() EditProfileRequest model);
+
+  @PUT(ApiEndPoints.uploadPhoto)
+  @MultiPart()
+  @Extra({'auth': true})
+  Future<UploadPhotoResponse> uploadPhoto(@Part(name: "photo") File photo);
 }

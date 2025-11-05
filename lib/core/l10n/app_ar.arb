@@ -174,5 +174,7 @@
   "yourGoal": "هدفك",
   "gainWeight": "زيادة الوزن",
   "yourActivityLevel": "مستوى نشاطك",
-  "rookie": "مبتدئ"
+  "rookie": "مبتدئ",
+  "uploadPhotoSuccess": "تم تحميل الصورة بنجاح",
+  "profileUpdatedSuccess": "تم تحديث الملف الشخصي بنجاح"
 }
