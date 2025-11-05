@@ -7,6 +7,7 @@ import 'package:super_fitness_app/features/edit-profile/data/models/edit_profile
 import 'package:super_fitness_app/features/edit-profile/data/repositories/edit_profile_repo_impl.dart';
 
 import '../../../../core/common/widgets/custom_snackbar_widget.dart';
+import '../../../profile/domain/entity/user_entity.dart';
 import 'edit_profile_states.dart';
 
 @injectable
@@ -24,17 +25,15 @@ class EditProfileViewModel extends Cubit<EditProfileState> {
   String selectedActivity = "";
   String? profilePhotoUrl;
 
-  Future<void> loadUserData() async {
+  Future<void> loadUserDataFromProfile(UserEntity user) async {
     emit(EditProfileLoading());
     try {
-      final token = await SecureStorage.getToken();
-
-      firstNameController.text = "Mohamed";
-      lastNameController.text = "Yasser";
-      emailController.text = "moyasser@gmail.com";
-      selectedWeight = 90;
-      selectedGoal = "Gain Weight";
-      selectedActivity = "Rookie";
+      firstNameController.text = user.firstName ?? "";
+      lastNameController.text = user.lastName ?? "";
+      emailController.text = user.email ?? "";
+      selectedWeight = user.weight ?? 0;
+      selectedGoal = user.goal ?? "";
+      selectedActivity = user.activityLevel ?? "";
 
       emit(EditProfileLoaded());
     } catch (e) {
