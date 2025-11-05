@@ -97,15 +97,15 @@ abstract class SecureStorage {
   }
 
   static Future<void> saveToken(String token) async {
-    await write(key: 'token', value: token);
+    await write(key: 'auth_token', value: token);
   }
 
   static Future<String?> getToken() async {
-    return await read('token');
+    return await read('auth_token');
   }
 
   static Future<void> deleteToken() async {
-    await delete('token');
+    await delete('auth_token');
   }
 
   static Future<void> saveRememberMe(bool rememberMe) async {

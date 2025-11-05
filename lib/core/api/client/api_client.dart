@@ -20,6 +20,7 @@ import '../../../features/home/data/models/muscle_group_by_id_response_model.dar
 import '../../../features/home/data/models/muscles_response_model.dart';
 import '../../../features/home/data/models/muscle_groups_response_model.dart'; // Add this import
 import '../../../features/profile/data/models/profile_response.dart';
+import '../../contants/secure_storage.dart';
 import '../api_constants/api_end_points.dart';
 
 part 'api_client.g.dart';
@@ -29,6 +30,7 @@ part 'api_client.g.dart';
 abstract class ApiClient {
   @factoryMethod
   factory ApiClient(Dio dio, {@Named('baseurl') String? baseUrl}) = _ApiClient;
+
 
   @POST(ApiEndPoints.signup)
   Future<RegisterResponse> register(
@@ -51,6 +53,7 @@ abstract class ApiClient {
   );
 
   @PATCH(ApiEndPoints.changePassword)
+  @Extra({'auth': true})
   Future<String> changePassword(
     @Body() ChangePasswordRequestModel changePasswordRequestModel,
   );

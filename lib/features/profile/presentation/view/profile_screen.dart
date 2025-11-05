@@ -109,7 +109,9 @@ class ProfileScreen extends StatelessWidget {
                                   height: 24,
                                 ),
                                 title: local.changePassword,
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(context,AppRoutes.changePasswordScreen);
+                                },
                               ),
 
                               _divider(),
