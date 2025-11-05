@@ -79,6 +79,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         const EdgeInsets.symmetric(horizontal: 16, vertical: 12);
 
     return TextFormField(
+      autofocus: true,
       controller: _controller,
       enabled: widget.enabled,
       readOnly: widget.readonly,

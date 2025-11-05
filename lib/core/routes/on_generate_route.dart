@@ -5,6 +5,9 @@ import 'package:super_fitness_app/features/auth/presentation/register/views/comp
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import 'package:super_fitness_app/features/edit-profile/presentation/view/screens/edit_profile_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
+import 'package:super_fitness_app/features/profile/presentation/view/widgets/help_screen.dart';
+import 'package:super_fitness_app/features/profile/presentation/view/widgets/privacy_policy_screen.dart';
+import 'package:super_fitness_app/features/profile/presentation/view/widgets/security_roles_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 import 'package:super_fitness_app/features/food-details/presentation/view/screens/food_details_screen.dart';
 import 'package:super_fitness_app/features/food-details/presentation/viewmodel/meals_details_cubit.dart';
@@ -27,7 +30,26 @@ import '../../features/edit-profile/presentation/view/widgets/activity_step_widg
 import '../../features/edit-profile/presentation/view/widgets/goal_step_widget.dart';
 import '../../features/edit-profile/presentation/view/widgets/weight_step_widget.dart';
 import '../../features/edit-profile/presentation/viewmodel/edit_profile_cubit.dart';
+import '../../features/auth/presentation/change_password/views/change_password_screen.dart';
+import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
+import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
+import '../../features/exercise/presentation/view/exercises_screen.dart';
+import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
+import '../../features/food/presentation/view/screens/food_screen.dart';
+import '../../features/food/presentation/viewmodel/food_viewmodel.dart';
+import '../../features/home/presentation/views/home_screen.dart';
+import '../../features/workouts/presentation/view/workouts_screen.dart';
 import '../routes/route_names.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
+import '../../features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart';
+import '../config/di.dart';
+import '../../features/auth/presentation/forgetpassword/view/screens/email_verification_screen.dart';
+import '../../features/auth/presentation/forgetpassword/view/screens/forget_password_screen.dart';
+import '../../features/auth/presentation/forgetpassword/view/screens/reset_password_screen.dart';
+import '../../features/auth/presentation/forgetpassword/viewmodel/forget_password_viewmodel.dart';
+import '../../features/auth/presentation/forgetpassword/viewmodel/reset_password_viewmodel.dart';
+import '../../features/auth/presentation/forgetpassword/viewmodel/verify_code_viewmodel.dart';
 
 class Routes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -51,51 +73,55 @@ class Routes {
 
       case AppRoutes.login:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<LoginViewModel>(),
-            child: const LoginScreen(),
-          ),
+          builder:
+              (context) => BlocProvider(
+                create: (context) => getIt<LoginViewModel>(),
+                child: const LoginScreen(),
+              ),
         );
 
       case AppRoutes.forgetPassword:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<ForgetPasswordCubit>(),
-            child: const ForgetPasswordScreen(),
-          ),
+          builder:
+              (_) => BlocProvider<ForgetPasswordCubit>(
+                create: (context) => getIt<ForgetPasswordCubit>(),
+                child: const ForgetPasswordScreen(),
+              ),
         );
 
       case AppRoutes.emailVerification:
         final email = settings.arguments as String? ?? '';
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<VerifyCodeCubit>(),
-            child: EmailVerificationScreen(email: email),
-          ),
+          builder:
+              (_) => BlocProvider<VerifyCodeCubit>(
+                create: (context) => getIt<VerifyCodeCubit>(),
+                child: EmailVerificationScreen(email: email),
+              ),
         );
 
       case AppRoutes.resetPassword:
         final email = settings.arguments as String? ?? '';
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<ResetPasswordCubit>(),
-            child: ResetPasswordScreen(email: email),
-          ),
+          builder:
+              (_) => BlocProvider<ResetPasswordCubit>(
+                create: (context) => getIt<ResetPasswordCubit>(),
+                child: ResetPasswordScreen(email: email),
+              ),
         );
 
       case AppRoutes.foodDetailsScreen:
         final args = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) {
-              final cubit = getIt<MealDetailsCubit>();
-              cubit.getMealById(args);
-              return cubit;
-            },
-            child: FoodDetailsScreen(mealId: args),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create: (context) {
+                  final cubit = getIt<MealDetailsCubit>();
+                  cubit.getMealById(args);
+                  return cubit;
+                },
+                child: FoodDetailsScreen(mealId: args),
+              ),
         );
-
       case AppRoutes.homeScreen:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 
@@ -108,23 +134,40 @@ class Routes {
       case AppRoutes.foodScreen:
         final arg = settings.arguments;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<MealsCubit>(),
-            child: FoodScreen(initialCategory: arg is String ? arg : null),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<MealsCubit>(),
+                child: FoodScreen(initialCategory: arg is String ? arg : null),
+              ),
         );
 
       case AppRoutes.exercisesScreen:
         final args = settings.arguments as ExerciseData;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<ExerciseViewModel>(),
-            child: ExerciseScreen(
-              primeMoverMuscleId: args.id,
-              primeMoverMuscleName: args.name,
-            ),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ExerciseViewModel>(),
+                child: ExerciseScreen(
+                  primeMoverMuscleId: args.id,
+                  primeMoverMuscleName: args.name,
+                ),
+              ),
         );
+        case AppRoutes.changePasswordScreen:
+          return MaterialPageRoute(
+            builder:
+                (_) => const ChangePasswordScreen(),
+          );
+
+
+      case AppRoutes.securityScreen:
+        return MaterialPageRoute(builder: (_) => const SecurityRolesScreen());
+
+      case AppRoutes.privacyPolicyScreen:
+        return MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen());
+
+      case AppRoutes.helpScreen:
+        return MaterialPageRoute(builder: (_) => const HelpScreen());
 
       case AppRoutes.editProfileScreen:
         return MaterialPageRoute(
@@ -178,11 +221,12 @@ class Routes {
 
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          ),
+          builder:
+              (_) => Scaffold(
+                body: Center(
+                  child: Text('No route defined for ${settings.name}'),
+                ),
+              ),
         );
     }
   }

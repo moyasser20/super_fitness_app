@@ -6,6 +6,7 @@ import 'dart:convert';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/api/client/api_client.dart';
 import '../../data/datasource/auth_remote_data_source.dart';
+import '../../data/models/change_password_request_model.dart';
 import '../../data/models/forgetpasswordmodels/forget_password_request_model.dart';
 import '../../domain/responses/auth_response.dart';
 import '../../data/models/login_models/login_request_model.dart';
@@ -111,5 +112,20 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return AuthResponse.error(e.toString());
     }
   }
-
+  @override
+  Future<AuthResponse<String>> changePassword(String oldPassword, String newPassword) async {
+    try {
+      final model = ChangePasswordRequestModel(
+        password: oldPassword,
+        newPassword: newPassword,
+      );
+      final result = await _apiClient.changePassword(model);
+      return AuthResponse.success(result);
+    } on DioException catch (e) {
+      String apiMessage = _extractApiMessage(e);
+      return AuthResponse.error(apiMessage);
+    } catch (e) {
+      return AuthResponse.error(e.toString());
+    }
+  }
 }

@@ -62,7 +62,8 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,17 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
-    Locale('en')
+    Locale('en'),
   ];
 
   /// No description provided for @hello.
@@ -1007,56 +1010,93 @@ abstract class AppLocalizations {
   /// **'Recommendation to Day'**
   String get recommendation_to_you;
 
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTitle;
+
   /// No description provided for @editProfile.
   ///
   /// In en, this message translates to:
   /// **'Edit Profile'**
   String get editProfile;
 
-  /// No description provided for @yourWeight.
+  /// No description provided for @changePassword.
   ///
   /// In en, this message translates to:
-  /// **'Your weight'**
-  String get yourWeight;
+  /// **'Change Password'**
+  String get changePassword;
 
-  /// No description provided for @tapToEdit.
+  /// No description provided for @security.
   ///
   /// In en, this message translates to:
-  /// **'(tap to edit)'**
-  String get tapToEdit;
+  /// **'Security'**
+  String get security;
 
-  /// No description provided for @kilo.
+  /// No description provided for @privacyPolicy.
   ///
   /// In en, this message translates to:
-  /// **'kilo'**
-  String get kilo;
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
 
-  /// No description provided for @yourGoal.
+  /// No description provided for @help.
   ///
   /// In en, this message translates to:
-  /// **'Your goal'**
-  String get yourGoal;
+  /// **'Help'**
+  String get help;
 
-  /// No description provided for @gainWeight.
+  /// No description provided for @logout.
   ///
   /// In en, this message translates to:
-  /// **'Gain weight'**
-  String get gainWeight;
+  /// **'Logout'**
+  String get logout;
 
-  /// No description provided for @yourActivityLevel.
+  /// No description provided for @selectLanguage.
   ///
   /// In en, this message translates to:
-  /// **'Your activity level'**
-  String get yourActivityLevel;
+  /// **'Select Language'**
+  String get selectLanguage;
 
-  /// No description provided for @rookie.
+  /// No description provided for @changeLanguage.
   ///
   /// In en, this message translates to:
-  /// **'Rookie'**
-  String get rookie;
+  /// **'Change Language'**
+  String get changeLanguage;
+
+  /// No description provided for @arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get arabic;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @chat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get chat;
+
+  /// No description provided for @explore.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get explore;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -1065,25 +1105,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return AppLocalizationsAr();
-    case 'en': return AppLocalizationsEn();
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:super_fitness_app/core/contants/secure_storage.dart';
 import '../../api/api_constants/api_constants.dart';
 
 @module
@@ -31,12 +30,15 @@ abstract class DioModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          if (options.extra['auth'] == true) {
-            final token = await SecureStorage.getToken();
+          final requiresAuth = options.extra['auth'] == true;
+
+          if (requiresAuth) {
+            final token = await AuthService.getToken();
             if (token != null && token.isNotEmpty) {
               options.headers['Authorization'] = 'Bearer $token';
             }
           }
+
           return handler.next(options);
         },
       ),
