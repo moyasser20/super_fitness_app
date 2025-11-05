@@ -28,6 +28,14 @@ class GoalStepScreen extends StatefulWidget {
 }
 
 class _GoalStepScreenState extends State<GoalStepScreen> {
+  String? currentSelectedGoal;
+
+  @override
+  void initState() {
+    super.initState();
+    currentSelectedGoal = widget.selectedGoal;
+  }
+
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
@@ -42,25 +50,31 @@ class _GoalStepScreenState extends State<GoalStepScreen> {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 70,),
+            const SizedBox(height: 70),
             Image.asset(AppIcons.mainIcon),
-            const SizedBox(height: 100,),
+            const SizedBox(height: 100),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("WHAT IS YOUR GOAL ?" , style: balooThambi2BoldLarge.copyWith(
-                fontSize: 24,
-                color: AppColors.white,
-              ),),
+              child: Text(
+                "WHAT IS YOUR GOAL ?",
+                style: balooThambi2BoldLarge.copyWith(
+                  fontSize: 24,
+                  color: AppColors.white,
+                ),
+              ),
             ).setHorizontalPadding(context, 0.045),
-            const SizedBox(height: 2,),
+            const SizedBox(height: 2),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("This Helps Us Create Your Personalized Plan" , style: balooThambi2Regular.copyWith(
-                fontSize: 18,
-                color: AppColors.white,
-              ),),
+              child: Text(
+                "This Helps Us Create Your Personalized Plan",
+                style: balooThambi2Regular.copyWith(
+                  fontSize: 18,
+                  color: AppColors.white,
+                ),
+              ),
             ).setHorizontalPadding(context, 0.045),
-            const SizedBox(height: 25,),
+            const SizedBox(height: 25),
             Center(
               child: ContainerWithBlurWidget(
                 padding: const EdgeInsets.all(20),
@@ -76,9 +90,14 @@ class _GoalStepScreenState extends State<GoalStepScreen> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 18.0),
                           child: GestureDetector(
-                            onTap: () => widget.onGoalSelected(goal),
+                            onTap: () {
+                              setState(() {
+                                currentSelectedGoal = goal;
+                              });
+                              widget.onGoalSelected(goal);
+                            },
                             child: CustomRadioButton(
-                              selectedGoal: widget.selectedGoal,
+                              selectedGoal: currentSelectedGoal,
                               value: goal,
                             ),
                           ),

@@ -9,7 +9,7 @@ import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/l10n/translation/app_localizations.dart';
 
-class ActivityStepScreen extends StatelessWidget {
+class ActivityStepScreen extends StatefulWidget {
   final List<Map<String, String>> activities;
   final String? selectedActivityDisplay;
   final ValueChanged<Map<String, String>> onActivitySelected;
@@ -22,6 +22,19 @@ class ActivityStepScreen extends StatelessWidget {
     required this.onActivitySelected,
     required this.onNext,
   });
+
+  @override
+  State<ActivityStepScreen> createState() => _ActivityStepScreenState();
+}
+
+class _ActivityStepScreenState extends State<ActivityStepScreen> {
+  String? currentSelectedActivity;
+
+  @override
+  void initState() {
+    super.initState();
+    currentSelectedActivity = widget.selectedActivityDisplay;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +50,21 @@ class ActivityStepScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 70,),
+            const SizedBox(height: 70),
             Image.asset(AppIcons.mainIcon),
-            const SizedBox(height: 100,),
+            const SizedBox(height: 100),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("YOUR REGULAR PHYSICAL ACTIVITY LEVEL ?" , style: balooThambi2ExtraBold.copyWith(
-                fontSize: 24,
-                color: AppColors.white,
-              ),),
+              child: Text(
+                "YOUR REGULAR PHYSICAL ACTIVITY LEVEL?",
+                style: balooThambi2ExtraBold.copyWith(
+                  fontSize: 24,
+                  color: AppColors.white,
+                ),
+              ),
             ).setHorizontalPadding(context, 0.045),
-            const SizedBox(height: 25,),
+            const SizedBox(height: 25),
             Center(
-
               child: ContainerWithBlurWidget(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -57,16 +72,23 @@ class ActivityStepScreen extends StatelessWidget {
                   children: [
                     ListView.builder(
                       shrinkWrap: true,
-                      itemCount: activities.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: widget.activities.length,
                       itemBuilder: (context, index) {
-                        final activity = activities[index];
+                        final activity = widget.activities[index];
+                        final value = activity['display']!;
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 12.0),
+                          padding: const EdgeInsets.only(bottom: 18.0),
                           child: GestureDetector(
-                            onTap: () => onActivitySelected(activity),
+                            onTap: () {
+                              setState(() {
+                                currentSelectedActivity = value;
+                              });
+                              widget.onActivitySelected(activity);
+                            },
                             child: CustomRadioButton(
-                              selectedGoal: selectedActivityDisplay,
-                              value: activity['display']!,
+                              selectedGoal: currentSelectedActivity,
+                              value: value,
                             ),
                           ),
                         );
@@ -77,7 +99,7 @@ class ActivityStepScreen extends StatelessWidget {
                       color: AppColors.main,
                       width: double.infinity,
                       text: locale!.done,
-                      onPressed: onNext,
+                      onPressed: widget.onNext,
                     ),
                   ],
                 ),

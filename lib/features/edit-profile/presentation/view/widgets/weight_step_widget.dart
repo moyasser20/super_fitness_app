@@ -9,7 +9,7 @@ import '../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../core/utils/styles.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 
-class WeightStepScreen extends StatelessWidget {
+class WeightStepScreen extends StatefulWidget {
   final int selectedWeight;
   final ValueChanged<int> onWeightChanged;
   final VoidCallback onNext;
@@ -21,6 +21,11 @@ class WeightStepScreen extends StatelessWidget {
     required this.onNext,
   });
 
+  @override
+  State<WeightStepScreen> createState() => _WeightStepScreenState();
+}
+
+class _WeightStepScreenState extends State<WeightStepScreen> {
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
@@ -69,18 +74,18 @@ class WeightStepScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     CustomHorizontalPicker(
-                      initialValue: selectedWeight,
+                      initialValue: widget.selectedWeight,
                       minValue: 40,
                       maxValue: 150,
                       unit: 'kg',
-                      onValueChanged: onWeightChanged,
+                      onValueChanged: widget.onWeightChanged,
                     ),
                     const SizedBox(height: 30),
                     CustomElevatedButton(
                       color: AppColors.main,
                       width: double.infinity,
                       text: locale.done,
-                      onPressed: onNext,
+                      onPressed: widget.onNext,
                     ),
                   ],
                 ),
