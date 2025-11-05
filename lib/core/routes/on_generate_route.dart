@@ -1,12 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/features/app_sections/presentation/view/dash_board_screen.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/complete_registration_screen.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
+import 'package:super_fitness_app/features/edit-profile/presentation/view/screens/edit_profile_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/help_screen.dart';
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/privacy_policy_screen.dart';
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/security_roles_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
+import 'package:super_fitness_app/features/food-details/presentation/view/screens/food_details_screen.dart';
+import 'package:super_fitness_app/features/food-details/presentation/viewmodel/meals_details_cubit.dart';
+import 'package:super_fitness_app/features/exercise/presentation/view/exercises_screen.dart';
+import 'package:super_fitness_app/features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
+import 'package:super_fitness_app/features/food/presentation/view/screens/food_screen.dart';
+import 'package:super_fitness_app/features/food/presentation/viewmodel/food_viewmodel.dart';
+import 'package:super_fitness_app/features/home/presentation/views/home_screen.dart';
+import 'package:super_fitness_app/features/workouts/presentation/view/workouts_screen.dart';
+import 'package:super_fitness_app/features/auth/presentation/login/presentation/view/login_screen.dart';
+import 'package:super_fitness_app/features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart';
+import 'package:super_fitness_app/features/auth/presentation/forgetpassword/view/screens/email_verification_screen.dart';
+import 'package:super_fitness_app/features/auth/presentation/forgetpassword/view/screens/forget_password_screen.dart';
+import 'package:super_fitness_app/features/auth/presentation/forgetpassword/view/screens/reset_password_screen.dart';
+import 'package:super_fitness_app/features/auth/presentation/forgetpassword/viewmodel/forget_password_viewmodel.dart';
+import 'package:super_fitness_app/features/auth/presentation/forgetpassword/viewmodel/reset_password_viewmodel.dart';
+import 'package:super_fitness_app/features/auth/presentation/forgetpassword/viewmodel/verify_code_viewmodel.dart';
+import '../../core/config/di.dart';
+import '../../features/edit-profile/presentation/view/widgets/activity_step_widget.dart';
+import '../../features/edit-profile/presentation/view/widgets/goal_step_widget.dart';
+import '../../features/edit-profile/presentation/view/widgets/weight_step_widget.dart';
+import '../../features/edit-profile/presentation/viewmodel/edit_profile_cubit.dart';
 import '../../features/auth/presentation/change_password/views/change_password_screen.dart';
 import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
@@ -33,16 +56,21 @@ class Routes {
     switch (settings.name) {
       case AppRoutes.splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
+
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
+
       case AppRoutes.completeRegistration:
         return MaterialPageRoute(
           builder: (_) => const CompleteRegistrationScreen(),
         );
+
       case AppRoutes.dashboard:
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
+
       case AppRoutes.login:
         return MaterialPageRoute(
           builder:
@@ -51,6 +79,7 @@ class Routes {
                 child: const LoginScreen(),
               ),
         );
+
       case AppRoutes.forgetPassword:
         return MaterialPageRoute(
           builder:
@@ -59,6 +88,7 @@ class Routes {
                 child: const ForgetPasswordScreen(),
               ),
         );
+
       case AppRoutes.emailVerification:
         final email = settings.arguments as String? ?? '';
         return MaterialPageRoute(
@@ -138,6 +168,56 @@ class Routes {
 
       case AppRoutes.helpScreen:
         return MaterialPageRoute(builder: (_) => const HelpScreen());
+
+      case AppRoutes.editProfileScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<EditProfileViewModel>(),
+            child: const EditProfileScreen(),
+          ),
+        );
+
+      case AppRoutes.weightStepScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<EditProfileViewModel>(),
+            child: WeightStepScreen(
+              selectedWeight: args['selectedWeight'],
+              onWeightChanged: args['onWeightChanged'],
+              onNext: args['onNext'],
+            ),
+          ),
+        );
+
+      case AppRoutes.goalStepScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<EditProfileViewModel>(),
+            child: GoalStepScreen(
+              goals: args['goals'],
+              selectedGoal: args['selectedGoal'],
+              onGoalSelected: args['onGoalSelected'],
+              onNext: args['onNext'],
+            ),
+          ),
+        );
+
+      case AppRoutes.activityStepScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: getIt<EditProfileViewModel>(),
+            child: ActivityStepScreen(
+              activities: args['activities'],
+              selectedActivityDisplay: args['selectedActivityDisplay'],
+              onActivitySelected: args['onActivitySelected'],
+              onNext: args['onNext'],
+            ),
+          ),
+        );
+
 
       default:
         return MaterialPageRoute(

@@ -167,5 +167,12 @@
   "profile": "Profile",
   "chat": "Chat",
   "explore": "Explore",
-  "changed_password_success": "Password changed successfully. Please login again."
+  "changed_password_success": "Password changed successfully. Please login again.",
+  "yourWeight": "Your weight",
+  "tapToEdit": "(tap to edit)",
+  "kilo": "kilo",
+  "yourGoal": "Your goal",
+  "gainWeight": "Gain weight",
+  "yourActivityLevel": "Your activity level",
+  "rookie": "Rookie"
 }

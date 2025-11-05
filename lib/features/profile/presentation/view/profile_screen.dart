@@ -58,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                           onTap: () async {
                             final updated = await Navigator.pushNamed(
                               context,
-                              AppRoutes.editProfile,
+                              AppRoutes.editProfileScreen,
                               arguments: profile,
                             );
                             if (updated == true) {
