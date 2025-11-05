@@ -62,6 +62,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: true,
       controller: _controller,
       enabled: widget.enabled,
       readOnly: widget.readonly,

@@ -3,8 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/all_muscles_response.dart';
 import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart';
+import '../../../features/auth/data/models/change_password_request_model.dart';
 import '../../../features/auth/data/models/login_models/login_request_model.dart';
 import '../../../features/auth/data/models/login_models/login_response_model.dart';
+import '../../../features/auth/domain/responses/auth_response.dart';
 import '../../../features/auth/domain/responses/register_request_model.dart';
 import '../../../features/auth/domain/responses/register_response.dart';
 import '../../../features/auth/data/models/forgetpasswordmodels/forget_password_request_model.dart';
@@ -47,6 +49,11 @@ abstract class ApiClient {
     @Body() ResetPasswordRequestModel resetPasswordRequestModel,
   );
 
+  @PATCH(ApiEndPoints.changePassword)
+  Future<String> changePassword(
+    @Body() ChangePasswordRequestModel changePasswordRequestModel,
+  );
+
   @POST(ApiEndPoints.login)
   Future<LoginResponse> login(@Body() LoginRequest loginRequest);
 
@@ -64,22 +71,22 @@ abstract class ApiClient {
 
   @GET(ApiEndPoints.muscleGroupsById)
   Future<MuscleGroupByIdResponse> getMuscleGroupById(
-      @Path('groupId') String groupId,
-      );
+    @Path('groupId') String groupId,
+  );
 
   @GET(ApiEndPoints.mealCategoriesUri)
   Future<MealCategoriesResponse> getMealCategories();
 
   @GET(ApiEndPoints.getAllDifficultyLevels)
   Future<DifficultyLevelResponse> getAllDifficultyLevels(
-      @Query('primeMoverMuscleId') String primeMoverMuscleId,
-      );
+    @Query('primeMoverMuscleId') String primeMoverMuscleId,
+  );
 
   @GET(ApiEndPoints.getExerciseByMuscleAndDifficulty)
   Future<GetExerciseByMuscleAndDifficulty> getExerciseByMuscleAndDifficulty(
-      @Query('primeMoverMuscleId') String primeMoverMuscleId,
-      @Query('difficultyLevelId') String difficultyLevelId,
-      );
+    @Query('primeMoverMuscleId') String primeMoverMuscleId,
+    @Query('difficultyLevelId') String difficultyLevelId,
+  );
 
   @GET(ApiEndPoints.foodByCategory)
   Future<MealsByCategoryModel> getMealsByCategory(@Query("c") String category);
