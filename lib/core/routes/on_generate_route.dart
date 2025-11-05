@@ -3,6 +3,9 @@ import 'package:super_fitness_app/features/app_sections/presentation/view/dash_b
 import 'package:super_fitness_app/features/auth/presentation/register/views/complete_registration_screen.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
+import 'package:super_fitness_app/features/profile/presentation/view/widgets/help_screen.dart';
+import 'package:super_fitness_app/features/profile/presentation/view/widgets/privacy_policy_screen.dart';
+import 'package:super_fitness_app/features/profile/presentation/view/widgets/security_roles_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
 import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
@@ -119,6 +122,15 @@ class Routes {
                 ),
               ),
         );
+
+      case AppRoutes.securityScreen:
+        return MaterialPageRoute(builder: (_) => const SecurityRolesScreen());
+
+      case AppRoutes.privacyPolicyScreen:
+        return MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen());
+
+      case AppRoutes.helpScreen:
+        return MaterialPageRoute(builder: (_) => const HelpScreen());
 
       default:
         return MaterialPageRoute(
