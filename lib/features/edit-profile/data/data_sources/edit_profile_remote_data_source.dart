@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:super_fitness_app/core/api/client/api_client.dart';
 import 'package:super_fitness_app/features/edit-profile/data/models/edit_profile_request.dart';
 import 'package:super_fitness_app/features/edit-profile/data/models/edit_profile_response.dart';
-
+import '../../../../core/api/client/api_client.dart';
 import '../../../../core/errors/failure.dart';
+import 'dart:convert';
 
 @lazySingleton
 class EditProfileRemoteDataSource {

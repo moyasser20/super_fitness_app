@@ -16,9 +16,6 @@ class EditProfileRequest {
   final String? activityLevel;
   @JsonKey(name: "goal")
   final String? goal;
-  @JsonKey(name: "photo")
-  final String? photo;
-
   EditProfileRequest ({
     this.firstName,
     this.lastName,
@@ -26,7 +23,6 @@ class EditProfileRequest {
     this.weight,
     this.activityLevel,
     this.goal,
-    this.photo,
   });
 
   factory EditProfileRequest.fromJson(Map<String, dynamic> json) {
