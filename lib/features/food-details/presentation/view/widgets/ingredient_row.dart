@@ -6,11 +6,7 @@ class IngredientRow extends StatelessWidget {
   final String name;
   final String quantity;
 
-  const IngredientRow({
-    super.key,
-    required this.name,
-    required this.quantity,
-  });
+  const IngredientRow({super.key, required this.name, required this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +15,7 @@ class IngredientRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(
-            Icons.circle,
-            size: 6,
-            color: Colors.white70,
-          ),
+          const Icon(Icons.circle, size: 6, color: Colors.white70),
           const SizedBox(width: 10),
 
           Expanded(

@@ -22,26 +22,38 @@ void main() {
   });
 
   group('getAllDifficultyLevels', () {
-    final tResponse = DifficultyLevelResponse(difficultyLevels: [], totalLevels: 0);
+    final tResponse = DifficultyLevelResponse(
+      difficultyLevels: [],
+      totalLevels: 0,
+    );
 
-    test('should return DifficultyLevelResponse when API call is successful', () async {
-      // arrange
-      when(mockApiClient.getAllDifficultyLevels(any))
-          .thenAnswer((_) async => tResponse);
+    test(
+      'should return DifficultyLevelResponse when API call is successful',
+      () async {
+        // arrange
+        when(
+          mockApiClient.getAllDifficultyLevels(any),
+        ).thenAnswer((_) async => tResponse);
 
-      // act
-      final result = await datasource.getAllDifficultyLevels(tPrimeMoverMuscleId);
+        // act
+        final result = await datasource.getAllDifficultyLevels(
+          tPrimeMoverMuscleId,
+        );
 
-      // assert
-      expect(result, equals(tResponse));
-      verify(mockApiClient.getAllDifficultyLevels(tPrimeMoverMuscleId)).called(1);
-      verifyNoMoreInteractions(mockApiClient);
-    });
+        // assert
+        expect(result, equals(tResponse));
+        verify(
+          mockApiClient.getAllDifficultyLevels(tPrimeMoverMuscleId),
+        ).called(1);
+        verifyNoMoreInteractions(mockApiClient);
+      },
+    );
 
     test('should throw Exception when API call fails', () async {
       // arrange
-      when(mockApiClient.getAllDifficultyLevels(any))
-          .thenThrow(Exception('Server error'));
+      when(
+        mockApiClient.getAllDifficultyLevels(any),
+      ).thenThrow(Exception('Server error'));
 
       // act
       final call = datasource.getAllDifficultyLevels;
@@ -54,37 +66,44 @@ void main() {
   group('getExerciseByMuscleAndDifficulty', () {
     final tExerciseResponse = GetExerciseByMuscleAndDifficulty(exercises: []);
 
-    test('should return GetExerciseByMuscleAndDifficulty when API call is successful', () async {
-      // arrange
-      when(mockApiClient.getExerciseByMuscleAndDifficulty(any, any))
-          .thenAnswer((_) async => tExerciseResponse);
+    test(
+      'should return GetExerciseByMuscleAndDifficulty when API call is successful',
+      () async {
+        // arrange
+        when(
+          mockApiClient.getExerciseByMuscleAndDifficulty(any, any),
+        ).thenAnswer((_) async => tExerciseResponse);
 
-      // act
-      final result = await datasource.getExerciseByMuscleAndDifficulty(
-        tPrimeMoverMuscleId,
-        tDifficultyLevelId,
-      );
+        // act
+        final result = await datasource.getExerciseByMuscleAndDifficulty(
+          tPrimeMoverMuscleId,
+          tDifficultyLevelId,
+        );
 
-      // assert
-      expect(result, equals(tExerciseResponse));
-      verify(mockApiClient.getExerciseByMuscleAndDifficulty(
-        tPrimeMoverMuscleId,
-        tDifficultyLevelId,
-      )).called(1);
-      verifyNoMoreInteractions(mockApiClient);
-    });
+        // assert
+        expect(result, equals(tExerciseResponse));
+        verify(
+          mockApiClient.getExerciseByMuscleAndDifficulty(
+            tPrimeMoverMuscleId,
+            tDifficultyLevelId,
+          ),
+        ).called(1);
+        verifyNoMoreInteractions(mockApiClient);
+      },
+    );
 
     test('should throw Exception when API call fails', () async {
       // arrange
-      when(mockApiClient.getExerciseByMuscleAndDifficulty(any, any))
-          .thenThrow(Exception('Network error'));
+      when(
+        mockApiClient.getExerciseByMuscleAndDifficulty(any, any),
+      ).thenThrow(Exception('Network error'));
 
       // act
       final call = datasource.getExerciseByMuscleAndDifficulty;
 
       // assert
       expect(
-            () => call(tPrimeMoverMuscleId, tDifficultyLevelId),
+        () => call(tPrimeMoverMuscleId, tDifficultyLevelId),
         throwsA(isA<Exception>()),
       );
     });

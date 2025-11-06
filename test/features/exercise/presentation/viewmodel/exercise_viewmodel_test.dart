@@ -19,7 +19,8 @@ import 'exercise_viewmodel_test.mocks.dart';
 void main() {
   late ExerciseViewModel cubit;
   late MockGetAllDifficultyLevelsUseCase mockGetAllDifficultyLevelsUseCase;
-  late MockGetExerciseByMuscleAndDifficultyUseCase mockGetExerciseByMuscleAndDifficultyUseCase;
+  late MockGetExerciseByMuscleAndDifficultyUseCase
+  mockGetExerciseByMuscleAndDifficultyUseCase;
 
   const tMuscleId = 'muscle_123';
   const tDifficultyId = 'diff_1';
@@ -29,8 +30,10 @@ void main() {
     DifficultyLevels(id: 'diff_2', name: 'Advanced'),
   ];
 
-  final tDifficultyResponse =
-  DifficultyLevelResponse(difficultyLevels: tDifficultyLevels, totalLevels: 0);
+  final tDifficultyResponse = DifficultyLevelResponse(
+    difficultyLevels: tDifficultyLevels,
+    totalLevels: 0,
+  );
 
   final tExerciseResponse = GetExerciseByMuscleAndDifficulty(exercises: []);
 
@@ -42,67 +45,69 @@ void main() {
     cubit = ExerciseViewModel(
       getAllDifficultyLevelsUseCase: mockGetAllDifficultyLevelsUseCase,
       getExerciseByMuscleAndDifficultyUseCase:
-      mockGetExerciseByMuscleAndDifficultyUseCase,
+          mockGetExerciseByMuscleAndDifficultyUseCase,
     );
   });
 
   group('ExerciseViewModel', () {
     blocTest<ExerciseViewModel, ExerciseState>(
       'emits [GetLevelsLoading, GetLevelsSuccess, ExerciseLoading, ExerciseDataLoaded] '
-          'when getAllDifficultyLevels succeeds and exercises are loaded',
+      'when getAllDifficultyLevels succeeds and exercises are loaded',
       build: () {
-        when(mockGetAllDifficultyLevelsUseCase.call(any))
-            .thenAnswer((_) async => tDifficultyResponse);
-        when(mockGetExerciseByMuscleAndDifficultyUseCase.call(any, any))
-            .thenAnswer((_) async => tExerciseResponse);
+        when(
+          mockGetAllDifficultyLevelsUseCase.call(any),
+        ).thenAnswer((_) async => tDifficultyResponse);
+        when(
+          mockGetExerciseByMuscleAndDifficultyUseCase.call(any, any),
+        ).thenAnswer((_) async => tExerciseResponse);
         return cubit;
       },
       act: (cubit) => cubit.getAllDifficultyLevels(tMuscleId),
-      expect: () => [
-        isA<GetLevelsLoading>(),
-        isA<GetLevelsSuccess>(),
-        isA<ExerciseLoading>(),
-        isA<ExerciseDataLoaded>(),
-      ],
+      expect:
+          () => [
+            isA<GetLevelsLoading>(),
+            isA<GetLevelsSuccess>(),
+            isA<ExerciseLoading>(),
+            isA<ExerciseDataLoaded>(),
+          ],
       verify: (_) {
         verify(mockGetAllDifficultyLevelsUseCase.call(tMuscleId)).called(1);
-        verify(mockGetExerciseByMuscleAndDifficultyUseCase.call(
-          tMuscleId,
-          tDifficultyId,
-        )).called(1);
+        verify(
+          mockGetExerciseByMuscleAndDifficultyUseCase.call(
+            tMuscleId,
+            tDifficultyId,
+          ),
+        ).called(1);
       },
     );
 
     blocTest<ExerciseViewModel, ExerciseState>(
       'emits [GetLevelsLoading, GetLevelsError] when getAllDifficultyLevels throws',
       build: () {
-        when(mockGetAllDifficultyLevelsUseCase.call(any))
-            .thenThrow(Exception('Server error'));
+        when(
+          mockGetAllDifficultyLevelsUseCase.call(any),
+        ).thenThrow(Exception('Server error'));
         return cubit;
       },
       act: (cubit) => cubit.getAllDifficultyLevels(tMuscleId),
-      expect: () => [
-        isA<GetLevelsLoading>(),
-        isA<GetLevelsError>(),
-      ],
+      expect: () => [isA<GetLevelsLoading>(), isA<GetLevelsError>()],
     );
 
     blocTest<ExerciseViewModel, ExerciseState>(
       'emits [ExerciseLoading, ExerciseError] when getExerciseByMuscleAndDifficulty throws',
       build: () {
-        when(mockGetExerciseByMuscleAndDifficultyUseCase.call(any, any))
-            .thenThrow(Exception('Exercise fetch failed'));
+        when(
+          mockGetExerciseByMuscleAndDifficultyUseCase.call(any, any),
+        ).thenThrow(Exception('Exercise fetch failed'));
         return cubit;
       },
-      act: (cubit) => cubit.getExerciseByMuscleAndDifficulty(
-        tMuscleId,
-        tDifficultyId,
-        difficultyLevels: tDifficultyLevels,
-      ),
-      expect: () => [
-        isA<ExerciseLoading>(),
-        isA<ExerciseError>(),
-      ],
+      act:
+          (cubit) => cubit.getExerciseByMuscleAndDifficulty(
+            tMuscleId,
+            tDifficultyId,
+            difficultyLevels: tDifficultyLevels,
+          ),
+      expect: () => [isA<ExerciseLoading>(), isA<ExerciseError>()],
     );
   });
 
@@ -112,10 +117,13 @@ void main() {
       expect(cubit.extractYouTubeId(url), equals('abc123'));
     });
 
-    test('extractYouTubeId should extract correct id from youtube.com link', () {
-      const url = 'https://www.youtube.com/watch?v=xyz456';
-      expect(cubit.extractYouTubeId(url), equals('xyz456'));
-    });
+    test(
+      'extractYouTubeId should extract correct id from youtube.com link',
+      () {
+        const url = 'https://www.youtube.com/watch?v=xyz456';
+        expect(cubit.extractYouTubeId(url), equals('xyz456'));
+      },
+    );
 
     test('getYouTubeThumbnail should return valid thumbnail URL', () {
       const url = 'https://www.youtube.com/watch?v=xyz456';

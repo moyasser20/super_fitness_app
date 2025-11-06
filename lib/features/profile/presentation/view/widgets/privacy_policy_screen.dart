@@ -58,7 +58,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
             );
           } else if (!snapshot.hasData) {
             return const Center(
-              child: Text('No data found', style: TextStyle(color: Colors.white70)),
+              child: Text(
+                'No data found',
+                style: TextStyle(color: Colors.white70),
+              ),
             );
           }
 
@@ -94,11 +97,12 @@ class PrivacyPolicyScreen extends StatelessWidget {
     final title = section.title?[lang];
     final content = section.content?[lang];
     final subSections = section.subSections;
-    final textAlign = (section.style?.textAlign?[lang] == 'right' || lang == 'ar')
-        ? TextAlign.right
-        : (section.style?.textAlign?[lang] == 'center'
-        ? TextAlign.center
-        : TextAlign.left);
+    final textAlign =
+        (section.style?.textAlign?[lang] == 'right' || lang == 'ar')
+            ? TextAlign.right
+            : (section.style?.textAlign?[lang] == 'center'
+                ? TextAlign.center
+                : TextAlign.left);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -109,7 +113,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment:
-          lang == 'ar' ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              lang == 'ar' ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             if (title != null)
               Text(
@@ -117,7 +121,9 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 textAlign: textAlign,
                 style: TextStyle(
                   fontSize: section.style?.title?['fontSize']?.toDouble() ?? 20,
-                  fontWeight: _mapFontWeight(section.style?.title?['fontWeight']),
+                  fontWeight: _mapFontWeight(
+                    section.style?.title?['fontWeight'],
+                  ),
                   color: AppColors.main,
                 ),
               ),
@@ -136,12 +142,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
             if (subSections != null)
               ...subSections.map(
-                    (sub) => Padding(
+                (sub) => Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Column(
-                    crossAxisAlignment: lang == 'ar'
-                        ? CrossAxisAlignment.end
-                        : CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                        lang == 'ar'
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
                     children: [
                       if (sub.title != null)
                         Text(

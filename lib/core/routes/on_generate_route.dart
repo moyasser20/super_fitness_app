@@ -31,25 +31,7 @@ import '../../features/edit-profile/presentation/view/widgets/goal_step_widget.d
 import '../../features/edit-profile/presentation/view/widgets/weight_step_widget.dart';
 import '../../features/edit-profile/presentation/viewmodel/edit_profile_cubit.dart';
 import '../../features/auth/presentation/change_password/views/change_password_screen.dart';
-import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
-import '../../features/food-details/presentation/viewmodel/meals_details_cubit.dart';
-import '../../features/exercise/presentation/view/exercises_screen.dart';
-import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
-import '../../features/food/presentation/view/screens/food_screen.dart';
-import '../../features/food/presentation/viewmodel/food_viewmodel.dart';
-import '../../features/home/presentation/views/home_screen.dart';
-import '../../features/workouts/presentation/view/workouts_screen.dart';
 import '../routes/route_names.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../features/auth/presentation/login/presentation/view/login_screen.dart';
-import '../../features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart';
-import '../config/di.dart';
-import '../../features/auth/presentation/forgetpassword/view/screens/email_verification_screen.dart';
-import '../../features/auth/presentation/forgetpassword/view/screens/forget_password_screen.dart';
-import '../../features/auth/presentation/forgetpassword/view/screens/reset_password_screen.dart';
-import '../../features/auth/presentation/forgetpassword/viewmodel/forget_password_viewmodel.dart';
-import '../../features/auth/presentation/forgetpassword/viewmodel/reset_password_viewmodel.dart';
-import '../../features/auth/presentation/forgetpassword/viewmodel/verify_code_viewmodel.dart';
 
 class Routes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -153,12 +135,8 @@ class Routes {
                 ),
               ),
         );
-        case AppRoutes.changePasswordScreen:
-          return MaterialPageRoute(
-            builder:
-                (_) => const ChangePasswordScreen(),
-          );
-
+      case AppRoutes.changePasswordScreen:
+        return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
 
       case AppRoutes.securityScreen:
         return MaterialPageRoute(builder: (_) => const SecurityRolesScreen());
@@ -171,53 +149,56 @@ class Routes {
 
       case AppRoutes.editProfileScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<EditProfileViewModel>(),
-            child: const EditProfileScreen(),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create: (_) => getIt<EditProfileViewModel>(),
+                child: const EditProfileScreen(),
+              ),
         );
 
       case AppRoutes.weightStepScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<EditProfileViewModel>(),
-            child: WeightStepScreen(
-              selectedWeight: args['selectedWeight'],
-              onWeightChanged: args['onWeightChanged'],
-              onNext: args['onNext'],
-            ),
-          ),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<EditProfileViewModel>(),
+                child: WeightStepScreen(
+                  selectedWeight: args['selectedWeight'],
+                  onWeightChanged: args['onWeightChanged'],
+                  onNext: args['onNext'],
+                ),
+              ),
         );
 
       case AppRoutes.goalStepScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<EditProfileViewModel>(),
-            child: GoalStepScreen(
-              goals: args['goals'],
-              selectedGoal: args['selectedGoal'],
-              onGoalSelected: args['onGoalSelected'],
-              onNext: args['onNext'],
-            ),
-          ),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<EditProfileViewModel>(),
+                child: GoalStepScreen(
+                  goals: args['goals'],
+                  selectedGoal: args['selectedGoal'],
+                  onGoalSelected: args['onGoalSelected'],
+                  onNext: args['onNext'],
+                ),
+              ),
         );
 
       case AppRoutes.activityStepScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<EditProfileViewModel>(),
-            child: ActivityStepScreen(
-              activities: args['activities'],
-              selectedActivityDisplay: args['selectedActivityDisplay'],
-              onActivitySelected: args['onActivitySelected'],
-              onNext: args['onNext'],
-            ),
-          ),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<EditProfileViewModel>(),
+                child: ActivityStepScreen(
+                  activities: args['activities'],
+                  selectedActivityDisplay: args['selectedActivityDisplay'],
+                  onActivitySelected: args['onActivitySelected'],
+                  onNext: args['onNext'],
+                ),
+              ),
         );
-
 
       default:
         return MaterialPageRoute(

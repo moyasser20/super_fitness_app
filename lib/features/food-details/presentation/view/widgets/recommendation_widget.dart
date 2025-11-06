@@ -4,10 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class RecommendationWidget extends StatelessWidget {
   final String foodName;
 
-  const RecommendationWidget({
-    super.key,
-    required this.foodName,
-  });
+  const RecommendationWidget({super.key, required this.foodName});
 
   @override
   Widget build(BuildContext context) {
@@ -54,5 +51,3 @@ class RecommendationWidget extends StatelessWidget {
     );
   }
 }
-
-

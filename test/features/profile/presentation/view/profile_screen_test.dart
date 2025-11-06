@@ -11,26 +11,26 @@ import 'package:super_fitness_app/features/profile/presentation/view/profile_scr
 import 'package:super_fitness_app/features/profile/presentation/viewmodel/profile_viewmodel.dart';
 import 'package:super_fitness_app/features/profile/presentation/viewmodel/states/profile_states.dart';
 import 'package:super_fitness_app/core/errors/api_result.dart';
+import 'package:super_fitness_app/features/auth/domain/usecase/sign_out_usecase.dart';
 import '../viewmodel/profile_viewmodel_test.mocks.dart';
 
-@GenerateMocks([GetProfileDataUseCase])
+@GenerateMocks([GetProfileDataUseCase, SignOutUseCase])
 void main() {
   late MockGetProfileDataUseCase mockUseCase;
+  late MockSignOutUseCase mockSignOutUseCase;
   late ProfileViewModel viewModel;
 
   setUp(() {
     mockUseCase = MockGetProfileDataUseCase();
-    viewModel = ProfileViewModel(mockUseCase);
+    mockSignOutUseCase = MockSignOutUseCase();
+    viewModel = ProfileViewModel(mockUseCase, mockSignOutUseCase);
   });
 
   Widget buildTestableWidget(Widget child) {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: BlocProvider.value(
-        value: viewModel,
-        child: child,
-      ),
+      home: BlocProvider.value(value: viewModel, child: child),
     );
   }
 
@@ -54,7 +54,9 @@ void main() {
     );
   });
 
-  testWidgets('should show loading indicator when state is loading', (tester) async {
+  testWidgets('should show loading indicator when state is loading', (
+    tester,
+  ) async {
     // Arrange
     viewModel.emit(ProfileLoadingState());
 
@@ -65,7 +67,9 @@ void main() {
     expect(find.byType(AppLoadingIndicator), findsOneWidget);
   });
 
-  testWidgets('should show error message when error state emitted', (tester) async {
+  testWidgets('should show error message when error state emitted', (
+    tester,
+  ) async {
     // Arrange
     viewModel.emit(ProfileErrorState("Something went wrong"));
 

@@ -8,10 +8,7 @@ class MuscleGroup {
   final String id;
   final String name;
 
-  MuscleGroup({
-    required this.id,
-    required this.name,
-  });
+  MuscleGroup({required this.id, required this.name});
 
   factory MuscleGroup.fromJson(Map<String, dynamic> json) =>
       _$MuscleGroupFromJson(json);

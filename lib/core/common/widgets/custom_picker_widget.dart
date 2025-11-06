@@ -125,7 +125,7 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
   Widget build(BuildContext context) {
     final totalItems = widget.maxValue - widget.minValue + 1;
     final horizontalPadding =
-        MediaQuery.of(context).size.width / (2.5 -0.04)- _itemWidth / 2;
+        MediaQuery.of(context).size.width / (2.5 - 0.04) - _itemWidth / 2;
 
     return SizedBox(
       height: _itemHeight + _triangleHeight + 30,
@@ -144,14 +144,17 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
           itemBuilder: (context, index) {
             final value = widget.minValue + index;
             final isSelected = value == _selectedValue;
-            final scrollPosition = _scrollController.hasClients
-                ? _scrollController.offset
-                : (_selectedValue - widget.minValue) * _itemWidth;
+            final scrollPosition =
+                _scrollController.hasClients
+                    ? _scrollController.offset
+                    : (_selectedValue - widget.minValue) * _itemWidth;
             final itemPosition = index * _itemWidth;
             final distanceFromCenter = (itemPosition - scrollPosition).abs();
 
             final maxDistance = _itemWidth * 5;
-            final distanceFactor = (maxDistance - distanceFromCenter.clamp(0, maxDistance)) / maxDistance;
+            final distanceFactor =
+                (maxDistance - distanceFromCenter.clamp(0, maxDistance)) /
+                maxDistance;
             final scale = 0.4 + (distanceFactor * 0.6);
             final opacity = 0.2 + (distanceFactor * 0.8);
 
@@ -169,17 +172,17 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
                         _isSnapping = true;
                         _scrollController
                             .animateTo(
-                          target,
-                          duration: const Duration(milliseconds: 250),
-                          curve: Curves.easeOut,
-                        )
+                              target,
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.easeOut,
+                            )
                             .whenComplete(() {
-                          _isSnapping = false;
-                          setState(() {
-                            _selectedValue = value;
-                          });
-                          widget.onValueChanged(value);
-                        });
+                              _isSnapping = false;
+                              setState(() {
+                                _selectedValue = value;
+                              });
+                              widget.onValueChanged(value);
+                            });
                       } else {
                         setState(() {
                           _selectedValue = value;
@@ -200,9 +203,8 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
                               style: TextStyle(
                                 fontSize: isSelected ? 25 : 24,
                                 fontWeight: FontWeight.w800,
-                                color: isSelected
-                                    ? AppColors.main
-                                    : Colors.white,
+                                color:
+                                    isSelected ? AppColors.main : Colors.white,
                               ),
                             ),
                           ),
@@ -214,9 +216,10 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
                   SizedBox(
                     height: _triangleHeight,
                     width: _triangleWidth,
-                    child: isSelected
-                        ? CustomPaint(painter: TrianglePainter())
-                        : const SizedBox.shrink(),
+                    child:
+                        isSelected
+                            ? CustomPaint(painter: TrianglePainter())
+                            : const SizedBox.shrink(),
                   ),
                   const SizedBox(height: 4),
                 ],
@@ -232,9 +235,10 @@ class _CustomHorizontalPickerState extends State<CustomHorizontalPicker> {
 class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = AppColors.main
-      ..style = PaintingStyle.fill;
+    final paint =
+        Paint()
+          ..color = AppColors.main
+          ..style = PaintingStyle.fill;
 
     final path = Path();
     path.moveTo(0, size.height);

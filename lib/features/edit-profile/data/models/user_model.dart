@@ -28,7 +28,7 @@ class UserModel {
   @JsonKey(name: "createdAt")
   final String? createdAt;
 
-  UserModel ({
+  UserModel({
     this.Id,
     this.firstName,
     this.lastName,

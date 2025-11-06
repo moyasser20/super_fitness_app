@@ -8,9 +8,7 @@ class MealDetailsModel {
   @JsonKey(name: "meals")
   final List<MealsModel>? meals;
 
-  MealDetailsModel ({
-    this.meals,
-  });
+  MealDetailsModel({this.meals});
 
   factory MealDetailsModel.fromJson(Map<String, dynamic> json) {
     return _$MealDetailsModelFromJson(json);
@@ -20,7 +18,3 @@ class MealDetailsModel {
     return _$MealDetailsModelToJson(this);
   }
 }
-
-
-
-

@@ -44,17 +44,16 @@ class WorkoutsScreen extends StatelessWidget {
             );
           }
 
-          final categories = state.muscleGroups
-              .map((e) => e.name ?? '')
-              .where((name) => name.isNotEmpty)
-              .toList();
+          final categories =
+              state.muscleGroups
+                  .map((e) => e.name ?? '')
+                  .where((name) => name.isNotEmpty)
+                  .toList();
 
           if (categories.isEmpty) {
             return Scaffold(
               backgroundColor: Colors.transparent,
-              body: Center(
-                child: Text(local.noMuscleCategoriesAvailable),
-              ),
+              body: Center(child: Text(local.noMuscleCategoriesAvailable)),
             );
           }
 
@@ -73,35 +72,36 @@ class WorkoutsScreen extends StatelessWidget {
   }
 
   AppBar _buildAppBar(
-      BuildContext context,
-      List<String> categories,
-      WorkoutsState state,
-      bool isFromHome,
-      ) {
+    BuildContext context,
+    List<String> categories,
+    WorkoutsState state,
+    bool isFromHome,
+  ) {
     final local = AppLocalizations.of(context)!;
 
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
-      leading: !isFromHome
-          ? null
-          : Padding(
-        padding: const EdgeInsets.all(10),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: AppColors.main,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: SvgPicture.asset(AppIcons.backIcon),
-          ),
-        ),
-      ),
+      leading:
+          !isFromHome
+              ? null
+              : Padding(
+                padding: const EdgeInsets.all(10),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      color: AppColors.main,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: SvgPicture.asset(AppIcons.backIcon),
+                  ),
+                ),
+              ),
       title: Text(
         local.workouts,
         style: balooThambi2BoldExtraLarge.copyWith(fontSize: 24),
@@ -147,23 +147,24 @@ class WorkoutsScreen extends StatelessWidget {
         ),
         TabBarView(
           physics: const NeverScrollableScrollPhysics(),
-          children: state.muscleGroups.map((_) {
-            if (state.muscleDetailsStatus == DataStatus.loading) {
-              return const Center(
-                child: CircularProgressIndicator(color: AppColors.orange),
-              );
-            } else if (state.muscleDetailsStatus == DataStatus.error) {
-              return Center(
-                child: Text(
-                  local.errorWithMessage(state.muscleDetailsError ?? ''),
-                ),
-              );
-            } else if (state.muscleDetailsStatus == DataStatus.success) {
-              return _buildWorkoutGrid(context, state.muscles);
-            } else {
-              return const SizedBox.shrink();
-            }
-          }).toList(),
+          children:
+              state.muscleGroups.map((_) {
+                if (state.muscleDetailsStatus == DataStatus.loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(color: AppColors.orange),
+                  );
+                } else if (state.muscleDetailsStatus == DataStatus.error) {
+                  return Center(
+                    child: Text(
+                      local.errorWithMessage(state.muscleDetailsError ?? ''),
+                    ),
+                  );
+                } else if (state.muscleDetailsStatus == DataStatus.success) {
+                  return _buildWorkoutGrid(context, state.muscles);
+                } else {
+                  return const SizedBox.shrink();
+                }
+              }).toList(),
         ),
       ],
     );
@@ -174,10 +175,7 @@ class WorkoutsScreen extends StatelessWidget {
 
     if (workouts.isEmpty) {
       return Center(
-        child: Text(
-          local.noWorkoutsAvailable,
-          style: balooThambi2MediumLarge,
-        ),
+        child: Text(local.noWorkoutsAvailable, style: balooThambi2MediumLarge),
       );
     }
 
@@ -199,10 +197,7 @@ class WorkoutsScreen extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 AppRoutes.exercisesScreen,
-                arguments: ExerciseData(
-                  id: workout.id!,
-                  name: workout.name!,
-                ),
+                arguments: ExerciseData(id: workout.id!, name: workout.name!),
               );
             },
             child: Stack(

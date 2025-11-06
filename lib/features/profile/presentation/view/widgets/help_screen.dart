@@ -43,21 +43,33 @@ class HelpScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         title: Text(
           locale.startsWith('ar') ? 'المساعدة والدعم' : 'Help & Support',
-          style: balooThambi2SemiBold.copyWith(fontSize: 26, color: Colors.white),
+          style: balooThambi2SemiBold.copyWith(
+            fontSize: 26,
+            color: Colors.white,
+          ),
         ),
       ),
       body: FutureBuilder<HelpSectionModel>(
         future: _loadHelp(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(color: Colors.white70));
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.white70),
+            );
           } else if (snapshot.hasError) {
             return Center(
-                child: Text('Error: ${snapshot.error}',
-                    style: const TextStyle(color: Colors.white70)));
+              child: Text(
+                'Error: ${snapshot.error}',
+                style: const TextStyle(color: Colors.white70),
+              ),
+            );
           } else if (!snapshot.hasData) {
             return const Center(
-                child: Text("Can't get data", style: TextStyle(color: Colors.white70)));
+              child: Text(
+                "Can't get data",
+                style: TextStyle(color: Colors.white70),
+              ),
+            );
           }
 
           final help = snapshot.data!;
@@ -94,13 +106,17 @@ class HelpScreen extends StatelessWidget {
     if (section.section == 'page_title' || section.section == 'page_subtitle') {
       final text = lang == 'ar' ? section.content?.ar : section.content?.en;
       return Container(
-        decoration:
-        BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.black54),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.black54,
+        ),
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.only(bottom: 16),
         child: Text(
           text ?? '',
-          style: _parseTextStyle(section.style ?? {}).copyWith(color: Colors.white70),
+          style: _parseTextStyle(
+            section.style ?? {},
+          ).copyWith(color: Colors.white70),
           textAlign: _parseTextAlign(section.style ?? {}, lang),
         ),
       );
@@ -108,8 +124,10 @@ class HelpScreen extends StatelessWidget {
 
     if (section.section == 'contact_us') {
       return Container(
-        decoration:
-        BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.black54),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.black54,
+        ),
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -122,28 +140,35 @@ class HelpScreen extends StatelessWidget {
               ),
             const SizedBox(height: 8),
             ...section.contentList?.map((e) {
-              final method = lang == 'ar' ? e.method?.ar : e.method?.en;
-              final details = lang == 'ar' ? e.details?.ar : e.details?.en;
-              return Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(method ?? '',
-                        style: _parseTextStyle(e.style?['method'] ?? {})),
-                    Text(details ?? '',
-                        style: _parseTextStyle(e.style?['details'] ?? {})
-                            .copyWith(color: Colors.white70)),
-                    if (e.value != null)
-                      Text(
-                        e.value!,
-                        style: const TextStyle(
-                            color: Colors.lightBlueAccent, fontWeight: FontWeight.bold),
-                      ),
-                  ],
-                ),
-              );
-            }).toList() ??
+                  final method = lang == 'ar' ? e.method?.ar : e.method?.en;
+                  final details = lang == 'ar' ? e.details?.ar : e.details?.en;
+                  return Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          method ?? '',
+                          style: _parseTextStyle(e.style?['method'] ?? {}),
+                        ),
+                        Text(
+                          details ?? '',
+                          style: _parseTextStyle(
+                            e.style?['details'] ?? {},
+                          ).copyWith(color: Colors.white70),
+                        ),
+                        if (e.value != null)
+                          Text(
+                            e.value!,
+                            style: const TextStyle(
+                              color: Colors.lightBlueAccent,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                      ],
+                    ),
+                  );
+                }).toList() ??
                 [],
           ],
         ),
@@ -152,8 +177,10 @@ class HelpScreen extends StatelessWidget {
 
     if (section.section == 'faq') {
       return Container(
-        decoration:
-        BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.black54),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.black54,
+        ),
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -166,24 +193,33 @@ class HelpScreen extends StatelessWidget {
               ),
             const SizedBox(height: 8),
             ...section.contentList?.map((faq) {
-              final q = lang == 'ar' ? faq.question?.ar : faq.question?.en;
-              final a = lang == 'ar' ? faq.answer?.ar : faq.answer?.en;
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(q ?? '',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16,color: Colors.white)),
-                    const SizedBox(height: 4),
-                    Text(a ?? '',
-                        style:
-                        const TextStyle(fontSize: 14, color: Colors.white70)),
-                  ],
-                ),
-              );
-            }).toList() ??
+                  final q = lang == 'ar' ? faq.question?.ar : faq.question?.en;
+                  final a = lang == 'ar' ? faq.answer?.ar : faq.answer?.en;
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          q ?? '',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          a ?? '',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList() ??
                 [],
           ],
         ),
@@ -195,11 +231,13 @@ class HelpScreen extends StatelessWidget {
 
   TextStyle _parseTextStyle(Map<String, dynamic> style) {
     return TextStyle(
-      fontSize: (style['fontSize'] is int
-          ? style['fontSize'].toDouble()
-          : style['fontSize']?.toDouble()) ??
+      fontSize:
+          (style['fontSize'] is int
+              ? style['fontSize'].toDouble()
+              : style['fontSize']?.toDouble()) ??
           16,
-      fontWeight: style['fontWeight'] == 'bold' ? FontWeight.bold : FontWeight.normal,
+      fontWeight:
+          style['fontWeight'] == 'bold' ? FontWeight.bold : FontWeight.normal,
       color: _parseColor(style['color'] ?? '#FFFFFF'),
     );
   }

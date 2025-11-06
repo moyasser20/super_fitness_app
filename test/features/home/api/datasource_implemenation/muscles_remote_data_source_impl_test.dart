@@ -34,7 +34,11 @@ void main() {
       verify(mockApiClient.getMuscleGroups()).called(1);
     });
     test('getRandomMuscles returns response', () async {
-      final response = MusclesResponse(message: 'ok', totalMuscles: 1, muscles: []);
+      final response = MusclesResponse(
+        message: 'ok',
+        totalMuscles: 1,
+        muscles: [],
+      );
       when(mockApiClient.getRandomMuscles()).thenAnswer((_) async => response);
       final result = await dataSource.getRandomMuscles();
       expect(result, isA<MusclesResponse>());
@@ -47,15 +51,24 @@ void main() {
     });
     test('getMuscleGroupById returns response', () async {
       final muscleGroup = MuscleGroup(id: 'id', name: 'Test Group');
-      final response = MuscleGroupByIdResponse(message: 'done', muscleGroup: muscleGroup, muscles: []);
-      when(mockApiClient.getMuscleGroupById('id')).thenAnswer((_) async => response);
+      final response = MuscleGroupByIdResponse(
+        message: 'done',
+        muscleGroup: muscleGroup,
+        muscles: [],
+      );
+      when(
+        mockApiClient.getMuscleGroupById('id'),
+      ).thenAnswer((_) async => response);
       final result = await dataSource.getMuscleGroupById('id');
       expect(result, isA<MuscleGroupByIdResponse>());
       verify(mockApiClient.getMuscleGroupById('id')).called(1);
     });
     test('getMuscleGroupById throws error', () async {
       when(mockApiClient.getMuscleGroupById('id')).thenThrow(Exception('fail'));
-      expect(() async => await dataSource.getMuscleGroupById('id'), throwsException);
+      expect(
+        () async => await dataSource.getMuscleGroupById('id'),
+        throwsException,
+      );
       verify(mockApiClient.getMuscleGroupById('id')).called(1);
     });
   });

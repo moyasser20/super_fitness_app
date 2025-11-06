@@ -19,8 +19,9 @@ class HelpSectionModel {
       );
 
   Map<String, dynamic> toJson() => {
-    "help_screen_content":
-    List<dynamic>.from(helpScreenContent.map((x) => x.toJson())),
+    "help_screen_content": List<dynamic>.from(
+      helpScreenContent.map((x) => x.toJson()),
+    ),
   };
 }
 
@@ -41,19 +42,17 @@ class HelpSection {
 
   factory HelpSection.fromJson(Map<String, dynamic> json) => HelpSection(
     section: json["section"] ?? "",
-    title: json["title"] != null
-        ? LocalizedText.fromJson(json["title"])
-        : null,
-    content: json["content"] is Map
-        ? LocalizedText.fromJson(json["content"])
-        : null,
-    style: json["style"] != null
-        ? Map<String, dynamic>.from(json["style"])
-        : null,
-    contentList: json["content"] is List
-        ? List<HelpItem>.from(
-        json["content"].map((x) => HelpItem.fromJson(x)))
-        : null,
+    title: json["title"] != null ? LocalizedText.fromJson(json["title"]) : null,
+    content:
+        json["content"] is Map ? LocalizedText.fromJson(json["content"]) : null,
+    style:
+        json["style"] != null ? Map<String, dynamic>.from(json["style"]) : null,
+    contentList:
+        json["content"] is List
+            ? List<HelpItem>.from(
+              json["content"].map((x) => HelpItem.fromJson(x)),
+            )
+            : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -61,9 +60,10 @@ class HelpSection {
     "title": title?.toJson(),
     "content": content?.toJson(),
     "style": style,
-    "content": contentList != null
-        ? List<dynamic>.from(contentList!.map((x) => x.toJson()))
-        : content?.toJson(),
+    "content":
+        contentList != null
+            ? List<dynamic>.from(contentList!.map((x) => x.toJson()))
+            : content?.toJson(),
   };
 }
 
@@ -89,20 +89,20 @@ class HelpItem {
   factory HelpItem.fromJson(Map<String, dynamic> json) => HelpItem(
     id: json["id"],
     method:
-    json["method"] != null ? LocalizedText.fromJson(json["method"]) : null,
-    details: json["details"] != null
-        ? LocalizedText.fromJson(json["details"])
-        : null,
-    question: json["question"] != null
-        ? LocalizedText.fromJson(json["question"])
-        : null,
-    answer: json["answer"] != null
-        ? LocalizedText.fromJson(json["answer"])
-        : null,
+        json["method"] != null ? LocalizedText.fromJson(json["method"]) : null,
+    details:
+        json["details"] != null
+            ? LocalizedText.fromJson(json["details"])
+            : null,
+    question:
+        json["question"] != null
+            ? LocalizedText.fromJson(json["question"])
+            : null,
+    answer:
+        json["answer"] != null ? LocalizedText.fromJson(json["answer"]) : null,
     value: json["value"],
-    style: json["style"] != null
-        ? Map<String, dynamic>.from(json["style"])
-        : null,
+    style:
+        json["style"] != null ? Map<String, dynamic>.from(json["style"]) : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -122,10 +122,8 @@ class LocalizedText {
 
   LocalizedText({required this.en, required this.ar});
 
-  factory LocalizedText.fromJson(Map<String, dynamic> json) => LocalizedText(
-    en: json["en"] ?? "",
-    ar: json["ar"] ?? "",
-  );
+  factory LocalizedText.fromJson(Map<String, dynamic> json) =>
+      LocalizedText(en: json["en"] ?? "", ar: json["ar"] ?? "");
 
   Map<String, dynamic> toJson() => {"en": en, "ar": ar};
 }

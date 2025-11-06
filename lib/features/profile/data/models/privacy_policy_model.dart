@@ -9,16 +9,18 @@ class PrivacyPolicyModel {
 
   factory PrivacyPolicyModel.fromJson(Map<String, dynamic> json) {
     return PrivacyPolicyModel(
-      sections: (json['privacy_policy'] as List)
-          .map((e) => PrivacySection.fromJson(e))
-          .toList(),
+      sections:
+          (json['privacy_policy'] as List)
+              .map((e) => PrivacySection.fromJson(e))
+              .toList(),
     );
   }
 
   static Future<PrivacyPolicyModel> loadFromAssets() async {
     await Future.delayed(const Duration(seconds: 1));
-    final jsonString =
-    await DefaultAssetBundle.of(globalContext).loadString('assets/json/privacy_and_security.json');
+    final jsonString = await DefaultAssetBundle.of(
+      globalContext,
+    ).loadString('assets/json/privacy_and_security.json');
     final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
     return PrivacyPolicyModel.fromJson(jsonMap);
   }
@@ -42,12 +44,18 @@ class PrivacySection {
   factory PrivacySection.fromJson(Map<String, dynamic> json) {
     return PrivacySection(
       section: json['section'],
-      title: (json['title'] as Map?)?.map((k, v) => MapEntry(k.toString(), v.toString())),
-      content: (json['content'] as Map?)?.map((k, v) => MapEntry(k.toString(), v.toString())),
-      style: json['style'] != null ? PrivacyStyle.fromJson(json['style']) : null,
-      subSections: (json['sub_sections'] as List?)
-          ?.map((e) => PrivacySubSection.fromJson(e))
-          .toList(),
+      title: (json['title'] as Map?)?.map(
+        (k, v) => MapEntry(k.toString(), v.toString()),
+      ),
+      content: (json['content'] as Map?)?.map(
+        (k, v) => MapEntry(k.toString(), v.toString()),
+      ),
+      style:
+          json['style'] != null ? PrivacyStyle.fromJson(json['style']) : null,
+      subSections:
+          (json['sub_sections'] as List?)
+              ?.map((e) => PrivacySubSection.fromJson(e))
+              .toList(),
     );
   }
 }
@@ -62,8 +70,12 @@ class PrivacySubSection {
   factory PrivacySubSection.fromJson(Map<String, dynamic> json) {
     return PrivacySubSection(
       type: json['type'],
-      title: (json['title'] as Map?)?.map((k, v) => MapEntry(k.toString(), v.toString())),
-      content: (json['content'] as Map?)?.map((k, v) => MapEntry(k.toString(), v.toString())),
+      title: (json['title'] as Map?)?.map(
+        (k, v) => MapEntry(k.toString(), v.toString()),
+      ),
+      content: (json['content'] as Map?)?.map(
+        (k, v) => MapEntry(k.toString(), v.toString()),
+      ),
     );
   }
 }
@@ -87,12 +99,13 @@ class PrivacyStyle {
 
   factory PrivacyStyle.fromJson(Map<String, dynamic> json) {
     return PrivacyStyle(
-      title: json['title'] != null ? json['title'] as Map<String, dynamic> : null,
+      title:
+          json['title'] != null ? json['title'] as Map<String, dynamic> : null,
       fontSize: (json['fontSize'] as num?)?.toDouble(),
       fontWeight: json['fontWeight']?.toString(),
       color: json['color']?.toString(),
       textAlign: (json['textAlign'] as Map?)?.map(
-            (k, v) => MapEntry(k.toString(), v.toString()),
+        (k, v) => MapEntry(k.toString(), v.toString()),
       ),
       backgroundColor: json['backgroundColor']?.toString(),
     );

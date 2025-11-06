@@ -34,7 +34,11 @@ void main() {
       verify(mockDataSource.getMuscleGroups()).called(1);
     });
     test('getRandomMuscles returns response', () async {
-      final response = MusclesResponse(message: 'msg', totalMuscles: 1, muscles: []);
+      final response = MusclesResponse(
+        message: 'msg',
+        totalMuscles: 1,
+        muscles: [],
+      );
       when(mockDataSource.getRandomMuscles()).thenAnswer((_) async => response);
       final result = await repo.getRandomMuscles();
       expect(result, isA<MusclesResponse>());
@@ -47,14 +51,22 @@ void main() {
     });
     test('getMuscleGroupById returns response', () async {
       final muscleGroup = MuscleGroup(id: 'id', name: 'Test Group');
-      final response = MuscleGroupByIdResponse(message: 'ok', muscleGroup: muscleGroup, muscles: []);
-      when(mockDataSource.getMuscleGroupById('id')).thenAnswer((_) async => response);
+      final response = MuscleGroupByIdResponse(
+        message: 'ok',
+        muscleGroup: muscleGroup,
+        muscles: [],
+      );
+      when(
+        mockDataSource.getMuscleGroupById('id'),
+      ).thenAnswer((_) async => response);
       final result = await repo.getMuscleGroupById('id');
       expect(result, isA<MuscleGroupByIdResponse>());
       verify(mockDataSource.getMuscleGroupById('id')).called(1);
     });
     test('getMuscleGroupById throws error', () async {
-      when(mockDataSource.getMuscleGroupById('id')).thenThrow(Exception('fail'));
+      when(
+        mockDataSource.getMuscleGroupById('id'),
+      ).thenThrow(Exception('fail'));
       expect(() async => await repo.getMuscleGroupById('id'), throwsException);
       verify(mockDataSource.getMuscleGroupById('id')).called(1);
     });

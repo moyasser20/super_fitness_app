@@ -73,7 +73,7 @@ class Exercises {
   @JsonKey(name: "in_depth_youtube_explanation_link")
   final String? inDepthYoutubeExplanationLink;
 
-  Exercises ({
+  Exercises({
     required this.Id,
     required this.exercise,
     this.shortYoutubeDemonstration,

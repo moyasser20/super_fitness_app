@@ -40,7 +40,9 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<AuthResponse<RegisterResponse>> register(RegisterRequestModel registerRequest) async {
+  Future<AuthResponse<RegisterResponse>> register(
+    RegisterRequestModel registerRequest,
+  ) async {
     try {
       final response = await _apiClient.register(registerRequest);
       return AuthResponse.success(response);
@@ -51,10 +53,11 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return AuthResponse.error(e.toString());
     }
   }
+
   @override
   Future<AuthResponse<String>> forgetPassword(
-      ForgetPasswordRequestModel forgetPasswordRequestModel,
-      ) async {
+    ForgetPasswordRequestModel forgetPasswordRequestModel,
+  ) async {
     try {
       final result = await _apiClient.forgetPassword(
         forgetPasswordRequestModel,
@@ -67,14 +70,13 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return AuthResponse.error(e.toString());
     }
   }
+
   @override
   Future<AuthResponse<String>> resetPassword(
-      ResetPasswordRequestModel resetPasswordRequestModel,
-      ) async {
+    ResetPasswordRequestModel resetPasswordRequestModel,
+  ) async {
     try {
-      final result = await _apiClient.resetPassword(
-        resetPasswordRequestModel,
-      );
+      final result = await _apiClient.resetPassword(resetPasswordRequestModel);
       return AuthResponse.success(result);
     } on DioException catch (e) {
       String apiMessage = _extractApiMessage(e);
@@ -86,12 +88,10 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
 
   @override
   Future<AuthResponse<String>> verifyResetPassword(
-      VerifyCodeRequestModel verifyCodeRequestModel,
-      ) async {
+    VerifyCodeRequestModel verifyCodeRequestModel,
+  ) async {
     try {
-      final result = await _apiClient.verifyResetCode(
-        verifyCodeRequestModel,
-      );
+      final result = await _apiClient.verifyResetCode(verifyCodeRequestModel);
       return AuthResponse.success(result);
     } on DioException catch (e) {
       String apiMessage = _extractApiMessage(e);
@@ -100,6 +100,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return AuthResponse.error(e.toString());
     }
   }
+
   @override
   Future<AuthResponse<LoginResponse>> login(LoginRequest loginRequest) async {
     try {
@@ -112,8 +113,12 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return AuthResponse.error(e.toString());
     }
   }
+
   @override
-  Future<AuthResponse<String>> changePassword(String oldPassword, String newPassword) async {
+  Future<AuthResponse<String>> changePassword(
+    String oldPassword,
+    String newPassword,
+  ) async {
     try {
       final model = ChangePasswordRequestModel(
         password: oldPassword,

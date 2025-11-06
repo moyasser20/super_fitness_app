@@ -31,7 +31,6 @@ abstract class ApiClient {
   @factoryMethod
   factory ApiClient(Dio dio, {@Named('baseurl') String? baseUrl}) = _ApiClient;
 
-
   @POST(ApiEndPoints.signup)
   Future<RegisterResponse> register(
     @Body() RegisterRequestModel registerRequest,
@@ -101,6 +100,5 @@ abstract class ApiClient {
 
   @PUT(ApiEndPoints.editProfile)
   @Extra({'auth': true})
-  Future<EditProfileResponse> editProfile(
-      @Body() EditProfileRequest model);
+  Future<EditProfileResponse> editProfile(@Body() EditProfileRequest model);
 }

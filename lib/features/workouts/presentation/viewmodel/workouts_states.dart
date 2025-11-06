@@ -42,11 +42,11 @@ class WorkoutsState extends Equatable {
 
   @override
   List<Object?> get props => [
-        allMusclesStatus,
-        muscleGroups,
-        allMusclesError,
-        muscleDetailsStatus,
-        muscles,
-        muscleDetailsError,
-      ];
+    allMusclesStatus,
+    muscleGroups,
+    allMusclesError,
+    muscleDetailsStatus,
+    muscles,
+    muscleDetailsError,
+  ];
 }

@@ -62,7 +62,7 @@ class FoodDetailsScreen extends StatelessWidget {
                     onRefresh: () async {
                       context.read<MealDetailsCubit>().getMealById(mealId);
                       await context.read<MealDetailsCubit>().stream.firstWhere(
-                            (state) => state is! MealDetailsLoading,
+                        (state) => state is! MealDetailsLoading,
                       );
                     },
                     child: CustomScrollView(

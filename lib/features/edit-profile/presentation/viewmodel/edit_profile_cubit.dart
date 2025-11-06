@@ -70,7 +70,11 @@ class EditProfileViewModel extends Cubit<EditProfileState> {
     try {
       final response = await _repository.editProfile(request);
       emit(EditProfileSuccess(response));
-      await showCustomSnackBar(context, "Profile updated successfully", isError: false);
+      await showCustomSnackBar(
+        context,
+        "Profile updated successfully",
+        isError: false,
+      );
     } catch (e) {
       emit(EditProfileError(e.toString()));
       await showCustomSnackBar(context, e.toString(), isError: true);

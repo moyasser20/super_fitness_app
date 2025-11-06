@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
 
-
 @JsonSerializable()
 class User {
   @JsonKey(name: "_id")
@@ -30,7 +29,7 @@ class User {
   @JsonKey(name: "createdAt")
   final String? createdAt;
 
-  User ({
+  User({
     this.Id,
     this.firstName,
     this.lastName,
@@ -53,5 +52,3 @@ class User {
     return _$UserToJson(this);
   }
 }
-
-

@@ -3,9 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:super_fitness_app/features/home/data/models/meal_categories_response_model.dart'
+    as _i5;
 import 'package:super_fitness_app/features/home/data/models/muscle_group_by_id_response_model.dart'
     as _i4;
 import 'package:super_fitness_app/features/home/data/models/muscle_groups_response_model.dart'
@@ -13,7 +15,7 @@ import 'package:super_fitness_app/features/home/data/models/muscle_groups_respon
 import 'package:super_fitness_app/features/home/data/models/muscles_response_model.dart'
     as _i2;
 import 'package:super_fitness_app/features/home/domain/repos/muscles_repo.dart'
-    as _i5;
+    as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -30,91 +32,85 @@ import 'package:super_fitness_app/features/home/domain/repos/muscles_repo.dart'
 
 class _FakeMusclesResponse_0 extends _i1.SmartFake
     implements _i2.MusclesResponse {
-  _FakeMusclesResponse_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMusclesResponse_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeMuscleGroupsResponse_1 extends _i1.SmartFake
     implements _i3.MuscleGroupsResponse {
-  _FakeMuscleGroupsResponse_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMuscleGroupsResponse_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeMuscleGroupByIdResponse_2 extends _i1.SmartFake
     implements _i4.MuscleGroupByIdResponse {
-  _FakeMuscleGroupByIdResponse_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMuscleGroupByIdResponse_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeMealCategoriesResponse_3 extends _i1.SmartFake
+    implements _i5.MealCategoriesResponse {
+  _FakeMealCategoriesResponse_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [MusclesRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMusclesRepo extends _i1.Mock implements _i5.MusclesRepo {
+class MockMusclesRepo extends _i1.Mock implements _i6.MusclesRepo {
   MockMusclesRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.MusclesResponse> getRandomMuscles() => (super.noSuchMethod(
-        Invocation.method(
-          #getRandomMuscles,
-          [],
-        ),
-        returnValue:
-            _i6.Future<_i2.MusclesResponse>.value(_FakeMusclesResponse_0(
-          this,
-          Invocation.method(
-            #getRandomMuscles,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i2.MusclesResponse>);
-
-  @override
-  _i6.Future<_i3.MuscleGroupsResponse> getMuscleGroups() => (super.noSuchMethod(
-        Invocation.method(
-          #getMuscleGroups,
-          [],
-        ),
-        returnValue: _i6.Future<_i3.MuscleGroupsResponse>.value(
-            _FakeMuscleGroupsResponse_1(
-          this,
-          Invocation.method(
-            #getMuscleGroups,
-            [],
-          ),
-        )),
-      ) as _i6.Future<_i3.MuscleGroupsResponse>);
-
-  @override
-  _i6.Future<_i4.MuscleGroupByIdResponse> getMuscleGroupById(String? groupId) =>
+  _i7.Future<_i2.MusclesResponse> getRandomMuscles() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getMuscleGroupById,
-          [groupId],
-        ),
-        returnValue: _i6.Future<_i4.MuscleGroupByIdResponse>.value(
-            _FakeMuscleGroupByIdResponse_2(
-          this,
-          Invocation.method(
-            #getMuscleGroupById,
-            [groupId],
-          ),
-        )),
-      ) as _i6.Future<_i4.MuscleGroupByIdResponse>);
+            Invocation.method(#getRandomMuscles, []),
+            returnValue: _i7.Future<_i2.MusclesResponse>.value(
+              _FakeMusclesResponse_0(
+                this,
+                Invocation.method(#getRandomMuscles, []),
+              ),
+            ),
+          )
+          as _i7.Future<_i2.MusclesResponse>);
+
+  @override
+  _i7.Future<_i3.MuscleGroupsResponse> getMuscleGroups() =>
+      (super.noSuchMethod(
+            Invocation.method(#getMuscleGroups, []),
+            returnValue: _i7.Future<_i3.MuscleGroupsResponse>.value(
+              _FakeMuscleGroupsResponse_1(
+                this,
+                Invocation.method(#getMuscleGroups, []),
+              ),
+            ),
+          )
+          as _i7.Future<_i3.MuscleGroupsResponse>);
+
+  @override
+  _i7.Future<_i4.MuscleGroupByIdResponse> getMuscleGroupById(String? groupId) =>
+      (super.noSuchMethod(
+            Invocation.method(#getMuscleGroupById, [groupId]),
+            returnValue: _i7.Future<_i4.MuscleGroupByIdResponse>.value(
+              _FakeMuscleGroupByIdResponse_2(
+                this,
+                Invocation.method(#getMuscleGroupById, [groupId]),
+              ),
+            ),
+          )
+          as _i7.Future<_i4.MuscleGroupByIdResponse>);
+
+  @override
+  _i7.Future<_i5.MealCategoriesResponse> getMealCategories() =>
+      (super.noSuchMethod(
+            Invocation.method(#getMealCategories, []),
+            returnValue: _i7.Future<_i5.MealCategoriesResponse>.value(
+              _FakeMealCategoriesResponse_3(
+                this,
+                Invocation.method(#getMealCategories, []),
+              ),
+            ),
+          )
+          as _i7.Future<_i5.MealCategoriesResponse>);
 }

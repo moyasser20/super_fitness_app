@@ -9,7 +9,6 @@ import 'package:super_fitness_app/features/auth/domain/responses/auth_response.d
 import 'package:super_fitness_app/features/auth/domain/usecase/login_usecases.dart';
 import '../../presentation/views/register_screen_test.mocks.dart';
 
-
 @GenerateMocks([AuthRepo])
 void main() {
   late MockAuthRepo mockAuthRepo;
@@ -22,61 +21,66 @@ void main() {
 
   group('LoginUseCases', () {
     test(
-        "Should return AuthResponse with LoginResponse when repo call is Successful",
-        () async {
-      //Arrange
-      final loginRequest = LoginRequest(
-        email: "test@example.com",
-        password: "password123",
-      );
-
-      final loginResponse = LoginResponse(
-        message: "success",
-        token: "fakeToken",
-        user: User(
-          Id: "68a7033aa8bca307f9df564d",
-          firstName: "Test",
-          lastName: "User",
+      "Should return AuthResponse with LoginResponse when repo call is Successful",
+      () async {
+        //Arrange
+        final loginRequest = LoginRequest(
           email: "test@example.com",
-        ),
-      );
+          password: "password123",
+        );
 
-      final authResponse = AuthResponse<LoginResponse>.success(loginResponse);
-      when(mockAuthRepo.login(loginRequest))
-          .thenAnswer((_) async => authResponse);
+        final loginResponse = LoginResponse(
+          message: "success",
+          token: "fakeToken",
+          user: User(
+            Id: "68a7033aa8bca307f9df564d",
+            firstName: "Test",
+            lastName: "User",
+            email: "test@example.com",
+          ),
+        );
 
-      // Act
-      final result = await loginUseCase(loginRequest);
+        final authResponse = AuthResponse<LoginResponse>.success(loginResponse);
+        when(
+          mockAuthRepo.login(loginRequest),
+        ).thenAnswer((_) async => authResponse);
 
-      // Assert
-      expect(result, isA<AuthResponse<LoginResponse>>());
-      expect(result.data?.message, "success");
-      expect(result.data?.token, "fakeToken");
-      expect(result.data?.user?.firstName, "Test");
-      expect(result.isSuccess, true);
-      verify(mockAuthRepo.login(loginRequest)).called(1);
-    });
+        // Act
+        final result = await loginUseCase(loginRequest);
 
-    test("Should return AuthResponse with error when repo call fails",
-        () async {
-      //Arrange
-      final loginRequest = LoginRequest(
-        email: "wrong@example.com",
-        password: "wrongpass",
-      );
+        // Assert
+        expect(result, isA<AuthResponse<LoginResponse>>());
+        expect(result.data?.message, "success");
+        expect(result.data?.token, "fakeToken");
+        expect(result.data?.user?.firstName, "Test");
+        expect(result.isSuccess, true);
+        verify(mockAuthRepo.login(loginRequest)).called(1);
+      },
+    );
 
-      final authResponse = AuthResponse<LoginResponse>.error("Login failed");
-      when(mockAuthRepo.login(loginRequest))
-          .thenAnswer((_) async => authResponse);
+    test(
+      "Should return AuthResponse with error when repo call fails",
+      () async {
+        //Arrange
+        final loginRequest = LoginRequest(
+          email: "wrong@example.com",
+          password: "wrongpass",
+        );
 
-      // Act
-      final result = await loginUseCase(loginRequest);
+        final authResponse = AuthResponse<LoginResponse>.error("Login failed");
+        when(
+          mockAuthRepo.login(loginRequest),
+        ).thenAnswer((_) async => authResponse);
 
-      // Assert
-      expect(result, isA<AuthResponse<LoginResponse>>());
-      expect(result.error, "Login failed");
-      expect(result.isSuccess, false);
-      verify(mockAuthRepo.login(loginRequest)).called(1);
-    });
+        // Act
+        final result = await loginUseCase(loginRequest);
+
+        // Assert
+        expect(result, isA<AuthResponse<LoginResponse>>());
+        expect(result.error, "Login failed");
+        expect(result.isSuccess, false);
+        verify(mockAuthRepo.login(loginRequest)).called(1);
+      },
+    );
   });
 }

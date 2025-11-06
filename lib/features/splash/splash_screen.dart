@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const DashboardScreen()),
-              (Route<dynamic> route) => false,
+          (Route<dynamic> route) => false,
         );
       } else {
         if (hasSeenOnboarding) {
@@ -52,14 +52,14 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.login,
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         } else {
           log('🎯 First time, navigating to ONBOARDING');
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         }
       }
@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushNamedAndRemoveUntil(
         context,
         AppRoutes.login,
-            (Route<dynamic> route) => false,
+        (Route<dynamic> route) => false,
       );
     }
   }

@@ -5,19 +5,20 @@ import 'package:super_fitness_app/features/workouts/data/models/workouts/all_mus
 import 'package:super_fitness_app/features/workouts/data/models/workouts/muscle_group_details_response.dart';
 import 'package:super_fitness_app/features/workouts/domain/repo/workouts_repo.dart';
 
-
 @LazySingleton(as: WorkoutsRepo)
 class WorkoutRepoImpl implements WorkoutsRepo {
   final WorkoutsRemoteDataSource _workoutsDataSource;
   WorkoutRepoImpl(this._workoutsDataSource);
 
   @override
-  Future <AuthResponse<AllMusclesResponse>> getAllMuscles() async {
+  Future<AuthResponse<AllMusclesResponse>> getAllMuscles() async {
     return await _workoutsDataSource.getAllMuscles();
   }
 
   @override
-  Future<AuthResponse<MuscleGroupDetailsResponse>> getMusclesGroup(String id) async {
+  Future<AuthResponse<MuscleGroupDetailsResponse>> getMusclesGroup(
+    String id,
+  ) async {
     return await _workoutsDataSource.getMusclesGroup(id);
   }
 }

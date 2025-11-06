@@ -22,34 +22,41 @@ void main() {
   });
 
   group('GetExerciseByMuscleAndDifficultyUseCase', () {
-    test('should return GetExerciseByMuscleAndDifficulty when repo call is successful', () async {
-      // arrange
-      when(mockExerciseRepo.getExerciseByMuscleAndDifficulty(any, any))
-          .thenAnswer((_) async => tResponse);
+    test(
+      'should return GetExerciseByMuscleAndDifficulty when repo call is successful',
+      () async {
+        // arrange
+        when(
+          mockExerciseRepo.getExerciseByMuscleAndDifficulty(any, any),
+        ).thenAnswer((_) async => tResponse);
 
-      // act
-      final result = await useCase(tPrimeMoverMuscleId, tDifficultyLevelId);
+        // act
+        final result = await useCase(tPrimeMoverMuscleId, tDifficultyLevelId);
 
-      // assert
-      expect(result, equals(tResponse));
-      verify(mockExerciseRepo.getExerciseByMuscleAndDifficulty(
-        tPrimeMoverMuscleId,
-        tDifficultyLevelId,
-      )).called(1);
-      verifyNoMoreInteractions(mockExerciseRepo);
-    });
+        // assert
+        expect(result, equals(tResponse));
+        verify(
+          mockExerciseRepo.getExerciseByMuscleAndDifficulty(
+            tPrimeMoverMuscleId,
+            tDifficultyLevelId,
+          ),
+        ).called(1);
+        verifyNoMoreInteractions(mockExerciseRepo);
+      },
+    );
 
     test('should throw Exception when repo call fails', () async {
       // arrange
-      when(mockExerciseRepo.getExerciseByMuscleAndDifficulty(any, any))
-          .thenThrow(Exception('Server Error'));
+      when(
+        mockExerciseRepo.getExerciseByMuscleAndDifficulty(any, any),
+      ).thenThrow(Exception('Server Error'));
 
       // act
       final call = useCase;
 
       // assert
       expect(
-            () => call(tPrimeMoverMuscleId, tDifficultyLevelId),
+        () => call(tPrimeMoverMuscleId, tDifficultyLevelId),
         throwsA(isA<Exception>()),
       );
     });

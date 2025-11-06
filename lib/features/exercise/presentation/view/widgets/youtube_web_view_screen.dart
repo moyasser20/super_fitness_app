@@ -11,7 +11,11 @@ class YouTubeWebViewScreen extends StatefulWidget {
   final String videoUrl;
   final bool isFood;
 
-  const YouTubeWebViewScreen({super.key, required this.videoUrl, required this.isFood});
+  const YouTubeWebViewScreen({
+    super.key,
+    required this.videoUrl,
+    required this.isFood,
+  });
 
   @override
   State<YouTubeWebViewScreen> createState() => _YouTubeWebViewScreenState();

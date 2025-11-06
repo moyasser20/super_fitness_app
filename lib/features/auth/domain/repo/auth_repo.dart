@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../responses/auth_response.dart';
 
 import '../../data/models/login_models/login_request_model.dart';
@@ -9,6 +11,13 @@ abstract class AuthRepo {
   Future<AuthResponse<String>> forgetPassword(String email);
   Future<AuthResponse<String>> verifyCode(String code);
   Future<AuthResponse<String>> resetPassword(String email, String newPassword);
-  Future<AuthResponse<RegisterResponse>> register(RegisterRequestModel registerRequest);
+  Future<AuthResponse<RegisterResponse>> register(
+    RegisterRequestModel registerRequest,
+  );
   Future<AuthResponse<LoginResponse>> login(LoginRequest loginRequest);
-  Future<AuthResponse<String>> changePassword(String oldPassword, String newPassword);}
+  Future<AuthResponse<String>> changePassword(
+    String oldPassword,
+    String newPassword,
+  );
+  Future<void> signOut(BuildContext context);
+}

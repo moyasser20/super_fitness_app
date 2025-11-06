@@ -18,4 +18,3 @@ final class RegisterError extends RegisterState {
 
   RegisterError(this.message);
 }
-

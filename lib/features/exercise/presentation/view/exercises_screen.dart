@@ -54,14 +54,17 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
     return BlocConsumer<ExerciseViewModel, ExerciseState>(
       listener: (context, state) {
-        if (state is ExerciseDataLoaded && state.exercises.exercises.isNotEmpty) {
+        if (state is ExerciseDataLoaded &&
+            state.exercises.exercises.isNotEmpty) {
           final exercises = state.exercises.exercises;
-          final firstVideoUrl = exercises.first.shortYoutubeDemonstrationLink ??
+          final firstVideoUrl =
+              exercises.first.shortYoutubeDemonstrationLink ??
               exercises.first.inDepthYoutubeExplanationLink ??
               "https://youtu.be/2zVNyi5Uk44";
 
-          backgroundThumbnail =
-              context.read<ExerciseViewModel>().getYouTubeThumbnail(firstVideoUrl);
+          backgroundThumbnail = context
+              .read<ExerciseViewModel>()
+              .getYouTubeThumbnail(firstVideoUrl);
         }
       },
       builder: (context, state) {
@@ -159,12 +162,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 6,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(30),
@@ -182,7 +191,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(30),
@@ -225,27 +237,33 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: GestureDetector(
-                                  onTap: () => cubit.getExerciseByMuscleAndDifficulty(
-                                    widget.primeMoverMuscleId,
-                                    level.id ?? '',
-                                    difficultyLevels: levels,
-                                  ),
+                                  onTap:
+                                      () => cubit
+                                          .getExerciseByMuscleAndDifficulty(
+                                            widget.primeMoverMuscleId,
+                                            level.id ?? '',
+                                            difficultyLevels: levels,
+                                          ),
                                   child: AnimatedContainer(
                                     duration: const Duration(milliseconds: 250),
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
+                                      horizontal: 20,
+                                      vertical: 10,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? AppColors.orange
-                                          : Colors.transparent,
+                                      color:
+                                          isSelected
+                                              ? AppColors.orange
+                                              : Colors.transparent,
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                     child: Text(
                                       level.name ?? '',
                                       style: balooThambi2BoldLarge.copyWith(
-                                        color: isSelected
-                                            ? Colors.white
-                                            : Colors.white.withOpacity(0.8),
+                                        color:
+                                            isSelected
+                                                ? Colors.white
+                                                : Colors.white.withOpacity(0.8),
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
@@ -261,10 +279,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   Expanded(
                     child: Builder(
                       builder: (_) {
-                        if (state is GetLevelsLoading || state is ExerciseLoading) {
-                          return const Center(
-                            child: AppLoadingIndicator(),
-                          );
+                        if (state is GetLevelsLoading ||
+                            state is ExerciseLoading) {
+                          return const Center(child: AppLoadingIndicator());
                         } else if (state is ExerciseDataLoaded) {
                           final exercises = state.exercises.exercises ?? [];
                           if (exercises.isEmpty) {
@@ -287,8 +304,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                 itemCount: exercises.length,
                                 itemBuilder: (context, index) {
                                   final ex = exercises[index];
-                                  if (ex.shortYoutubeDemonstrationLink == null ||
-                                      ex.shortYoutubeDemonstrationLink!.isEmpty) {
+                                  if (ex.shortYoutubeDemonstrationLink ==
+                                          null ||
+                                      ex
+                                          .shortYoutubeDemonstrationLink!
+                                          .isEmpty) {
                                     return const SizedBox.shrink();
                                   }
                                   final thumb = cubit.getYouTubeThumbnail(
@@ -298,7 +318,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                                   );
                                   return ExerciseCard(
                                     title: ex.exercise,
-                                    description: ex.primaryEquipment ??
+                                    description:
+                                        ex.primaryEquipment ??
                                         local.no_description,
                                     thumbnailUrl: thumb,
                                     videoUrl: ex.shortYoutubeDemonstrationLink!,
@@ -307,10 +328,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               ),
                             ),
                           );
-                        } else if (state is ExerciseError || state is GetLevelsError) {
-                          final msg = (state is ExerciseError)
-                              ? state.message
-                              : (state as GetLevelsError).message;
+                        } else if (state is ExerciseError ||
+                            state is GetLevelsError) {
+                          final msg =
+                              (state is ExerciseError)
+                                  ? state.message
+                                  : (state as GetLevelsError).message;
                           return Center(
                             child: Text(
                               msg,

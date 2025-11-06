@@ -50,6 +50,7 @@ abstract class SecureStorage {
   }
 
   static Future<void> delete(String key) async {
+    await _ensureInitialized();
     try {
       await _storage.delete(key: key);
     } catch (error, stackTrace) {

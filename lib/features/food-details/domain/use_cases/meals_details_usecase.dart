@@ -1,11 +1,10 @@
-
 import 'package:injectable/injectable.dart';
 
 import '../entities/meal_details_entity.dart';
 import '../repositories/meals_details_repo.dart';
 
 @injectable
-class MealsDetailsUseCase{
+class MealsDetailsUseCase {
   final MealsRepo _mealsDetailsRepo;
   MealsDetailsUseCase(this._mealsDetailsRepo);
 

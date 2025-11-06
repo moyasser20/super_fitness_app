@@ -5,7 +5,9 @@ void main() {
   test("Test LoginRequest Tojson should return correctMap", () {
     //Arrange
     final request = LoginRequest(
-        email: "mohamedyasser192023@gmail.com", password: "Test@123");
+      email: "mohamedyasser192023@gmail.com",
+      password: "Test@123",
+    );
 
     //Act
     final json = request.toJson();

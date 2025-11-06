@@ -188,6 +188,18 @@ abstract class AppLocalizations {
   /// **'Create New Password'**
   String get createNewPassword;
 
+  /// No description provided for @oldPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Old Password'**
+  String get oldPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
   /// No description provided for @newPasswordHint.
   ///
   /// In en, this message translates to:
@@ -1093,6 +1105,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explore'**
   String get explore;
+
+  /// No description provided for @changed_password_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully. Please login again.'**
+  String get changed_password_success;
+
+  /// No description provided for @yourWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight'**
+  String get yourWeight;
+
+  /// No description provided for @tapToEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'(tap to edit)'**
+  String get tapToEdit;
+
+  /// No description provided for @kilo.
+  ///
+  /// In en, this message translates to:
+  /// **'kilo'**
+  String get kilo;
+
+  /// No description provided for @yourGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal'**
+  String get yourGoal;
+
+  /// No description provided for @gainWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Gain weight'**
+  String get gainWeight;
+
+  /// No description provided for @yourActivityLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your activity level'**
+  String get yourActivityLevel;
+
+  /// No description provided for @rookie.
+  ///
+  /// In en, this message translates to:
+  /// **'Rookie'**
+  String get rookie;
 }
 
 class _AppLocalizationsDelegate

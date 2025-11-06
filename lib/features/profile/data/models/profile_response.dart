@@ -10,10 +10,7 @@ class ProfileResponse {
   @JsonKey(name: "user")
   final User user;
 
-  ProfileResponse({
-    required this.message,
-    required this.user,
-  });
+  ProfileResponse({required this.message, required this.user});
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) {
     return _$ProfileResponseFromJson(json);

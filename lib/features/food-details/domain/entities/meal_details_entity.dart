@@ -1,4 +1,4 @@
-class MealDetailsEntity{
+class MealDetailsEntity {
   final String idMeal;
   final String strMeal;
   final String? strMealAlternate;

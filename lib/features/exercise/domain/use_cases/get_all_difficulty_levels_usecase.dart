@@ -3,7 +3,7 @@ import '../../data/models/difficulty_levels_response.dart';
 import '../repositories/exercise_repo.dart';
 
 @lazySingleton
-class GetAllDifficultyLevelsUseCase{
+class GetAllDifficultyLevelsUseCase {
   final ExerciseRepo _exerciseRepo;
 
   GetAllDifficultyLevelsUseCase(this._exerciseRepo);

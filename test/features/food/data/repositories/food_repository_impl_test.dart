@@ -30,24 +30,29 @@ void main() {
   );
 
   group('FoodRepositoryImpl', () {
-    test('should return MealsByCategoryModel when data source returns data', () async {
-      // Arrange
-      when(mockDatasource.getFoodByCategory(category))
-          .thenAnswer((_) async => mockResponse);
+    test(
+      'should return MealsByCategoryModel when data source returns data',
+      () async {
+        // Arrange
+        when(
+          mockDatasource.getFoodByCategory(category),
+        ).thenAnswer((_) async => mockResponse);
 
-      // Act
-      final result = await repository.getMealsByCategory(category);
+        // Act
+        final result = await repository.getMealsByCategory(category);
 
-      // Assert
-      expect(result, isA<MealsByCategoryModel>());
-      expect(result.meals?.first.strMeal, 'Grilled Salmon');
-      verify(mockDatasource.getFoodByCategory(category)).called(1);
-    });
+        // Assert
+        expect(result, isA<MealsByCategoryModel>());
+        expect(result.meals?.first.strMeal, 'Grilled Salmon');
+        verify(mockDatasource.getFoodByCategory(category)).called(1);
+      },
+    );
 
     test('should throw Exception when datasource throws', () async {
       // Arrange
-      when(mockDatasource.getFoodByCategory(category))
-          .thenThrow(Exception('Network Error'));
+      when(
+        mockDatasource.getFoodByCategory(category),
+      ).thenThrow(Exception('Network Error'));
 
       // Act
       final call = repository.getMealsByCategory;

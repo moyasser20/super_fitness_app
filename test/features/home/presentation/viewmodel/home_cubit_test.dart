@@ -48,11 +48,7 @@ void main() {
     message: 'success',
     totalMuscles: 1,
     muscles: [
-      Muscle(
-        id: '1',
-        name: 'Biceps',
-        image: 'https://example.com/biceps.png',
-      )
+      Muscle(id: '1', name: 'Biceps', image: 'https://example.com/biceps.png'),
     ],
   );
 
@@ -66,11 +62,7 @@ void main() {
     message: 'success',
     muscleGroup: muscleGroup,
     muscles: [
-      Muscle(
-        id: '1',
-        name: 'Biceps',
-        image: 'https://example.com/biceps.png',
-      )
+      Muscle(id: '1', name: 'Biceps', image: 'https://example.com/biceps.png'),
     ],
   );
 
@@ -95,21 +87,22 @@ void main() {
     blocTest<HomeCubit, HomeState>(
       'emits [HomeLoading, HomeLoaded] when loadHomeData succeeds',
       build: () {
-        when(mockGetRandomMusclesUseCase.call())
-            .thenAnswer((_) async => musclesResponse);
-        when(mockGetMuscleGroupsUseCase.call())
-            .thenAnswer((_) async => muscleGroupsResponse);
-        when(mockGetMuscleGroupByIdUseCase.call(any))
-            .thenAnswer((_) async => muscleGroupByIdResponse);
-        when(mockGetMealCategoriesUseCase.call())
-            .thenAnswer((_) async => mealCategoriesResponse);
+        when(
+          mockGetRandomMusclesUseCase.call(),
+        ).thenAnswer((_) async => musclesResponse);
+        when(
+          mockGetMuscleGroupsUseCase.call(),
+        ).thenAnswer((_) async => muscleGroupsResponse);
+        when(
+          mockGetMuscleGroupByIdUseCase.call(any),
+        ).thenAnswer((_) async => muscleGroupByIdResponse);
+        when(
+          mockGetMealCategoriesUseCase.call(),
+        ).thenAnswer((_) async => mealCategoriesResponse);
         return cubit;
       },
       act: (cubit) => cubit.loadHomeData(),
-      expect: () => [
-        isA<HomeLoading>(),
-        isA<HomeLoaded>(),
-      ],
+      expect: () => [isA<HomeLoading>(), isA<HomeLoaded>()],
       verify: (_) {
         verify(mockGetRandomMusclesUseCase.call()).called(1);
         verify(mockGetMuscleGroupsUseCase.call()).called(1);
@@ -121,15 +114,13 @@ void main() {
     blocTest<HomeCubit, HomeState>(
       'emits [HomeLoading, HomeError] when an exception occurs',
       build: () {
-        when(mockGetRandomMusclesUseCase.call())
-            .thenThrow(Exception('Failed to load muscles'));
+        when(
+          mockGetRandomMusclesUseCase.call(),
+        ).thenThrow(Exception('Failed to load muscles'));
         return cubit;
       },
       act: (cubit) => cubit.loadHomeData(),
-      expect: () => [
-        isA<HomeLoading>(),
-        isA<HomeError>(),
-      ],
+      expect: () => [isA<HomeLoading>(), isA<HomeError>()],
     );
   });
 }

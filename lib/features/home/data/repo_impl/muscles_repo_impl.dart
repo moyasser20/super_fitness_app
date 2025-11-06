@@ -22,10 +22,12 @@ class MusclesRepoImpl implements MusclesRepo {
   Future<MuscleGroupsResponse> getMuscleGroups() async {
     return await _remoteDatasource.getMuscleGroups();
   }
+
   @override
   Future<MuscleGroupByIdResponse> getMuscleGroupById(String groupId) async {
     return await _remoteDatasource.getMuscleGroupById(groupId);
   }
+
   @override
   Future<MealCategoriesResponse> getMealCategories() async {
     return await _remoteDatasource.getMealCategories();

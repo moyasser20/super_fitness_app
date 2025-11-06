@@ -24,14 +24,19 @@ class MenuItemWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return ListTile(
       leading: leading,
-      title: isLogout ? Text(title, style: balooThambi2SemiBold.copyWith(fontSize: 16,color: AppColors.orange)) : Text(title, style: balooThambi2SemiBold.copyWith(fontSize: 16)),
+      title:
+          isLogout
+              ? Text(
+                title,
+                style: balooThambi2SemiBold.copyWith(
+                  fontSize: 16,
+                  color: AppColors.orange,
+                ),
+              )
+              : Text(title, style: balooThambi2SemiBold.copyWith(fontSize: 16)),
       trailing:
           trailing ??
-          const Icon(
-            Icons.arrow_forward_ios,
-            size: 20,
-            color: AppColors.main,
-          ),
+          const Icon(Icons.arrow_forward_ios, size: 20, color: AppColors.main),
       onTap: onTap,
     );
   }

@@ -10,7 +10,7 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   final ApiClient _profileApiClient;
 
   ProfileRemoteDatasourceImpl({required ApiClient apiClient})
-      : _profileApiClient = apiClient;
+    : _profileApiClient = apiClient;
 
   @override
   Future<ApiResult<ProfileResponse>> getProfile() async {
@@ -23,5 +23,4 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
       return ApiErrorResult('Unexpected error');
     }
   }
-
 }

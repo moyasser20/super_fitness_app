@@ -59,6 +59,13 @@ class LoginViewModel extends Cubit<LoginStates> {
     rememberMe = value;
   }
 
+  void clearFormFields() {
+    emailController.clear();
+    passwordController.clear();
+    rememberMe = false;
+    emit(LoginInitialStates());
+  }
+
   @override
   Future<void> close() {
     emailController.dispose();

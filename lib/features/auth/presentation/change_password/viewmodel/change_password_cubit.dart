@@ -30,11 +30,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     final response = await _authRepo.changePassword(oldPassword, newPassword);
 
     if (response.isSuccess) {
-      emit(
-        ChangePasswordSuccess(
-          message: locale!.changed_password_success,
-        ),
-      );
+      emit(ChangePasswordSuccess(message: locale!.changed_password_success));
     } else {
       emit(ChangePasswordError(response.error ?? 'Failed to change password'));
     }

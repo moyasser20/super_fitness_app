@@ -7,6 +7,7 @@ import 'package:super_fitness_app/core/utils/styles.dart';
 import '../../../../../../core/common/widgets/custom_snackbar_widget.dart';
 import '../../../../../../core/contants/app_icons.dart';
 import '../../../../../../core/contants/app_images.dart';
+import '../../../../../../core/contants/secure_storage.dart';
 import '../../../../../../core/extensions/validations.dart';
 import '../../../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../../../core/routes/route_names.dart';
@@ -36,7 +37,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _loadRememberedCredentials() async {
     final viewModel = context.read<LoginViewModel>();
-    await viewModel.loadRememberedCredentials();
+
+    // Check if we're coming from a logout by checking if token exists
+    final hasToken = await SecureStorage.read('auth_token') != null;
+
+    if (!hasToken) {
+      // If no token exists, we're likely coming from logout - clear fields
+      viewModel.clearFormFields();
+    } else {
+      // Only load remembered credentials if we have a token
+      await viewModel.loadRememberedCredentials();
+    }
+
     setState(() {
       _rememberMe = viewModel.rememberMe;
       _isLoadingCredentials = false;
@@ -175,9 +187,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (value == null || value.isEmpty) {
                                 return local.passwordRequiredErrorMsg;
                               }
-                              if (!Validations.validatePassword(value)) {
-                                return local.passwordValidationErrorMsg;
-                              }
+                              // if (!Validations.validatePassword(value)) {
+                              //   return local.passwordValidationErrorMsg;
+                              // }
                               return null;
                             },
                           ),

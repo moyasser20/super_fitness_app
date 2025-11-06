@@ -4,9 +4,7 @@ import 'package:super_fitness_app/features/splash/splash_screen.dart';
 
 void main() {
   Widget createWidgetUnderTest() {
-    return const MaterialApp(
-      home: SplashScreen(),
-    );
+    return const MaterialApp(home: SplashScreen());
   }
 
   group('SplashScreen Tests', () {

@@ -62,7 +62,7 @@ final balooThambi2BoldLarge = TextStyle(
 final balooThambi2BoldExtraLarge = TextStyle(
   fontFamily: 'BalooThambi2',
   fontWeight: FontWeight.w700,
-  fontSize: Dimensions.fontSizeExtraLarge +2,
+  fontSize: Dimensions.fontSizeExtraLarge + 2,
   color: Colors.white,
 );
 

@@ -15,14 +15,16 @@ void main() {
 
   setUpAll(() {
     provideDummy<HomeState>(HomeLoading());
-    provideDummy<HomeLoaded>(HomeLoaded(
-      recommendedMuscles: const [],
-      muscleGroups: const [],
-      userName: 'dummy',
-      userImage: AppImages.mainImage,
-      selectedWorkout: null,
-      selectedMuscleIds: const {},
-    ));
+    provideDummy<HomeLoaded>(
+      HomeLoaded(
+        recommendedMuscles: const [],
+        muscleGroups: const [],
+        userName: 'dummy',
+        userImage: AppImages.mainImage,
+        selectedWorkout: null,
+        selectedMuscleIds: const {},
+      ),
+    );
     provideDummy<HomeError>(HomeError('error'));
   });
 
@@ -50,24 +52,30 @@ void main() {
     expect(find.textContaining('Hi'), findsOneWidget);
   });
 
-  testWidgets('renders HomeScreen with loaded state and username', (tester) async {
-    await tester.pumpWidget(buildTestable(
-      state: HomeLoaded(
-        recommendedMuscles: const [],
-        muscleGroups: const [],
-        userName: 'Test User',
-        userImage: AppImages.mainImage,
-        selectedWorkout: null,
-        selectedMuscleIds: const {},
+  testWidgets('renders HomeScreen with loaded state and username', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      buildTestable(
+        state: HomeLoaded(
+          recommendedMuscles: const [],
+          muscleGroups: const [],
+          userName: 'Test User',
+          userImage: AppImages.mainImage,
+          selectedWorkout: null,
+          selectedMuscleIds: const {},
+        ),
       ),
-    ));
+    );
     expect(find.text('Hi Test User,'), findsOneWidget);
     expect(find.text('Category'), findsOneWidget);
     expect(find.text('Upcoming Workouts'), findsOneWidget);
     expect(find.text('Recommendation for you'), findsOneWidget);
   });
 
-  testWidgets('renders error UI when HomeError state is provided', (tester) async {
+  testWidgets('renders error UI when HomeError state is provided', (
+    tester,
+  ) async {
     await tester.pumpWidget(buildTestable(state: HomeError('error!')));
     expect(find.textContaining('Failed to load workouts'), findsOneWidget);
   });

@@ -19,7 +19,11 @@ void main() {
 
   group('GetRandomMusclesUseCase', () {
     test('returns MusclesResponse on success', () async {
-      final response = MusclesResponse(message: 'msg', totalMuscles: 0, muscles: []);
+      final response = MusclesResponse(
+        message: 'msg',
+        totalMuscles: 0,
+        muscles: [],
+      );
       when(mockRepo.getRandomMuscles()).thenAnswer((_) async => response);
       final result = await usecase();
       expect(result, isA<MusclesResponse>());

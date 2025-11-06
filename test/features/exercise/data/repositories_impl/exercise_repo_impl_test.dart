@@ -22,26 +22,38 @@ void main() {
   });
 
   group('getAllDifficultyLevels', () {
-    final tResponse = DifficultyLevelResponse(difficultyLevels: [], totalLevels: 0);
+    final tResponse = DifficultyLevelResponse(
+      difficultyLevels: [],
+      totalLevels: 0,
+    );
 
-    test('should return DifficultyLevelResponse when datasource call is successful', () async {
-      // arrange
-      when(mockDatasource.getAllDifficultyLevels(any))
-          .thenAnswer((_) async => tResponse);
+    test(
+      'should return DifficultyLevelResponse when datasource call is successful',
+      () async {
+        // arrange
+        when(
+          mockDatasource.getAllDifficultyLevels(any),
+        ).thenAnswer((_) async => tResponse);
 
-      // act
-      final result = await repository.getAllDifficultyLevels(tPrimeMoverMuscleId);
+        // act
+        final result = await repository.getAllDifficultyLevels(
+          tPrimeMoverMuscleId,
+        );
 
-      // assert
-      expect(result, equals(tResponse));
-      verify(mockDatasource.getAllDifficultyLevels(tPrimeMoverMuscleId)).called(1);
-      verifyNoMoreInteractions(mockDatasource);
-    });
+        // assert
+        expect(result, equals(tResponse));
+        verify(
+          mockDatasource.getAllDifficultyLevels(tPrimeMoverMuscleId),
+        ).called(1);
+        verifyNoMoreInteractions(mockDatasource);
+      },
+    );
 
     test('should throw Exception when datasource call fails', () async {
       // arrange
-      when(mockDatasource.getAllDifficultyLevels(any))
-          .thenThrow(Exception('Server error'));
+      when(
+        mockDatasource.getAllDifficultyLevels(any),
+      ).thenThrow(Exception('Server error'));
 
       // act
       final call = repository.getAllDifficultyLevels;
@@ -54,36 +66,46 @@ void main() {
   group('getExerciseByMuscleAndDifficulty', () {
     final tExerciseResponse = GetExerciseByMuscleAndDifficulty(exercises: []);
 
-    test('should return GetExerciseByMuscleAndDifficulty when datasource call is successful', () async {
-      // arrange
-      when(mockDatasource.getExerciseByMuscleAndDifficulty(any, any))
-          .thenAnswer((_) async => tExerciseResponse);
+    test(
+      'should return GetExerciseByMuscleAndDifficulty when datasource call is successful',
+      () async {
+        // arrange
+        when(
+          mockDatasource.getExerciseByMuscleAndDifficulty(any, any),
+        ).thenAnswer((_) async => tExerciseResponse);
 
-      // act
-      final result = await repository.getExerciseByMuscleAndDifficulty(
-        tPrimeMoverMuscleId,
-        tDifficultyLevelId,
-      );
+        // act
+        final result = await repository.getExerciseByMuscleAndDifficulty(
+          tPrimeMoverMuscleId,
+          tDifficultyLevelId,
+        );
 
-      // assert
-      expect(result, equals(tExerciseResponse));
-      verify(mockDatasource.getExerciseByMuscleAndDifficulty(
-        tPrimeMoverMuscleId,
-        tDifficultyLevelId,
-      )).called(1);
-      verifyNoMoreInteractions(mockDatasource);
-    });
+        // assert
+        expect(result, equals(tExerciseResponse));
+        verify(
+          mockDatasource.getExerciseByMuscleAndDifficulty(
+            tPrimeMoverMuscleId,
+            tDifficultyLevelId,
+          ),
+        ).called(1);
+        verifyNoMoreInteractions(mockDatasource);
+      },
+    );
 
     test('should throw Exception when datasource call fails', () async {
       // arrange
-      when(mockDatasource.getExerciseByMuscleAndDifficulty(any, any))
-          .thenThrow(Exception('Network error'));
+      when(
+        mockDatasource.getExerciseByMuscleAndDifficulty(any, any),
+      ).thenThrow(Exception('Network error'));
 
       // act
       final call = repository.getExerciseByMuscleAndDifficulty;
 
       // assert
-      expect(() => call(tPrimeMoverMuscleId, tDifficultyLevelId), throwsA(isA<Exception>()));
+      expect(
+        () => call(tPrimeMoverMuscleId, tDifficultyLevelId),
+        throwsA(isA<Exception>()),
+      );
     });
   });
 }

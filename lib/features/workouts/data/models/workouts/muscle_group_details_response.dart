@@ -13,11 +13,7 @@ class MuscleGroupDetailsResponse {
   @JsonKey(name: "muscles")
   final List<Muscle>? muscles;
 
-  MuscleGroupDetailsResponse({
-    this.message,
-    this.muscleGroup,
-    this.muscles,
-  });
+  MuscleGroupDetailsResponse({this.message, this.muscleGroup, this.muscles});
 
   factory MuscleGroupDetailsResponse.fromJson(Map<String, dynamic> json) =>
       _$MuscleGroupDetailsResponseFromJson(json);
@@ -33,10 +29,7 @@ class MuscleGroupDetails {
   @JsonKey(name: "name")
   final String? name;
 
-  MuscleGroupDetails({
-    this.id,
-    this.name,
-  });
+  MuscleGroupDetails({this.id, this.name});
 
   factory MuscleGroupDetails.fromJson(Map<String, dynamic> json) =>
       _$MuscleGroupDetailsFromJson(json);
@@ -55,14 +48,9 @@ class Muscle {
   @JsonKey(name: "image")
   final String? image;
 
-  Muscle({
-    this.id,
-    this.name,
-    this.image,
-  });
+  Muscle({this.id, this.name, this.image});
 
-  factory Muscle.fromJson(Map<String, dynamic> json) =>
-      _$MuscleFromJson(json);
+  factory Muscle.fromJson(Map<String, dynamic> json) => _$MuscleFromJson(json);
 
   Map<String, dynamic> toJson() => _$MuscleToJson(this);
 }

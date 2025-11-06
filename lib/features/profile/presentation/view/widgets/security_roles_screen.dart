@@ -57,7 +57,10 @@ class SecurityRolesScreen extends StatelessWidget {
             );
           } else if (!snapshot.hasData) {
             return const Center(
-              child: Text('No data found', style: TextStyle(color: Colors.white70)),
+              child: Text(
+                'No data found',
+                style: TextStyle(color: Colors.white70),
+              ),
             );
           }
 
@@ -90,11 +93,12 @@ class SecurityRolesScreen extends StatelessWidget {
   }
 
   Widget _buildSection(SecuritySection section, String lang) {
-    final textAlign = (section.style?.textAlign?[lang] == 'right' || lang == 'ar')
-        ? TextAlign.right
-        : (section.style?.textAlign?[lang] == 'center'
-        ? TextAlign.center
-        : TextAlign.left);
+    final textAlign =
+        (section.style?.textAlign?[lang] == 'right' || lang == 'ar')
+            ? TextAlign.right
+            : (section.style?.textAlign?[lang] == 'center'
+                ? TextAlign.center
+                : TextAlign.left);
 
     switch (section.section) {
       case 'page_title':
@@ -117,13 +121,17 @@ class SecurityRolesScreen extends StatelessWidget {
         return Card(
           margin: const EdgeInsets.only(bottom: 16),
           color: Colors.black.withOpacity(0.2),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           elevation: 2,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment:
-              lang == 'ar' ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  lang == 'ar'
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
               children: [
                 Text(
                   section.name?[lang] ?? '',
@@ -154,7 +162,9 @@ class SecurityRolesScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  ...section.permissions!.map((perm) => _buildPermission(perm, lang)),
+                  ...section.permissions!.map(
+                    (perm) => _buildPermission(perm, lang),
+                  ),
                 ],
               ],
             ),
@@ -171,7 +181,7 @@ class SecurityRolesScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment:
-        lang == 'ar' ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            lang == 'ar' ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             perm.name[lang] ?? '',

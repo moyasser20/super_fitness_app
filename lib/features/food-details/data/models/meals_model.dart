@@ -111,7 +111,7 @@ class MealsModel {
   @JsonKey(name: "dateModified")
   final dynamic dateModified;
 
-  MealsModel ({
+  MealsModel({
     this.idMeal,
     this.strMeal,
     this.strMealAlternate,

@@ -38,6 +38,7 @@ class MusclesRemoteDatasourceImpl implements MusclesRemoteDatasource {
       throw Exception('Failed to load muscle group by id: $e');
     }
   }
+
   @override
   Future<MealCategoriesResponse> getMealCategories() async {
     try {

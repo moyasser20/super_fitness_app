@@ -12,7 +12,7 @@ class DifficultyLevelResponse {
   @JsonKey(name: "difficulty_levels")
   final List<DifficultyLevels>? difficultyLevels;
 
-  DifficultyLevelResponse ({
+  DifficultyLevelResponse({
     this.message,
     required this.totalLevels,
     this.difficultyLevels,
@@ -26,5 +26,3 @@ class DifficultyLevelResponse {
     return _$DifficultyLevelResponseToJson(this);
   }
 }
-
-

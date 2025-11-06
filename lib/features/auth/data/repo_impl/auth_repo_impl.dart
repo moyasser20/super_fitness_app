@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/repo/auth_repo.dart';
 import '../../domain/responses/auth_response.dart';
@@ -9,6 +10,7 @@ import '../../domain/responses/register_request_model.dart';
 import '../../domain/responses/register_response.dart';
 import '../models/login_models/login_request_model.dart';
 import '../models/login_models/login_response_model.dart';
+import '../../domain/services/auth_services.dart';
 
 @LazySingleton(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
@@ -58,5 +60,10 @@ class AuthRepoImpl implements AuthRepo {
     String newPassword,
   ) async {
     return await _remoteDatasource.changePassword(oldPassword, newPassword);
+  }
+
+  @override
+  Future<void> signOut(BuildContext context) async {
+    await AuthService.logout(context);
   }
 }

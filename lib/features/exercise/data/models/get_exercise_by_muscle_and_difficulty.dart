@@ -17,7 +17,7 @@ class GetExerciseByMuscleAndDifficulty {
   @JsonKey(name: "exercises")
   final List<Exercises> exercises;
 
-  GetExerciseByMuscleAndDifficulty ({
+  GetExerciseByMuscleAndDifficulty({
     this.message,
     this.totalExercises,
     this.totalPages,
@@ -33,7 +33,3 @@ class GetExerciseByMuscleAndDifficulty {
     return _$GetExerciseByMuscleAndDifficultyToJson(this);
   }
 }
-
-
-
-

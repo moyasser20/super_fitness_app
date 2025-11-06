@@ -11,10 +11,7 @@ class EditProfileResponse {
   @JsonKey(name: "user")
   final User? user;
 
-  EditProfileResponse ({
-    this.message,
-    this.user,
-  });
+  EditProfileResponse({this.message, this.user});
 
   factory EditProfileResponse.fromJson(Map<String, dynamic> json) {
     return _$EditProfileResponseFromJson(json);
@@ -24,7 +21,3 @@ class EditProfileResponse {
     return _$EditProfileResponseToJson(this);
   }
 }
-
-
-
-

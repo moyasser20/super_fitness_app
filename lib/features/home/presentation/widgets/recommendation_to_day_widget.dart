@@ -23,7 +23,10 @@ class RecommendationToDayWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(local.recommendation_to_you, style: balooThambi2BoldExtraLarge),
+            Text(
+              local.recommendation_to_you,
+              style: balooThambi2BoldExtraLarge,
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.editProfileScreen);

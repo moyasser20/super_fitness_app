@@ -10,8 +10,10 @@ class IngredientsCustomContainer extends StatelessWidget {
 
   static const double blurIntensity = 25.0;
   static const double borderRadius = 30.0;
-  static const EdgeInsetsGeometry padding =
-  EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0);
+  static const EdgeInsetsGeometry padding = EdgeInsets.symmetric(
+    horizontal: 24.0,
+    vertical: 16.0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -24,30 +26,24 @@ class IngredientsCustomContainer extends StatelessWidget {
       if (ingredient != null &&
           ingredient.trim().isNotEmpty &&
           ingredient != '') {
-        ingredients.add({
-          'name': ingredient,
-          'quantity': measure ?? '',
-        });
+        ingredients.add({'name': ingredient, 'quantity': measure ?? ''});
       }
     }
 
-    final ingredientWidgets = ingredients
-        .map((ing) => IngredientRow(
-      name: ing['name']!,
-      quantity: ing['quantity']!,
-    ))
-        .toList();
+    final ingredientWidgets =
+        ingredients
+            .map(
+              (ing) =>
+                  IngredientRow(name: ing['name']!, quantity: ing['quantity']!),
+            )
+            .toList();
 
     final widgetsWithDividers = <Widget>[];
     for (int i = 0; i < ingredientWidgets.length; i++) {
       widgetsWithDividers.add(ingredientWidgets[i]);
       if (i < ingredientWidgets.length - 1) {
         widgetsWithDividers.add(
-          Divider(
-            color: AppColors.black,
-            thickness: 1.0,
-            height: 16.0,
-          ),
+          Divider(color: AppColors.black, thickness: 1.0, height: 16.0),
         );
       }
     }
@@ -77,19 +73,20 @@ class IngredientsCustomContainer extends StatelessWidget {
             ),
             Padding(
               padding: padding,
-              child: widgetsWithDividers.isNotEmpty
-                  ? SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: widgetsWithDividers,
-                ),
-              )
-                  : const Center(
-                child: Text(
-                  "No Ingredients Found",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              child:
+                  widgetsWithDividers.isNotEmpty
+                      ? SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: widgetsWithDividers,
+                        ),
+                      )
+                      : const Center(
+                        child: Text(
+                          "No Ingredients Found",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
             ),
           ],
         ),

@@ -62,7 +62,9 @@ class ProfileScreen extends StatelessWidget {
                               arguments: profile,
                             );
                             if (updated == true) {
-                              context.read<ProfileViewModel>().clearProfileCache();
+                              context
+                                  .read<ProfileViewModel>()
+                                  .clearProfileCache();
                               context.read<ProfileViewModel>().getProfile();
                             }
                           },
@@ -76,7 +78,9 @@ class ProfileScreen extends StatelessWidget {
                               const SizedBox(height: 18),
                               Text(
                                 "${profile.firstName} ${profile.lastName}",
-                                style: balooThambi2SemiBold.copyWith(fontSize: 22),
+                                style: balooThambi2SemiBold.copyWith(
+                                  fontSize: 22,
+                                ),
                               ),
                               const SizedBox(height: 40),
                             ],
@@ -110,7 +114,10 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 title: local.changePassword,
                                 onTap: () {
-                                  Navigator.pushNamed(context,AppRoutes.changePasswordScreen);
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.changePasswordScreen,
+                                  );
                                 },
                               ),
 
@@ -128,7 +135,10 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 title: local.security,
                                 onTap: () {
-                                  Navigator.pushNamed(context, AppRoutes.securityScreen);
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.securityScreen,
+                                  );
                                 },
                               ),
 
@@ -142,7 +152,10 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 title: local.privacyPolicy,
                                 onTap: () {
-                                  Navigator.pushNamed(context, AppRoutes.privacyPolicyScreen);
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.privacyPolicyScreen,
+                                  );
                                 },
                               ),
 
@@ -156,7 +169,10 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 title: local.help,
                                 onTap: () {
-                                  Navigator.pushNamed(context, AppRoutes.helpScreen);
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.helpScreen,
+                                  );
                                 },
                               ),
 
@@ -170,8 +186,11 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 title: local.logout,
                                 isLogout: true,
-                                onTap: () {
-                                  // Add logout logic
+                                onTap: () async {
+                                  final viewModel =
+                                      context.read<ProfileViewModel>();
+
+                                  await viewModel.signOut(context);
                                 },
                               ),
 
@@ -180,7 +199,7 @@ class ProfileScreen extends StatelessWidget {
                               const SizedBox(height: 10),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ).setHorizontalAndVerticalPadding(context, 0.03, 0.02),
                   ),

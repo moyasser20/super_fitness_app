@@ -40,7 +40,10 @@ class _LanguageToggleWidgetState extends State<LanguageToggleWidget> {
               ),
             ),
             TextSpan(
-              text: context.read<LocalizationCubit>().getSelectedLanguageDisplayName(),
+              text:
+                  context
+                      .read<LocalizationCubit>()
+                      .getSelectedLanguageDisplayName(),
               style: balooThambi2SemiBold.copyWith(
                 fontSize: 16,
                 color: AppColors.orange,

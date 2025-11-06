@@ -66,10 +66,7 @@ extension MealDetailsEntityExtensions on MealDetailsEntity {
       final ing = map['strIngredient$i']?.trim();
       final measure = map['strMeasure$i']?.trim() ?? '';
       if (ing != null && ing.isNotEmpty) {
-        list.add({
-          'name': ing,
-          'quantity': measure,
-        });
+        list.add({'name': ing, 'quantity': measure});
       }
     }
     return list;

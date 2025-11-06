@@ -40,25 +40,31 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 70,),
+            const SizedBox(height: 70),
             Image.asset(AppIcons.mainIcon),
-            const SizedBox(height: 150,),
+            const SizedBox(height: 150),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("WHAT IS YOUR GOAL ?" , style: balooThambi2BoldLarge.copyWith(
-                fontSize: 24,
-                color: AppColors.white,
-              ),),
+              child: Text(
+                "WHAT IS YOUR GOAL ?",
+                style: balooThambi2BoldLarge.copyWith(
+                  fontSize: 24,
+                  color: AppColors.white,
+                ),
+              ),
             ).setHorizontalPadding(context, 0.045),
-            const SizedBox(height: 2,),
+            const SizedBox(height: 2),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("This Helps Us Create Your Personalized Plan" , style: balooThambi2Regular.copyWith(
-                fontSize: 18,
-                color: AppColors.white,
-              ),),
+              child: Text(
+                "This Helps Us Create Your Personalized Plan",
+                style: balooThambi2Regular.copyWith(
+                  fontSize: 18,
+                  color: AppColors.white,
+                ),
+              ),
             ).setHorizontalPadding(context, 0.045),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 20),
             Center(
               child: ContainerWithBlurWidget(
                 padding: const EdgeInsets.all(20),

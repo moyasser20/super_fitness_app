@@ -33,113 +33,83 @@ class MockHomeCubit extends _i1.Mock implements _i2.HomeCubit {
   }
 
   @override
-  _i2.HomeState get state => (super.noSuchMethod(
-        Invocation.getter(#state),
-        returnValue: _i3.dummyValue<_i2.HomeState>(
-          this,
-          Invocation.getter(#state),
-        ),
-      ) as _i2.HomeState);
+  _i2.HomeState get state =>
+      (super.noSuchMethod(
+            Invocation.getter(#state),
+            returnValue: _i3.dummyValue<_i2.HomeState>(
+              this,
+              Invocation.getter(#state),
+            ),
+          )
+          as _i2.HomeState);
 
   @override
-  _i4.Stream<_i2.HomeState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i2.HomeState>.empty(),
-      ) as _i4.Stream<_i2.HomeState>);
+  _i4.Stream<_i2.HomeState> get stream =>
+      (super.noSuchMethod(
+            Invocation.getter(#stream),
+            returnValue: _i4.Stream<_i2.HomeState>.empty(),
+          )
+          as _i4.Stream<_i2.HomeState>);
 
   @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
-        returnValue: false,
-      ) as bool);
+  bool get isClosed =>
+      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
+          as bool);
 
   @override
-  _i4.Future<void> loadHomeData() => (super.noSuchMethod(
-        Invocation.method(
-          #loadHomeData,
-          [],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+  _i4.Future<void> loadHomeData() =>
+      (super.noSuchMethod(
+            Invocation.method(#loadHomeData, []),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 
   @override
   void refreshRecommendations() => super.noSuchMethod(
-        Invocation.method(
-          #refreshRecommendations,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#refreshRecommendations, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   _i4.Future<void> loadMuscleGroupDetails(String? groupId) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #loadMuscleGroupDetails,
-          [groupId],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+            Invocation.method(#loadMuscleGroupDetails, [groupId]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 
   @override
   void emit(_i2.HomeState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#emit, [state]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void onChange(_i5.Change<_i2.HomeState>? change) => super.noSuchMethod(
-        Invocation.method(
-          #onChange,
-          [change],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#onChange, [change]),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
+  void addError(Object? error, [StackTrace? stackTrace]) => super.noSuchMethod(
+    Invocation.method(#addError, [error, stackTrace]),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
+  void onError(Object? error, StackTrace? stackTrace) => super.noSuchMethod(
+    Invocation.method(#onError, [error, stackTrace]),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
-          [],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+  _i4.Future<void> close() =>
+      (super.noSuchMethod(
+            Invocation.method(#close, []),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 }

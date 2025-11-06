@@ -51,24 +51,27 @@ void main() {
       verify(mockApiClient.getAllMuscles()).called(1);
     });
 
-    test('getAllMuscles returns error response on DioException with string data', () async {
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: ''),
-        response: Response(
+    test(
+      'getAllMuscles returns error response on DioException with string data',
+      () async {
+        final dioException = DioException(
           requestOptions: RequestOptions(path: ''),
-          data: '{"error": "String API Error"}',
-          statusCode: 400,
-        ),
-      );
-      when(mockApiClient.getAllMuscles()).thenThrow(dioException);
+          response: Response(
+            requestOptions: RequestOptions(path: ''),
+            data: '{"error": "String API Error"}',
+            statusCode: 400,
+          ),
+        );
+        when(mockApiClient.getAllMuscles()).thenThrow(dioException);
 
-      final result = await dataSource.getAllMuscles();
+        final result = await dataSource.getAllMuscles();
 
-      expect(result.isSuccess, false);
-      expect(result.data, null);
-      expect(result.error, 'String API Error');
-      verify(mockApiClient.getAllMuscles()).called(1);
-    });
+        expect(result.isSuccess, false);
+        expect(result.data, null);
+        expect(result.error, 'String API Error');
+        verify(mockApiClient.getAllMuscles()).called(1);
+      },
+    );
 
     test('getAllMuscles returns error response on generic exception', () async {
       when(mockApiClient.getAllMuscles()).thenThrow(Exception('Generic error'));
@@ -81,17 +84,26 @@ void main() {
       verify(mockApiClient.getAllMuscles()).called(1);
     });
 
-    test('getMusclesGroup returns success response on successful call', () async {
-      final response = MuscleGroupDetailsResponse(message: 'success', muscleGroup: null, muscles: []);
-      when(mockApiClient.getMusclesGroup('id')).thenAnswer((_) async => response);
+    test(
+      'getMusclesGroup returns success response on successful call',
+      () async {
+        final response = MuscleGroupDetailsResponse(
+          message: 'success',
+          muscleGroup: null,
+          muscles: [],
+        );
+        when(
+          mockApiClient.getMusclesGroup('id'),
+        ).thenAnswer((_) async => response);
 
-      final result = await dataSource.getMusclesGroup('id');
+        final result = await dataSource.getMusclesGroup('id');
 
-      expect(result.isSuccess, true);
-      expect(result.data, response);
-      expect(result.error, null);
-      verify(mockApiClient.getMusclesGroup('id')).called(1);
-    });
+        expect(result.isSuccess, true);
+        expect(result.data, response);
+        expect(result.error, null);
+        verify(mockApiClient.getMusclesGroup('id')).called(1);
+      },
+    );
 
     test('getMusclesGroup returns error response on DioException', () async {
       final dioException = DioException(
@@ -112,15 +124,20 @@ void main() {
       verify(mockApiClient.getMusclesGroup('id')).called(1);
     });
 
-    test('getMusclesGroup returns error response on generic exception', () async {
-      when(mockApiClient.getMusclesGroup('id')).thenThrow(Exception('Group generic error'));
+    test(
+      'getMusclesGroup returns error response on generic exception',
+      () async {
+        when(
+          mockApiClient.getMusclesGroup('id'),
+        ).thenThrow(Exception('Group generic error'));
 
-      final result = await dataSource.getMusclesGroup('id');
+        final result = await dataSource.getMusclesGroup('id');
 
-      expect(result.isSuccess, false);
-      expect(result.data, null);
-      expect(result.error, 'Exception: Group generic error');
-      verify(mockApiClient.getMusclesGroup('id')).called(1);
-    });
+        expect(result.isSuccess, false);
+        expect(result.data, null);
+        expect(result.error, 'Exception: Group generic error');
+        verify(mockApiClient.getMusclesGroup('id')).called(1);
+      },
+    );
   });
 }

@@ -78,7 +78,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         const SizedBox(width: 85),
                         Text(
                           locale.editProfile,
-                          style: balooThambi2RegularLarge.copyWith(fontSize: 26),
+                          style: balooThambi2RegularLarge.copyWith(
+                            fontSize: 26,
+                          ),
                         ),
                         const Spacer(flex: 2),
                       ],
@@ -89,13 +91,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       children: [
                         CircleAvatar(
                           radius: 60,
-                          backgroundImage: cubit.profilePhotoUrl != null
-                              ? (cubit.profilePhotoUrl!.startsWith('assets/')
-                              ? AssetImage(cubit.profilePhotoUrl!)
-                              : Image.file(
-                            File(cubit.profilePhotoUrl!),
-                          ).image)
-                              : const AssetImage("assets/images/test_food.png"),
+                          backgroundImage:
+                              cubit.profilePhotoUrl != null
+                                  ? (cubit.profilePhotoUrl!.startsWith(
+                                        'assets/',
+                                      )
+                                      ? AssetImage(cubit.profilePhotoUrl!)
+                                      : Image.file(
+                                        File(cubit.profilePhotoUrl!),
+                                      ).image)
+                                  : const AssetImage(
+                                    "assets/images/test_food.png",
+                                  ),
                           backgroundColor: AppColors.grey,
                         ),
                         Positioned(
@@ -162,15 +169,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => WeightStepScreen(
-                                  selectedWeight: cubit.selectedWeight,
-                                  onWeightChanged: (value) {
-                                    setState(() {
-                                      cubit.selectedWeight = value;
-                                    });
-                                  },
-                                  onNext: () => Navigator.pop(context),
-                                ),
+                                builder:
+                                    (_) => WeightStepScreen(
+                                      selectedWeight: cubit.selectedWeight,
+                                      onWeightChanged: (value) {
+                                        setState(() {
+                                          cubit.selectedWeight = value;
+                                        });
+                                      },
+                                      onNext: () => Navigator.pop(context),
+                                    ),
                               ),
                             );
                           },
@@ -206,22 +214,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => GoalStepScreen(
-                                  goals: const [
-                                    "Gain Weight",
-                                    "Lose Weight",
-                                    "Get fitter",
-                                    "Gain more flexible",
-                                    "Learn the basic",
-                                  ],
-                                  selectedGoal: cubit.selectedGoal,
-                                  onGoalSelected: (goal) {
-                                    setState(() {
-                                      cubit.selectedGoal = goal;
-                                    });
-                                  },
-                                  onNext: () => Navigator.pop(context),
-                                ),
+                                builder:
+                                    (_) => GoalStepScreen(
+                                      goals: const [
+                                        "Gain Weight",
+                                        "Lose Weight",
+                                        "Get fitter",
+                                        "Gain more flexible",
+                                        "Learn the basic",
+                                      ],
+                                      selectedGoal: cubit.selectedGoal,
+                                      onGoalSelected: (goal) {
+                                        setState(() {
+                                          cubit.selectedGoal = goal;
+                                        });
+                                      },
+                                      onNext: () => Navigator.pop(context),
+                                    ),
                               ),
                             );
                           },
@@ -257,24 +266,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => ActivityStepScreen(
-                                  activities: const [
-                                    {"display": "Rookie"},
-                                    {"display": "Beginner"},
-                                    {"display": "Intermediate"},
-                                    {"display": "Advance"},
-                                    {"display": "True Beast"},
-                                  ],
-                                  selectedActivityDisplay:
-                                  cubit.selectedActivity,
-                                  onActivitySelected: (activity) {
-                                    setState(() {
-                                      cubit.selectedActivity =
-                                      activityLevelMap[activity["display"]!]!;
-                                    });
-                                  },
-                                  onNext: () => Navigator.pop(context),
-                                ),
+                                builder:
+                                    (_) => ActivityStepScreen(
+                                      activities: const [
+                                        {"display": "Rookie"},
+                                        {"display": "Beginner"},
+                                        {"display": "Intermediate"},
+                                        {"display": "Advance"},
+                                        {"display": "True Beast"},
+                                      ],
+                                      selectedActivityDisplay:
+                                          cubit.selectedActivity,
+                                      onActivitySelected: (activity) {
+                                        setState(() {
+                                          cubit.selectedActivity =
+                                              activityLevelMap[activity["display"]!]!;
+                                        });
+                                      },
+                                      onNext: () => Navigator.pop(context),
+                                    ),
                               ),
                             );
                           },
@@ -294,8 +304,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       fillColor: AppColors.white.withOpacity(0.15),
                       hintColor: AppColors.white,
                       hint: activityLevelMap.keys.firstWhere(
-                            (key) =>
-                        activityLevelMap[key] == cubit.selectedActivity,
+                        (key) =>
+                            activityLevelMap[key] == cubit.selectedActivity,
                         orElse: () => cubit.selectedActivity,
                       ),
                     ),

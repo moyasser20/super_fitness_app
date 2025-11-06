@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-
 class CustomCardShimmerWidget extends StatelessWidget {
   const CustomCardShimmerWidget({super.key});
 

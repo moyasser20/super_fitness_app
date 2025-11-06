@@ -10,15 +10,20 @@ import '../models/forgetpasswordmodels/verify_code_request_model.dart';
 
 abstract class AuthRemoteDatasource {
   Future<AuthResponse<String>> forgetPassword(
-      ForgetPasswordRequestModel forgetPasswordRequestModel,
-      );
+    ForgetPasswordRequestModel forgetPasswordRequestModel,
+  );
   Future<AuthResponse<String>> verifyResetPassword(
-      VerifyCodeRequestModel verifyCodeRequestModel,
-      );
+    VerifyCodeRequestModel verifyCodeRequestModel,
+  );
   Future<AuthResponse<String>> resetPassword(
-      ResetPasswordRequestModel resetPasswordRequestModel,
-      );
-  Future<AuthResponse<String>> changePassword(String oldPassword, String newPassword);
-  Future<AuthResponse<RegisterResponse>> register(RegisterRequestModel registerRequest);
+    ResetPasswordRequestModel resetPasswordRequestModel,
+  );
+  Future<AuthResponse<String>> changePassword(
+    String oldPassword,
+    String newPassword,
+  );
+  Future<AuthResponse<RegisterResponse>> register(
+    RegisterRequestModel registerRequest,
+  );
   Future<AuthResponse<LoginResponse>> login(LoginRequest loginRequest);
 }

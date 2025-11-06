@@ -198,7 +198,6 @@ void main() {
       await tester.pumpWidget(makeTestableWidget());
       expect(find.byType(RegisterScreen), findsOneWidget);
     });
-
   });
   group('RegisterCubit additional tests', () {
     late MockAuthRepo mockAuthRepo;
@@ -211,10 +210,7 @@ void main() {
 
     test('setGender updates gender correctly', () {
       cubit.setGender('male');
-      expect(
-        cubit.isDataComplete,
-        isFalse,
-      );
+      expect(cubit.isDataComplete, isFalse);
     });
 
     test('setAge updates age correctly', () {

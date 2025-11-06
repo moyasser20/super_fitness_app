@@ -6,7 +6,7 @@ class FoodInitial extends FoodStates {}
 
 class FoodLoading extends FoodStates {}
 
-class FoodCategoriesLoaded extends FoodStates{
+class FoodCategoriesLoaded extends FoodStates {
   final List<String> categories;
   FoodCategoriesLoaded(this.categories);
 }

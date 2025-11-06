@@ -6,17 +6,20 @@ import 'package:super_fitness_app/features/profile/domain/entity/user_entity.dar
 import 'package:super_fitness_app/features/profile/domain/usecases/get_profile_data_usecase.dart';
 import 'package:super_fitness_app/features/profile/presentation/viewmodel/profile_viewmodel.dart';
 import 'package:super_fitness_app/features/profile/presentation/viewmodel/states/profile_states.dart';
+import 'package:super_fitness_app/features/auth/domain/usecase/sign_out_usecase.dart';
 
 import 'profile_viewmodel_test.mocks.dart';
 
-@GenerateMocks([GetProfileDataUseCase])
+@GenerateMocks([GetProfileDataUseCase, SignOutUseCase])
 void main() {
   late MockGetProfileDataUseCase mockGetProfileDataUseCase;
+  late MockSignOutUseCase mockSignOutUseCase;
   late ProfileViewModel viewModel;
 
   setUp(() {
     mockGetProfileDataUseCase = MockGetProfileDataUseCase();
-    viewModel = ProfileViewModel(mockGetProfileDataUseCase);
+    mockSignOutUseCase = MockSignOutUseCase();
+    viewModel = ProfileViewModel(mockGetProfileDataUseCase, mockSignOutUseCase);
   });
 
   setUpAll(() {

@@ -42,7 +42,8 @@ class HomeCubit extends Cubit<HomeState> {
       final userImage = AppImages.mainImage;
 
       final muscleGroups = muscleGroupsResponse.musclesGroup;
-      final MealCategoriesResponse mealCategoriesResponse = await _getMealCategoriesUseCase();
+      final MealCategoriesResponse mealCategoriesResponse =
+          await _getMealCategoriesUseCase();
       Set<String> selectedMuscleIds = {};
       MuscleGroupByIdResponse? selectedMuscleGroupDetails;
       if (muscleGroups.isNotEmpty) {

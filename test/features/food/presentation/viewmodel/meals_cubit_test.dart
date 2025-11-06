@@ -11,10 +11,7 @@ import 'package:super_fitness_app/features/home/domain/usecases/get_meal_categor
 
 import 'meals_cubit_test.mocks.dart';
 
-@GenerateMocks([
-  GetMealCategoriesUseCase,
-  GetFoodByCategoryUseCase,
-])
+@GenerateMocks([GetMealCategoriesUseCase, GetFoodByCategoryUseCase])
 void main() {
   late MealsCubit cubit;
   late MockGetMealCategoriesUseCase mockGetMealCategoriesUseCase;
@@ -23,7 +20,10 @@ void main() {
   setUp(() {
     mockGetMealCategoriesUseCase = MockGetMealCategoriesUseCase();
     mockGetFoodByCategoryUseCase = MockGetFoodByCategoryUseCase();
-    cubit = MealsCubit(mockGetFoodByCategoryUseCase, mockGetMealCategoriesUseCase);
+    cubit = MealsCubit(
+      mockGetFoodByCategoryUseCase,
+      mockGetMealCategoriesUseCase,
+    );
   });
 
   tearDown(() {
@@ -45,74 +45,81 @@ void main() {
       ],
     );
 
-    test('should emit [FoodLoading, FoodCategoriesLoaded, FoodLoading, FoodLoaded] when loadCategories succeeds', () async {
-      // Arrange
-      when(mockGetMealCategoriesUseCase())
-          .thenAnswer((_) async => mockCategoryResponse);
-      when(mockGetFoodByCategoryUseCase(category))
-          .thenAnswer((_) async => mockMealsResponse);
+    test(
+      'should emit [FoodLoading, FoodCategoriesLoaded, FoodLoading, FoodLoaded] when loadCategories succeeds',
+      () async {
+        // Arrange
+        when(
+          mockGetMealCategoriesUseCase(),
+        ).thenAnswer((_) async => mockCategoryResponse);
+        when(
+          mockGetFoodByCategoryUseCase(category),
+        ).thenAnswer((_) async => mockMealsResponse);
 
-      // Assert later
-      final expected = [
-        isA<FoodLoading>(),
-        isA<FoodCategoriesLoaded>(),
-        isA<FoodLoading>(),
-        isA<FoodLoaded>(),
-      ];
+        // Assert later
+        final expected = [
+          isA<FoodLoading>(),
+          isA<FoodCategoriesLoaded>(),
+          isA<FoodLoading>(),
+          isA<FoodLoaded>(),
+        ];
 
-      expectLater(cubit.stream, emitsInOrder(expected));
+        expectLater(cubit.stream, emitsInOrder(expected));
 
-      // Act
-      await cubit.loadCategories();
-    });
+        // Act
+        await cubit.loadCategories();
+      },
+    );
 
+    test(
+      'should emit [FoodLoading, FoodError] when loadCategories fails',
+      () async {
+        // Arrange
+        when(
+          mockGetMealCategoriesUseCase(),
+        ).thenThrow(Exception('Failed to load categories'));
 
-    test('should emit [FoodLoading, FoodError] when loadCategories fails', () async {
-      // Arrange
-      when(mockGetMealCategoriesUseCase())
-          .thenThrow(Exception('Failed to load categories'));
+        final expected = [isA<FoodLoading>(), isA<FoodError>()];
 
-      final expected = [
-        isA<FoodLoading>(),
-        isA<FoodError>(),
-      ];
+        expectLater(cubit.stream, emitsInOrder(expected));
 
-      expectLater(cubit.stream, emitsInOrder(expected));
+        // Act
+        await cubit.loadCategories();
+      },
+    );
 
-      // Act
-      await cubit.loadCategories();
-    });
+    test(
+      'should emit [FoodLoading, FoodLoaded] when getMealsByCategory succeeds',
+      () async {
+        // Arrange
+        when(
+          mockGetFoodByCategoryUseCase(category),
+        ).thenAnswer((_) async => mockMealsResponse);
 
-    test('should emit [FoodLoading, FoodLoaded] when getMealsByCategory succeeds', () async {
-      // Arrange
-      when(mockGetFoodByCategoryUseCase(category))
-          .thenAnswer((_) async => mockMealsResponse);
+        final expected = [isA<FoodLoading>(), isA<FoodLoaded>()];
 
-      final expected = [
-        isA<FoodLoading>(),
-        isA<FoodLoaded>(),
-      ];
+        expectLater(cubit.stream, emitsInOrder(expected));
 
-      expectLater(cubit.stream, emitsInOrder(expected));
+        // Act
+        await cubit.getMealsByCategory(category);
+      },
+    );
 
-      // Act
-      await cubit.getMealsByCategory(category);
-    });
+    test(
+      'should emit [FoodLoading, FoodError] when getMealsByCategory fails',
+      () async {
+        // Arrange
+        when(
+          mockGetFoodByCategoryUseCase(category),
+        ).thenThrow(Exception('Network error'));
 
-    test('should emit [FoodLoading, FoodError] when getMealsByCategory fails', () async {
-      // Arrange
-      when(mockGetFoodByCategoryUseCase(category))
-          .thenThrow(Exception('Network error'));
+        final expected = [isA<FoodLoading>(), isA<FoodError>()];
 
-      final expected = [
-        isA<FoodLoading>(),
-        isA<FoodError>(),
-      ];
+        expectLater(cubit.stream, emitsInOrder(expected));
 
-      expectLater(cubit.stream, emitsInOrder(expected));
-
-      // Act
-      await cubit.getMealsByCategory(category);
-    });
+        // Act
+        await cubit.getMealsByCategory(category);
+      },
+    );
   });
 }

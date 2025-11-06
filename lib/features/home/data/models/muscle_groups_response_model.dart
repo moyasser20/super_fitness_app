@@ -8,10 +8,7 @@ class MuscleGroupsResponse {
   final String message;
   final List<MuscleGroup> musclesGroup;
 
-  MuscleGroupsResponse({
-    required this.message,
-    required this.musclesGroup,
-  });
+  MuscleGroupsResponse({required this.message, required this.musclesGroup});
 
   factory MuscleGroupsResponse.fromJson(Map<String, dynamic> json) =>
       _$MuscleGroupsResponseFromJson(json);

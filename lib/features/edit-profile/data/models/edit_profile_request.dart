@@ -16,7 +16,7 @@ class EditProfileRequest {
   final String? activityLevel;
   @JsonKey(name: "goal")
   final String? goal;
-  EditProfileRequest ({
+  EditProfileRequest({
     this.firstName,
     this.lastName,
     this.email,
@@ -33,5 +33,3 @@ class EditProfileRequest {
     return _$EditProfileRequestToJson(this);
   }
 }
-
-

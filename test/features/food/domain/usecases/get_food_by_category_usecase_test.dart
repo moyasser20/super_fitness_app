@@ -24,30 +24,36 @@ void main() {
       Meals(
         idMeal: '52772',
         strMeal: 'Grilled Salmon',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/1548772327.jpg',
+        strMealThumb:
+            'https://www.themealdb.com/images/media/meals/1548772327.jpg',
       ),
     ],
   );
 
   group('GetFoodByCategoryUseCase', () {
-    test('should return MealsByCategoryModel when repository returns data', () async {
-      // Arrange
-      when(mockFoodRepository.getMealsByCategory(category))
-          .thenAnswer((_) async => mockResponse);
+    test(
+      'should return MealsByCategoryModel when repository returns data',
+      () async {
+        // Arrange
+        when(
+          mockFoodRepository.getMealsByCategory(category),
+        ).thenAnswer((_) async => mockResponse);
 
-      // Act
-      final result = await useCase(category);
+        // Act
+        final result = await useCase(category);
 
-      // Assert
-      expect(result, isA<MealsByCategoryModel>());
-      expect(result.meals?.first.strMeal, equals('Grilled Salmon'));
-      verify(mockFoodRepository.getMealsByCategory(category)).called(1);
-    });
+        // Assert
+        expect(result, isA<MealsByCategoryModel>());
+        expect(result.meals?.first.strMeal, equals('Grilled Salmon'));
+        verify(mockFoodRepository.getMealsByCategory(category)).called(1);
+      },
+    );
 
     test('should throw Exception when repository throws', () async {
       // Arrange
-      when(mockFoodRepository.getMealsByCategory(category))
-          .thenThrow(Exception('Network error'));
+      when(
+        mockFoodRepository.getMealsByCategory(category),
+      ).thenThrow(Exception('Network error'));
 
       // Act
       final call = useCase.call;

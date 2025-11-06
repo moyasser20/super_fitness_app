@@ -9,5 +9,4 @@ abstract class MusclesRepo {
   Future<MuscleGroupsResponse> getMuscleGroups();
   Future<MuscleGroupByIdResponse> getMuscleGroupById(String groupId);
   Future<MealCategoriesResponse> getMealCategories();
-
 }

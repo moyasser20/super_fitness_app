@@ -53,13 +53,7 @@ extension RegisterStepTypeText on RegisterStepType {
   List<String> get activities {
     switch (this) {
       case RegisterStepType.activity:
-        return [
-          'Rookie',
-          'Beginner',
-          'Intermediate',
-          'Advanced',
-          'Expert',
-        ];
+        return ['Rookie', 'Beginner', 'Intermediate', 'Advanced', 'Expert'];
       default:
         return [];
     }

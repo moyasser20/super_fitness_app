@@ -12,7 +12,7 @@ class CustomContainerValues extends StatelessWidget {
     super.key,
     required this.value,
     required this.label,
-     this.labelColor,
+    this.labelColor,
   });
 
   @override
@@ -23,10 +23,7 @@ class CustomContainerValues extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.white.withOpacity(0.6),
-          width: 2,
-        ),
+        border: Border.all(color: AppColors.white.withOpacity(0.6), width: 2),
       ),
       child: Center(
         child: Column(
@@ -40,7 +37,7 @@ class CustomContainerValues extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w300,
               ),
-              ),
+            ),
             const SizedBox(height: 2),
             Text(
               label,
@@ -50,7 +47,7 @@ class CustomContainerValues extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w300,
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -9,11 +9,7 @@ class Muscle {
   final String name;
   final String? image;
 
-  Muscle({
-    required this.id,
-    required this.name,
-    this.image,
-  });
+  Muscle({required this.id, required this.name, this.image});
 
   factory Muscle.fromJson(Map<String, dynamic> json) => _$MuscleFromJson(json);
 

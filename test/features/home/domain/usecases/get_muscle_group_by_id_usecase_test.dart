@@ -21,8 +21,14 @@ void main() {
   group('GetMuscleGroupByIdUseCase', () {
     test('returns MuscleGroupByIdResponse on success', () async {
       final muscleGroup = MuscleGroup(id: 'g1', name: 'Upper Body');
-      final response = MuscleGroupByIdResponse(message: 'done', muscleGroup: muscleGroup, muscles: []);
-      when(mockRepo.getMuscleGroupById('gid')).thenAnswer((_) async => response);
+      final response = MuscleGroupByIdResponse(
+        message: 'done',
+        muscleGroup: muscleGroup,
+        muscles: [],
+      );
+      when(
+        mockRepo.getMuscleGroupById('gid'),
+      ).thenAnswer((_) async => response);
       final result = await usecase('gid');
       expect(result, isA<MuscleGroupByIdResponse>());
       expect(result.message, 'done');

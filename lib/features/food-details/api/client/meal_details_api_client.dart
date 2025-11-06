@@ -8,7 +8,6 @@ import '../../data/models/meal_details_model.dart';
 
 part 'meal_details_api_client.g.dart';
 
-
 @injectable
 @RestApi(baseUrl: "https://www.themealdb.com/api/json/v1/1/")
 abstract class MealsApiClient {

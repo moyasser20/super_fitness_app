@@ -21,8 +21,12 @@ void main() {
     mockLoginViewModel = MockLoginViewModel();
     when(mockLoginViewModel.stream).thenAnswer((_) => const Stream.empty());
     when(mockLoginViewModel.state).thenReturn(LoginInitialStates());
-    when(mockLoginViewModel.emailController).thenReturn(TextEditingController());
-    when(mockLoginViewModel.passwordController).thenReturn(TextEditingController());
+    when(
+      mockLoginViewModel.emailController,
+    ).thenReturn(TextEditingController());
+    when(
+      mockLoginViewModel.passwordController,
+    ).thenReturn(TextEditingController());
   });
 
   Widget makeTestableWidget() {
@@ -37,13 +41,17 @@ void main() {
   }
 
   group('LoginScreen Widget Tests', () {
-    testWidgets('renders email and password fields and login button', (tester) async {
+    testWidgets('renders email and password fields and login button', (
+      tester,
+    ) async {
       await tester.pumpWidget(makeTestableWidget());
       expect(find.byType(TextFormField), findsNWidgets(2)); // email + password
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
 
-    testWidgets('shows validation errors when fields are empty', (tester) async {
+    testWidgets('shows validation errors when fields are empty', (
+      tester,
+    ) async {
       await tester.pumpWidget(makeTestableWidget());
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();

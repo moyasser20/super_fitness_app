@@ -30,23 +30,29 @@ void main() {
   );
 
   group('FoodRemoteDatasourceImpl Tests', () {
-    test('should return MealsByCategoryModel when ApiClient returns data', () async {
-      // Arrange
-      when(mockApiClient.getMealsByCategory(category))
-          .thenAnswer((_) async => mockResponse);
+    test(
+      'should return MealsByCategoryModel when ApiClient returns data',
+      () async {
+        // Arrange
+        when(
+          mockApiClient.getMealsByCategory(category),
+        ).thenAnswer((_) async => mockResponse);
 
-      // Act
-      final result = await datasource.getFoodByCategory(category);
+        // Act
+        final result = await datasource.getFoodByCategory(category);
 
-      // Assert
-      expect(result, isA<MealsByCategoryModel>());
-      expect(result.meals?.first.strMeal, 'Grilled Salmon');
-      verify(mockApiClient.getMealsByCategory(category)).called(1);
-    });
+        // Assert
+        expect(result, isA<MealsByCategoryModel>());
+        expect(result.meals?.first.strMeal, 'Grilled Salmon');
+        verify(mockApiClient.getMealsByCategory(category)).called(1);
+      },
+    );
 
     test('should throw an Exception when ApiClient throws an error', () async {
       // Arrange
-      when(mockApiClient.getMealsByCategory(category)).thenThrow(Exception('Network Error'));
+      when(
+        mockApiClient.getMealsByCategory(category),
+      ).thenThrow(Exception('Network Error'));
 
       // Act
       final call = datasource.getFoodByCategory;

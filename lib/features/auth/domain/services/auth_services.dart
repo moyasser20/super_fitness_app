@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:super_fitness_app/core/routes/route_names.dart';
 import '../../../../core/contants/secure_storage.dart';
 
 class AuthService {
@@ -12,12 +14,17 @@ class AuthService {
     return token != null && token.isNotEmpty;
   }
 
-
   static Future<String?> getToken() async {
     return await SecureStorage.read(tokenKey);
   }
 
-  static Future<void> logout() async {
+  static Future<void> logout(BuildContext context) async {
     await SecureStorage.delete(tokenKey);
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.login,
+      (route) => false,
+      arguments: {'clearFields': true}, // Pass argument to clear fields
+    );
   }
 }

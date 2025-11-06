@@ -52,7 +52,9 @@ class CustomRadioButton extends StatelessWidget {
                         ? Border.all(color: AppColors.white, width: 1)
                         : null,
                 color:
-                    _selectedItem == value ? AppColors.main : Colors.transparent,
+                    _selectedItem == value
+                        ? AppColors.main
+                        : Colors.transparent,
               ),
             ),
           ),

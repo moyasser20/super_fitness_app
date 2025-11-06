@@ -7,9 +7,7 @@ class MealsByCategoryModel {
   @JsonKey(name: "meals")
   final List<Meals>? meals;
 
-  MealsByCategoryModel ({
-    this.meals,
-  });
+  MealsByCategoryModel({this.meals});
 
   factory MealsByCategoryModel.fromJson(Map<String, dynamic> json) {
     return _$MealsByCategoryModelFromJson(json);
@@ -29,11 +27,7 @@ class Meals {
   @JsonKey(name: "idMeal")
   final String? idMeal;
 
-  Meals ({
-    this.strMeal,
-    this.strMealThumb,
-    this.idMeal,
-  });
+  Meals({this.strMeal, this.strMealThumb, this.idMeal});
 
   factory Meals.fromJson(Map<String, dynamic> json) {
     return _$MealsFromJson(json);
@@ -43,5 +37,3 @@ class Meals {
     return _$MealsToJson(this);
   }
 }
-
-

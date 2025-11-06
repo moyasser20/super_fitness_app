@@ -30,13 +30,8 @@ import 'package:super_fitness_app/features/workouts/domain/usecase/workouts_use_
 
 class _FakeAuthResponse_0<T> extends _i1.SmartFake
     implements _i2.AuthResponse<T> {
-  _FakeAuthResponse_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeAuthResponse_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [WorkoutsUseCase].
@@ -50,36 +45,31 @@ class MockWorkoutsUseCase extends _i1.Mock implements _i3.WorkoutsUseCase {
   @override
   _i4.Future<_i2.AuthResponse<_i5.AllMusclesResponse>> invoke() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #invoke,
-          [],
-        ),
-        returnValue: _i4.Future<_i2.AuthResponse<_i5.AllMusclesResponse>>.value(
-            _FakeAuthResponse_0<_i5.AllMusclesResponse>(
-          this,
-          Invocation.method(
-            #invoke,
-            [],
-          ),
-        )),
-      ) as _i4.Future<_i2.AuthResponse<_i5.AllMusclesResponse>>);
+            Invocation.method(#invoke, []),
+            returnValue:
+                _i4.Future<_i2.AuthResponse<_i5.AllMusclesResponse>>.value(
+                  _FakeAuthResponse_0<_i5.AllMusclesResponse>(
+                    this,
+                    Invocation.method(#invoke, []),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.AuthResponse<_i5.AllMusclesResponse>>);
 
   @override
   _i4.Future<_i2.AuthResponse<_i6.MuscleGroupDetailsResponse>> getMusclesGroup(
-          String? id) =>
+    String? id,
+  ) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getMusclesGroup,
-          [id],
-        ),
-        returnValue:
-            _i4.Future<_i2.AuthResponse<_i6.MuscleGroupDetailsResponse>>.value(
-                _FakeAuthResponse_0<_i6.MuscleGroupDetailsResponse>(
-          this,
-          Invocation.method(
-            #getMusclesGroup,
-            [id],
-          ),
-        )),
-      ) as _i4.Future<_i2.AuthResponse<_i6.MuscleGroupDetailsResponse>>);
+            Invocation.method(#getMusclesGroup, [id]),
+            returnValue: _i4.Future<
+              _i2.AuthResponse<_i6.MuscleGroupDetailsResponse>
+            >.value(
+              _FakeAuthResponse_0<_i6.MuscleGroupDetailsResponse>(
+                this,
+                Invocation.method(#getMusclesGroup, [id]),
+              ),
+            ),
+          )
+          as _i4.Future<_i2.AuthResponse<_i6.MuscleGroupDetailsResponse>>);
 }

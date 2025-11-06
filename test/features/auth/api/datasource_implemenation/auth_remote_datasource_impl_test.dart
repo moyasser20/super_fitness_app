@@ -12,7 +12,6 @@ import 'package:super_fitness_app/features/auth/domain/responses/register_reques
 import 'package:super_fitness_app/features/auth/domain/responses/register_response.dart';
 import 'package:super_fitness_app/features/auth/domain/responses/user_response.dart';
 
-
 import 'auth_remote_datasource_impl_test.mocks.dart';
 
 @GenerateMocks([ApiClient])
@@ -29,8 +28,9 @@ void main() {
     test('Success State for Login Response', () async {
       //Arrange
       final loginRequest = LoginRequest(
-          email: "mohamedyasser192023@gmail.com",
-          password: "Mohamedyasser@2003");
+        email: "mohamedyasser192023@gmail.com",
+        password: "Mohamedyasser@2003",
+      );
 
       final loginResponse = LoginResponse(
         message: "success",
@@ -43,8 +43,9 @@ void main() {
         ),
       );
 
-      when(mockAuthApiClient.login(loginRequest))
-          .thenAnswer((_) async => loginResponse);
+      when(
+        mockAuthApiClient.login(loginRequest),
+      ).thenAnswer((_) async => loginResponse);
 
       //act
       final result = await datasourceImpl.login(loginRequest);
@@ -58,32 +59,36 @@ void main() {
       verify(mockAuthApiClient.login(loginRequest)).called(1);
     });
 
-    test('Failure State for Login Response (returns error AuthResponse)',
-        () async {
-      // Arrange
-      final loginRequest = LoginRequest(
-        email: "wrong@test.com",
-        password: "wrongpass",
-      );
+    test(
+      'Failure State for Login Response (returns error AuthResponse)',
+      () async {
+        // Arrange
+        final loginRequest = LoginRequest(
+          email: "wrong@test.com",
+          password: "wrongpass",
+        );
 
-      when(mockAuthApiClient.login(loginRequest)).thenThrow(DioException(
-        requestOptions: RequestOptions(path: '/login'),
-        response: Response(
-          requestOptions: RequestOptions(path: '/login'),
-          statusCode: 401,
-          data: {'error': 'Invalid credentials'},
-        ),
-      ));
+        when(mockAuthApiClient.login(loginRequest)).thenThrow(
+          DioException(
+            requestOptions: RequestOptions(path: '/login'),
+            response: Response(
+              requestOptions: RequestOptions(path: '/login'),
+              statusCode: 401,
+              data: {'error': 'Invalid credentials'},
+            ),
+          ),
+        );
 
-      //Act
-      final result = await datasourceImpl.login(loginRequest);
+        //Act
+        final result = await datasourceImpl.login(loginRequest);
 
-      //Asserts
-      expect(result, isA<AuthResponse<LoginResponse>>());
-      expect(result.error, isNotNull);
-      expect(result.isSuccess, false);
-      verify(mockAuthApiClient.login(loginRequest)).called(1);
-    });
+        //Asserts
+        expect(result, isA<AuthResponse<LoginResponse>>());
+        expect(result.error, isNotNull);
+        expect(result.isSuccess, false);
+        verify(mockAuthApiClient.login(loginRequest)).called(1);
+      },
+    );
   });
 
   // ---------------- Register tests ----------------
@@ -123,8 +128,9 @@ void main() {
         ),
       );
 
-      when(mockAuthApiClient.register(registerRequest))
-          .thenAnswer((_) async => registerResponse);
+      when(
+        mockAuthApiClient.register(registerRequest),
+      ).thenAnswer((_) async => registerResponse);
 
       // Act
       final result = await datasourceImpl.register(registerRequest);
@@ -138,39 +144,44 @@ void main() {
       verify(mockAuthApiClient.register(registerRequest)).called(1);
     });
 
-    test('returns error AuthResponse on DioException with API error message', () async {
-      // Arrange
-      final registerRequest = RegisterRequestModel(
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john@example.com',
-        password: 'Abc@1234',
-        rePassword: 'Abc@1234',
-        gender: 'male',
-        height: 180,
-        weight: 75,
-        age: 28,
-        goal: 'health',
-        activityLevel: 'moderate',
-      );
+    test(
+      'returns error AuthResponse on DioException with API error message',
+      () async {
+        // Arrange
+        final registerRequest = RegisterRequestModel(
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john@example.com',
+          password: 'Abc@1234',
+          rePassword: 'Abc@1234',
+          gender: 'male',
+          height: 180,
+          weight: 75,
+          age: 28,
+          goal: 'health',
+          activityLevel: 'moderate',
+        );
 
-      when(mockAuthApiClient.register(registerRequest)).thenThrow(DioException(
-        requestOptions: RequestOptions(path: '/auth/signup'),
-        response: Response(
-          requestOptions: RequestOptions(path: '/auth/signup'),
-          statusCode: 400,
-          data: {'message': 'Email already exists'},
-        ),
-      ));
+        when(mockAuthApiClient.register(registerRequest)).thenThrow(
+          DioException(
+            requestOptions: RequestOptions(path: '/auth/signup'),
+            response: Response(
+              requestOptions: RequestOptions(path: '/auth/signup'),
+              statusCode: 400,
+              data: {'message': 'Email already exists'},
+            ),
+          ),
+        );
 
-      // Act
-      final result = await datasourceImpl.register(registerRequest);
+        // Act
+        final result = await datasourceImpl.register(registerRequest);
 
-      // Assert
-      expect(result.isSuccess, false);
-      expect(result.error, contains('Email'));
-      verify(mockAuthApiClient.register(registerRequest)).called(1);
-    });
+        // Assert
+        expect(result.isSuccess, false);
+        expect(result.error, contains('Email'));
+        verify(mockAuthApiClient.register(registerRequest)).called(1);
+      },
+    );
 
     test('returns error AuthResponse on unexpected exception', () async {
       // Arrange
@@ -188,8 +199,9 @@ void main() {
         activityLevel: 'moderate',
       );
 
-      when(mockAuthApiClient.register(registerRequest))
-          .thenThrow(Exception('Network down'));
+      when(
+        mockAuthApiClient.register(registerRequest),
+      ).thenThrow(Exception('Network down'));
 
       // Act
       final result = await datasourceImpl.register(registerRequest);

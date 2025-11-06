@@ -30,19 +30,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       image: "assets/images/onboard-1.png",
       title: "The Price Of Excellence\nIs Discipline",
       body:
-      "Our fitness app is designed to help you achieve your fitness goals and maintain a healthy lifestyle.With a wide range of exercises and personalized workout plans",
+          "Our fitness app is designed to help you achieve your fitness goals and maintain a healthy lifestyle.With a wide range of exercises and personalized workout plans",
     ),
     OnBoardModel(
       image: "assets/images/onboard-2.png",
       title: "Fitness Has Never Been So\nMuch Fun",
       body:
-      "Our fitness app is designed to help you stay fit and active on the go. With a wide range of exercises and workouts, you can train anywhere, anytime. ",
+          "Our fitness app is designed to help you stay fit and active on the go. With a wide range of exercises and workouts, you can train anywhere, anytime. ",
     ),
     OnBoardModel(
       image: "assets/images/onboard-3.png",
       title: "NO MORE EXCUSES\nDo It Now",
       body:
-      "Are you looking to lose weight, build muscle, or improve your overall fitness? Our fitness app is here to help you achieve your goals. With a library of workouts",
+          "Are you looking to lose weight, build muscle, or improve your overall fitness? Our fitness app is here to help you achieve your goals. With a library of workouts",
     ),
   ];
 
@@ -57,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.pushNamedAndRemoveUntil(
       context,
       AppRoutes.login,
-          (Route<dynamic> route) => false,
+      (Route<dynamic> route) => false,
     );
   }
 
@@ -69,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Navigator.pushNamedAndRemoveUntil(
       context,
       AppRoutes.login,
-          (Route<dynamic> route) => false,
+      (Route<dynamic> route) => false,
     );
   }
 
@@ -181,48 +181,48 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           SizedBox(height: screenHeight * 0.02),
           currentIndex != 0
               ? Row(
-            children: [
-              CustomElevatedButton(
-                color: Colors.transparent,
-                width: screenWidth * 0.2,
-                borderColor: AppColors.orange,
-                text: "Back",
+                children: [
+                  CustomElevatedButton(
+                    color: Colors.transparent,
+                    width: screenWidth * 0.2,
+                    borderColor: AppColors.orange,
+                    text: "Back",
+                    onPressed: () {
+                      boardController.previousPage(
+                        duration: const Duration(milliseconds: 750),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                      );
+                    },
+                  ),
+                  Spacer(),
+                  CustomElevatedButton(
+                    width: screenWidth * 0.2,
+                    color: AppColors.main,
+                    text: isLast ? "Do it" : "Next",
+                    onPressed: () {
+                      if (isLast) {
+                        _completeOnboarding();
+                      } else {
+                        boardController.nextPage(
+                          duration: const Duration(milliseconds: 750),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                        );
+                      }
+                    },
+                  ),
+                ],
+              )
+              : CustomElevatedButton(
+                width: double.infinity,
+                color: AppColors.main,
+                text: "Next",
                 onPressed: () {
-                  boardController.previousPage(
+                  boardController.nextPage(
                     duration: const Duration(milliseconds: 750),
                     curve: Curves.fastLinearToSlowEaseIn,
                   );
                 },
               ),
-              Spacer(),
-              CustomElevatedButton(
-                width: screenWidth * 0.2,
-                color: AppColors.main,
-                text: isLast ? "Do it" : "Next",
-                onPressed: () {
-                  if (isLast) {
-                    _completeOnboarding();
-                  } else {
-                    boardController.nextPage(
-                      duration: const Duration(milliseconds: 750),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                    );
-                  }
-                },
-              ),
-            ],
-          )
-              : CustomElevatedButton(
-            width: double.infinity,
-            color: AppColors.main,
-            text: "Next",
-            onPressed: () {
-              boardController.nextPage(
-                duration: const Duration(milliseconds: 750),
-                curve: Curves.fastLinearToSlowEaseIn,
-              );
-            },
-          ),
         ],
       ),
     );

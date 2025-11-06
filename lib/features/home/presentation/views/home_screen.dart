@@ -333,9 +333,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildRecommendationForYouSection(
-      HomeState state,
-      AppLocalizations local,
-      ) {
+    HomeState state,
+    AppLocalizations local,
+  ) {
     if (state is HomeLoaded && state.mealCategories.isEmpty) {
       return SizedBox(
         height: 115,

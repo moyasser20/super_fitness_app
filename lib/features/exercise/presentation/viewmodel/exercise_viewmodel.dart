@@ -8,7 +8,8 @@ import 'exercise_states.dart';
 @injectable
 class ExerciseViewModel extends Cubit<ExerciseState> {
   final GetAllDifficultyLevelsUseCase getAllDifficultyLevelsUseCase;
-  final GetExerciseByMuscleAndDifficultyUseCase getExerciseByMuscleAndDifficultyUseCase;
+  final GetExerciseByMuscleAndDifficultyUseCase
+  getExerciseByMuscleAndDifficultyUseCase;
 
   dynamic difficultyLevelResponse;
   String? selectedDifficultyId;
@@ -24,13 +25,16 @@ class ExerciseViewModel extends Cubit<ExerciseState> {
       final result = await getAllDifficultyLevelsUseCase(primeMoverMuscleId);
       difficultyLevelResponse = result;
 
-      if (result.difficultyLevels != null && result.difficultyLevels!.isNotEmpty) {
+      if (result.difficultyLevels != null &&
+          result.difficultyLevels!.isNotEmpty) {
         selectedDifficultyId = result.difficultyLevels!.first.id;
 
-        emit(GetLevelsSuccess(
-          difficultyLevelResponse: result,
-          selectedDifficultyId: selectedDifficultyId,
-        ));
+        emit(
+          GetLevelsSuccess(
+            difficultyLevelResponse: result,
+            selectedDifficultyId: selectedDifficultyId,
+          ),
+        );
 
         await getExerciseByMuscleAndDifficulty(
           primeMoverMuscleId,
@@ -46,10 +50,10 @@ class ExerciseViewModel extends Cubit<ExerciseState> {
   }
 
   Future<void> getExerciseByMuscleAndDifficulty(
-      String muscleId,
-      String difficultyId, {
-        required List<DifficultyLevels> difficultyLevels,
-      }) async {
+    String muscleId,
+    String difficultyId, {
+    required List<DifficultyLevels> difficultyLevels,
+  }) async {
     try {
       emit(ExerciseLoading());
       selectedDifficultyId = difficultyId;
@@ -59,11 +63,13 @@ class ExerciseViewModel extends Cubit<ExerciseState> {
         difficultyId,
       );
 
-      emit(ExerciseDataLoaded(
-        exercises: exercises,
-        difficultyLevels: difficultyLevels,
-        selectedDifficultyId: difficultyId,
-      ));
+      emit(
+        ExerciseDataLoaded(
+          exercises: exercises,
+          difficultyLevels: difficultyLevels,
+          selectedDifficultyId: difficultyId,
+        ),
+      );
     } catch (e) {
       emit(ExerciseError(message: e.toString()));
     }
@@ -86,7 +92,7 @@ class ExerciseViewModel extends Cubit<ExerciseState> {
   }
 }
 
-class ExerciseData{
+class ExerciseData {
   final String id;
   final String name;
 

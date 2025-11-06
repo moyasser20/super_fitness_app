@@ -47,7 +47,9 @@ class WorkoutsRemoteDataSourceImpl implements WorkoutsRemoteDataSource {
   }
 
   @override
-  Future<AuthResponse<MuscleGroupDetailsResponse>> getMusclesGroup(String id) async {
+  Future<AuthResponse<MuscleGroupDetailsResponse>> getMusclesGroup(
+    String id,
+  ) async {
     try {
       final result = await _apiClient.getMusclesGroup(id);
       return AuthResponse.success(result);
