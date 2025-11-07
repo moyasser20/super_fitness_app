@@ -13,6 +13,7 @@ abstract final class AppIcons {
   static const String trainerIcon = "assets/icons/trainer_icon.png";
   static const String aerobicsIcon = "assets/icons/aerobics_icon.png";
   static const String yogaIcon = "assets/icons/yoga_icon.png";
+  static const String menuIcon = "assets/icons/menu.png";
   static const String changePassIcon = "assets/icons/Change.svg";
   static const String editProfileIcon = "assets/icons/edit_profile.svg";
   static const String helpIcon = "assets/icons/Help.svg";

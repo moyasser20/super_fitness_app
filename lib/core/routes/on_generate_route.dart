@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:super_fitness_app/features/app_sections/presentation/view/dash_board_screen.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/complete_registration_screen.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
+import 'package:super_fitness_app/features/bot/view/smart_coach_screen.dart';
 import 'package:super_fitness_app/features/edit-profile/presentation/view/screens/edit_profile_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/help_screen.dart';
@@ -63,6 +64,8 @@ class Routes {
 
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
+      case AppRoutes.smartCoachScreen:
+        return MaterialPageRoute(builder: (_) => const SmartCoachScreen());
 
       case AppRoutes.completeRegistration:
         return MaterialPageRoute(
