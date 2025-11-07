@@ -54,6 +54,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createNewPassword => 'Create New Password';
 
   @override
+  String get oldPassword => 'Old Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
   String get newPasswordHint => 'New Password';
 
   @override
@@ -518,4 +524,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get explore => 'Explore';
+
+  @override
+  String get changed_password_success =>
+      'Password changed successfully. Please login again.';
+
+  @override
+  String get yourWeight => 'Your weight';
+
+  @override
+  String get tapToEdit => '(tap to edit)';
+
+  @override
+  String get kilo => 'kilo';
+
+  @override
+  String get yourGoal => 'Your goal';
+
+  @override
+  String get gainWeight => 'Gain weight';
+
+  @override
+  String get yourActivityLevel => 'Your activity level';
+
+  @override
+  String get rookie => 'Rookie';
+
+  @override
+  String get uploadPhotoSuccess => 'Photo Uploaded Successfully';
+
+  @override
+  String get profileUpdatedSuccess => 'Profile updated successfully';
+
+  @override
+  String get logoutConfirmTextCenter => 'Confirm logout!';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get logoutAlertMsg => 'Logout';
 }

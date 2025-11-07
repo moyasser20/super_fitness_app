@@ -55,6 +55,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createNewPassword => 'إنشاء كلمة مرور جديدة';
 
   @override
+  String get oldPassword => 'كلمة المرور الحالية';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
+
+  @override
   String get newPasswordHint => 'كلمة المرور الجديدة';
 
   @override
@@ -519,4 +525,44 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get explore => 'استكشف';
+
+  @override
+  String get changed_password_success =>
+      'تم تغيير كلمة المرور بنجاح، سجل مرة أخرى.';
+
+  @override
+  String get yourWeight => 'وزنك';
+
+  @override
+  String get tapToEdit => '(اضغط للتعديل)';
+
+  @override
+  String get kilo => 'كيلو';
+
+  @override
+  String get yourGoal => 'هدفك';
+
+  @override
+  String get gainWeight => 'زيادة الوزن';
+
+  @override
+  String get yourActivityLevel => 'مستوى نشاطك';
+
+  @override
+  String get rookie => 'مبتدئ';
+
+  @override
+  String get uploadPhotoSuccess => 'تم تحميل الصورة بنجاح';
+
+  @override
+  String get profileUpdatedSuccess => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get logoutConfirmTextCenter => 'تأكيد تسجيل الخروج!';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get logoutAlertMsg => 'تسجيل الخروج';
 }

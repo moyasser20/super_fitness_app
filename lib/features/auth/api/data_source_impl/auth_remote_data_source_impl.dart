@@ -128,4 +128,9 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       return AuthResponse.error(e.toString());
     }
   }
+
+  @override
+  Future<String> logout() async {
+    return await _apiClient.logout();
+  }
 }

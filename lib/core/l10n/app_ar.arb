@@ -176,5 +176,8 @@
   "yourActivityLevel": "مستوى نشاطك",
   "rookie": "مبتدئ",
   "uploadPhotoSuccess": "تم تحميل الصورة بنجاح",
-  "profileUpdatedSuccess": "تم تحديث الملف الشخصي بنجاح"
+  "profileUpdatedSuccess": "تم تحديث الملف الشخصي بنجاح",
+  "logoutConfirmTextCenter": "تأكيد تسجيل الخروج!",
+  "cancel": "إلغاء",
+  "logoutAlertMsg": "تسجيل الخروج"
 }

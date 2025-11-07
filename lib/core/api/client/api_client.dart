@@ -22,7 +22,7 @@ import '../../../features/food/data/models/meals_by_category_model.dart';
 import '../../../features/home/data/models/meal_categories_response_model.dart';
 import '../../../features/home/data/models/muscle_group_by_id_response_model.dart';
 import '../../../features/home/data/models/muscles_response_model.dart';
-import '../../../features/home/data/models/muscle_groups_response_model.dart'; // Add this import
+import '../../../features/home/data/models/muscle_groups_response_model.dart';
 import '../../../features/profile/data/models/profile_response.dart';
 import '../api_constants/api_end_points.dart';
 
@@ -111,4 +111,8 @@ abstract class ApiClient {
   @MultiPart()
   @Extra({'auth': true})
   Future<UploadPhotoResponse> uploadPhoto(@Part(name: "photo") File photo);
+
+  @GET(ApiEndPoints.logout)
+  @Extra({'auth': true})
+  Future<String> logout();
 }
