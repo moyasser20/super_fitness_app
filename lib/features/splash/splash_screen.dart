@@ -22,39 +22,58 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 3));
+    try {
+      await Future.delayed(const Duration(seconds: 3));
 
-    final String? token = await SecureStorage.getToken();
-    final bool hasSeenOnboarding = Prefs.isOnboardingSeen();
+      // Read all stored values for debugging
+      final Map<String, String> allStorage = await SecureStorage.readAll();
+      final String? token = await SecureStorage.getToken();
+      final bool hasSeenOnboarding = Prefs.isOnboardingSeen();
 
-    log('=== DEBUG SPLASH SCREEN ===');
-    log('Token: $token');
-    log('Has seen onboarding: $hasSeenOnboarding');
-    log('===========================');
+      log('=== DEBUG SPLASH SCREEN ===');
+      log('All storage keys: ${allStorage.keys}');
+      log('Token value: $token');
+      log('Token length: ${token?.length}');
+      log('Has seen onboarding: $hasSeenOnboarding');
+      log('===========================');
 
-    if (token != null && token.isNotEmpty) {
-      log('Navigating to DASHBOARD');
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
-        (Route<dynamic> route) => false,
-      );
-    } else {
-      if (hasSeenOnboarding) {
-        log('Navigating to REGISTER (onboarding seen)');
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          AppRoutes.login,
-          (Route<dynamic> route) => false,
-        );
-      } else {
-        log('Navigating to ONBOARDING (first time)');
+      if (!mounted) return;
+
+      if (token != null && token.isNotEmpty && token != 'null') {
+        log('✅ Token found, navigating to DASHBOARD');
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-          (Route<dynamic> route) => false,
+          MaterialPageRoute(builder: (context) => const DashboardScreen()),
+              (Route<dynamic> route) => false,
         );
+      } else {
+        if (hasSeenOnboarding) {
+          log('➡️ No token, navigating to LOGIN (onboarding seen)');
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.login,
+                (Route<dynamic> route) => false,
+          );
+        } else {
+          log('🎯 First time, navigating to ONBOARDING');
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+                (Route<dynamic> route) => false,
+          );
+        }
       }
+    } catch (e, stackTrace) {
+      log('❌ Error in splash navigation: $e');
+      log('Stack trace: $stackTrace');
+
+      if (!mounted) return;
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.login,
+            (Route<dynamic> route) => false,
+      );
     }
   }
 

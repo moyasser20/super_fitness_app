@@ -25,4 +25,11 @@ class LocalizationCubit extends Cubit<LocalizationState> {
   }
 
   bool isSelected(String lang) => selectedLanguage == lang;
+  String getSelectedLanguageDisplayName() {
+    if (selectedLanguage == "Arabic") {
+      return "العربية";
+    } else {
+      return "English";
+    }
+  }
 }

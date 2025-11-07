@@ -54,6 +54,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createNewPassword => 'Create New Password';
 
   @override
+  String get oldPassword => 'Old Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
   String get newPasswordHint => 'New Password';
 
   @override
@@ -66,7 +72,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get done => 'Done';
 
   @override
-  String get passwordInvalidError => 'Password must contain at least 8 characters, including letters, numbers, and a special symbol';
+  String get passwordInvalidError =>
+      'Password must contain at least 8 characters, including letters, numbers, and a special symbol';
 
   @override
   String get passwordMismatchError => 'Passwords do not match';
@@ -114,13 +121,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get step_subtitle_age => 'This Helps Us Create Your Personalized Plan';
 
   @override
-  String get step_subtitle_weight => 'This Helps Us Create Your Personalized Plan';
+  String get step_subtitle_weight =>
+      'This Helps Us Create Your Personalized Plan';
 
   @override
   String get step_subtitle_height => 'Select your height in cm';
 
   @override
-  String get step_subtitle_goal => 'This Helps Us Create Your Personalized Workout Plan';
+  String get step_subtitle_goal =>
+      'This Helps Us Create Your Personalized Workout Plan';
 
   @override
   String get goal_gain_weight => 'Gain Weight';
@@ -225,7 +234,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_password_short => 'Password must be at least 6 characters';
 
   @override
-  String get error_password_invalid => 'Password must contain at least one uppercase letter and one special character';
+  String get error_password_invalid =>
+      'Password must contain at least one uppercase letter and one special character';
 
   @override
   String get hint_confirm_password => 'Confirm Password';
@@ -270,7 +280,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordRequiredErrorMsg => 'Password is required';
 
   @override
-  String get passwordValidationErrorMsg => 'Password must be at least 6 characters and include M#12m';
+  String get passwordValidationErrorMsg =>
+      'Password must be at least 6 characters and include M#12m';
 
   @override
   String get rememberMe => 'Remember me';
@@ -294,7 +305,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordRequired => 'Password is required';
 
   @override
-  String get passwordInvalid => 'Password must be at least 8 characters, include letters, numbers, and special characters.';
+  String get passwordInvalid =>
+      'Password must be at least 8 characters, include letters, numbers, and special characters.';
 
   @override
   String get confirmPasswordRequired => 'Confirmation is required';
@@ -352,4 +364,204 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get video_link_not_available => 'Video link not available';
+
+  @override
+  String errorWithMessage(Object message) {
+    return 'Error: $message';
+  }
+
+  @override
+  String get unnamedWorkout => 'Unnamed Workout';
+
+  @override
+  String hiUser(Object userName) {
+    return 'Hi $userName,';
+  }
+
+  @override
+  String get startYourDay => 'Let\'s start your day';
+
+  @override
+  String get gym => 'Gym';
+
+  @override
+  String get fitness => 'Fitness';
+
+  @override
+  String get yoga => 'Yoga';
+
+  @override
+  String get aerobics => 'Aerobics';
+
+  @override
+  String get trainer => 'Trainer';
+
+  @override
+  String get noRecommendationsFound => 'No recommendations found';
+
+  @override
+  String get failedToLoadRecommendations => 'Failed to load recommendations';
+
+  @override
+  String get popularTraining => 'Popular Training';
+
+  @override
+  String get exerciseStrengthenChest => 'Exercises That Strengthen Your Chest';
+
+  @override
+  String tasksCount(Object count) {
+    return '$count Tasks';
+  }
+
+  @override
+  String get difficultyBeginner => 'Beginner';
+
+  @override
+  String get error_prefix => 'Error: ';
+
+  @override
+  String get na => 'N/A';
+
+  @override
+  String get salmon_bowl => 'Salmon Bowl';
+
+  @override
+  String get tuna_pasta => 'Tuna Pasta';
+
+  @override
+  String get grilled_chicken => 'Grilled Chicken';
+
+  @override
+  String get avocado_salad => 'Avocado Salad';
+
+  @override
+  String get beef_steak => 'Beef Steak';
+
+  @override
+  String get veggie_wrap => 'Veggie Wrap';
+
+  @override
+  String get loading_failed => 'Failed to load meal details';
+
+  @override
+  String get food_recommendation => 'Food Recommendation';
+
+  @override
+  String get no_foods_available => 'No foods available in this category.';
+
+  @override
+  String get unnamed_food => 'Unnamed Food';
+
+  @override
+  String get exercise_title => 'Exercise';
+
+  @override
+  String get exercise_subtitle =>
+      'Explore exercises tailored to your difficulty level.';
+
+  @override
+  String get exercise_duration => '30 MIN';
+
+  @override
+  String get exercise_calories => '130 Cal';
+
+  @override
+  String get no_exercises_found => 'No exercises found';
+
+  @override
+  String get no_description => 'No description';
+
+  @override
+  String get exercise_reps_info => '3 Groups * 15 Times';
+
+  @override
+  String get recipe_video => 'Recipe Video';
+
+  @override
+  String get exercise_video => 'Exercise Video';
+
+  @override
+  String get recommendation_to_you => 'Recommendation to Day';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get security => 'Security';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get help => 'Help';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get selectLanguage => 'Select Language';
+
+  @override
+  String get changeLanguage => 'Change Language';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get chat => 'Chat';
+
+  @override
+  String get explore => 'Explore';
+
+  @override
+  String get changed_password_success =>
+      'Password changed successfully. Please login again.';
+
+  @override
+  String get yourWeight => 'Your weight';
+
+  @override
+  String get tapToEdit => '(tap to edit)';
+
+  @override
+  String get kilo => 'kilo';
+
+  @override
+  String get yourGoal => 'Your goal';
+
+  @override
+  String get gainWeight => 'Gain weight';
+
+  @override
+  String get yourActivityLevel => 'Your activity level';
+
+  @override
+  String get rookie => 'Rookie';
+
+  @override
+  String get uploadPhotoSuccess => 'Photo Uploaded Successfully';
+
+  @override
+  String get profileUpdatedSuccess => 'Profile updated successfully';
+
+  @override
+  String get logoutConfirmTextCenter => 'Confirm logout!';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get logoutAlertMsg => 'Logout';
 }

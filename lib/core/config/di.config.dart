@@ -25,6 +25,10 @@ import '../../features/auth/domain/usecases/forgetpasswordusecases/reset_passwor
     as _i135;
 import '../../features/auth/domain/usecases/forgetpasswordusecases/verify_code_usecase.dart'
     as _i188;
+import '../../features/auth/domain/usecases/logout_usecase/logout_usecase.dart'
+    as _i8;
+import '../../features/auth/presentation/change_password/viewmodel/change_password_cubit.dart'
+    as _i73;
 import '../../features/auth/presentation/forgetpassword/viewmodel/forget_password_viewmodel.dart'
     as _i556;
 import '../../features/auth/presentation/forgetpassword/viewmodel/reset_password_viewmodel.dart'
@@ -33,8 +37,16 @@ import '../../features/auth/presentation/forgetpassword/viewmodel/verify_code_vi
     as _i0;
 import '../../features/auth/presentation/login/presentation/viewmodel/login_viewmodel.dart'
     as _i462;
+import '../../features/auth/presentation/logout/viewmodel/logout_viewmodel.dart'
+    as _i1042;
 import '../../features/auth/presentation/register/viewmodel/register_viewmodel/register_cubit.dart'
     as _i416;
+import '../../features/edit-profile/data/data_sources/edit_profile_remote_data_source.dart'
+    as _i267;
+import '../../features/edit-profile/data/repositories/edit_profile_repo_impl.dart'
+    as _i48;
+import '../../features/edit-profile/presentation/viewmodel/edit_profile_cubit.dart'
+    as _i916;
 import '../../features/exercise/api/datasource_impl/exercise_remote_datasource_impl.dart'
     as _i1030;
 import '../../features/exercise/data/datasource/exercise_remote_datasource.dart'
@@ -88,6 +100,18 @@ import '../../features/home/domain/usecases/get_muscle_groups_usecase.dart'
 import '../../features/home/domain/usecases/get_random_muscles_usecase.dart'
     as _i365;
 import '../../features/home/presentation/viewmodel/home_cubit.dart' as _i925;
+import '../../features/profile/api/datasource_impl/profile_remote_datasource_impl.dart'
+    as _i121;
+import '../../features/profile/data/datasource/profile_remote_datasource.dart'
+    as _i1031;
+import '../../features/profile/data/repositories_impl/profile_repository_impl.dart'
+    as _i357;
+import '../../features/profile/domain/repositories/profile_repository.dart'
+    as _i894;
+import '../../features/profile/domain/usecases/get_profile_data_usecase.dart'
+    as _i68;
+import '../../features/profile/presentation/viewmodel/profile_viewmodel.dart'
+    as _i351;
 import '../../features/workouts/api/data_source_impl/workouts_remote_data_source_impl.dart'
     as _i61;
 import '../../features/workouts/data/datasource/workouts_data_source.dart'
@@ -138,24 +162,36 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i194.WorkoutsRemoteDataSource>(
         () => _i61.WorkoutsRemoteDataSourceImpl(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i1031.ProfileRemoteDatasource>(() =>
+        _i121.ProfileRemoteDatasourceImpl(apiClient: gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i894.ProfileRepository>(() =>
+        _i357.ProfileRepositoryImpl(gh<_i1031.ProfileRemoteDatasource>()));
     gh.lazySingleton<_i301.WorkoutsRepo>(
         () => _i940.WorkoutRepoImpl(gh<_i194.WorkoutsRemoteDataSource>()));
     gh.factory<_i697.ResetPasswordCubit>(
         () => _i697.ResetPasswordCubit(gh<_i364.ApiClient>()));
+    gh.lazySingleton<_i267.EditProfileRemoteDataSource>(
+        () => _i267.EditProfileRemoteDataSource(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i674.FoodRemoteDatasource>(
         () => _i637.FoodRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i153.ExerciseRemoteDatasource>(
         () => _i1030.ExerciseRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i24.AuthRemoteDatasource>(
         () => _i758.AuthRemoteDatasourceImpl(gh<_i364.ApiClient>()));
+    gh.factory<_i68.GetProfileDataUseCase>(
+        () => _i68.GetProfileDataUseCase(gh<_i894.ProfileRepository>()));
     gh.lazySingleton<_i170.AuthRepo>(
         () => _i279.AuthRepoImpl(gh<_i24.AuthRemoteDatasource>()));
     gh.lazySingleton<_i439.MusclesRemoteDatasource>(
         () => _i476.MusclesRemoteDatasourceImpl(gh<_i364.ApiClient>()));
     gh.lazySingleton<_i732.MusclesRepo>(
         () => _i635.MusclesRepoImpl(gh<_i439.MusclesRemoteDatasource>()));
+    gh.lazySingleton<_i48.EditProfileRepository>(() =>
+        _i48.EditProfileRepository(gh<_i267.EditProfileRemoteDataSource>()));
     gh.factory<_i532.WorkoutsUseCase>(
         () => _i532.WorkoutsUseCase(gh<_i301.WorkoutsRepo>()));
+    gh.factory<_i351.ProfileViewModel>(
+        () => _i351.ProfileViewModel(gh<_i68.GetProfileDataUseCase>()));
     gh.factory<_i442.LoginUseCase>(
         () => _i442.LoginUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i957.ForgetPasswordUseCase>(
@@ -166,6 +202,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i188.VerifyCodeUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i416.RegisterCubit>(
         () => _i416.RegisterCubit(gh<_i170.AuthRepo>()));
+    gh.factory<_i73.ChangePasswordCubit>(
+        () => _i73.ChangePasswordCubit(gh<_i170.AuthRepo>()));
+    gh.factory<_i8.LogoutUseCase>(
+        () => _i8.LogoutUseCase(gh<_i170.AuthRepo>()));
     gh.factory<_i91.GetMealCategoriesUseCase>(
         () => _i91.GetMealCategoriesUseCase(gh<_i732.MusclesRepo>()));
     gh.factory<_i890.GetMuscleGroupsUseCase>(
@@ -176,6 +216,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i365.GetRandomMusclesUseCase(gh<_i732.MusclesRepo>()));
     gh.lazySingleton<_i164.FoodRepository>(
         () => _i55.FoodRepositoryImpl(gh<_i674.FoodRemoteDatasource>()));
+    gh.factory<_i1042.LogoutViewModel>(
+        () => _i1042.LogoutViewModel(gh<_i8.LogoutUseCase>()));
     gh.factory<_i204.ExerciseRepo>(
         () => _i917.ExerciseRepoImpl(gh<_i153.ExerciseRemoteDatasource>()));
     gh.lazySingleton<_i565.GetFoodByCategoryUseCase>(
@@ -196,6 +238,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i433.WorkoutsViewModel(gh<_i532.WorkoutsUseCase>()));
     gh.factory<_i556.ForgetPasswordCubit>(
         () => _i556.ForgetPasswordCubit(gh<_i957.ForgetPasswordUseCase>()));
+    gh.factory<_i916.EditProfileViewModel>(
+        () => _i916.EditProfileViewModel(gh<_i48.EditProfileRepository>()));
     gh.lazySingleton<_i196.GetAllDifficultyLevelsUseCase>(
         () => _i196.GetAllDifficultyLevelsUseCase(gh<_i204.ExerciseRepo>()));
     gh.lazySingleton<_i486.GetExerciseByMuscleAndDifficultyUseCase>(() =>

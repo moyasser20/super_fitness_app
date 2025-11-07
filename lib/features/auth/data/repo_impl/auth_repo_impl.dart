@@ -22,10 +22,12 @@ class AuthRepoImpl implements AuthRepo {
   ) async {
     return await _remoteDatasource.register(registerRequest);
   }
+
   @override
   Future<AuthResponse<LoginResponse>> login(LoginRequest loginRequest) async {
     return await _remoteDatasource.login(loginRequest);
   }
+
   @override
   Future<AuthResponse<String>> forgetPassword(String email) async {
     final model = ForgetPasswordRequestModel(email: email);
@@ -40,9 +42,9 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<AuthResponse<String>> resetPassword(
-      String email,
-      String newPassword,
-      ) async {
+    String email,
+    String newPassword,
+  ) async {
     final model = ResetPasswordRequestModel(
       email: email,
       newPassword: newPassword,
@@ -50,4 +52,16 @@ class AuthRepoImpl implements AuthRepo {
     return await _remoteDatasource.resetPassword(model);
   }
 
+  @override
+  Future<AuthResponse<String>> changePassword(
+    String oldPassword,
+    String newPassword,
+  ) async {
+    return await _remoteDatasource.changePassword(oldPassword, newPassword);
+  }
+
+  @override
+  Future<String> logout() {
+    return _remoteDatasource.logout();
+  }
 }

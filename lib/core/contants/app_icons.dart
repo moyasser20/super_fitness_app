@@ -14,4 +14,11 @@ abstract final class AppIcons {
   static const String aerobicsIcon = "assets/icons/aerobics_icon.png";
   static const String yogaIcon = "assets/icons/yoga_icon.png";
   static const String menuIcon = "assets/icons/menu.png";
+  static const String changePassIcon = "assets/icons/Change.svg";
+  static const String editProfileIcon = "assets/icons/edit_profile.svg";
+  static const String helpIcon = "assets/icons/Help.svg";
+  static const String languageIcon = "assets/icons/Language.svg";
+  static const String logoutIcon = "assets/icons/logout.svg";
+  static const String privacyIcon = "assets/icons/privacy.svg";
+  static const String securityIcon = "assets/icons/security.svg";
 }

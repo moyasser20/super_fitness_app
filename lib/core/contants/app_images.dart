@@ -7,4 +7,5 @@ class AppImages {
   static const String popularImage = "assets/images/popular_image.jpg";
   static const String smartCoachImage = "assets/images/bot_bg.jpg";
 
+  static const String profileBgImage = "assets/images/profile_bg.png";
 }

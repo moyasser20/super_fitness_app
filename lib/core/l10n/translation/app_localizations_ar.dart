@@ -48,10 +48,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resendCode => 'إعادة إرسال الرمز؟';
 
   @override
-  String get passwordRequirement => 'تأكد من أن كلمة المرور تحتوي على 8 أحرف أو أكثر';
+  String get passwordRequirement =>
+      'تأكد من أن كلمة المرور تحتوي على 8 أحرف أو أكثر';
 
   @override
   String get createNewPassword => 'إنشاء كلمة مرور جديدة';
+
+  @override
+  String get oldPassword => 'كلمة المرور الحالية';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
 
   @override
   String get newPasswordHint => 'كلمة المرور الجديدة';
@@ -66,7 +73,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get done => 'تم';
 
   @override
-  String get passwordInvalidError => 'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص';
+  String get passwordInvalidError =>
+      'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك أحرف وأرقام ورمز خاص';
 
   @override
   String get passwordMismatchError => 'كلمتا المرور غير متطابقتين';
@@ -120,7 +128,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get step_subtitle_height => 'اختر طولك بالسنتيمتر';
 
   @override
-  String get step_subtitle_goal => 'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
+  String get step_subtitle_goal =>
+      'سيساعدنا هذا في إنشاء خطة التمارين الخاصة بك';
 
   @override
   String get goal_gain_weight => 'زيادة الوزن';
@@ -222,10 +231,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get error_password => 'يرجى إدخال كلمة المرور';
 
   @override
-  String get error_password_short => 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
+  String get error_password_short =>
+      'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
 
   @override
-  String get error_password_invalid => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
+  String get error_password_invalid =>
+      'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل ورمز واحد';
 
   @override
   String get hint_confirm_password => 'تأكيد كلمة المرور';
@@ -270,7 +281,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordRequiredErrorMsg => 'كلمة المرور مطلوبة';
 
   @override
-  String get passwordValidationErrorMsg => 'يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m';
+  String get passwordValidationErrorMsg =>
+      'يجب أن تكون على الأقل 6 أحرف وتحتوي على M#12m';
 
   @override
   String get rememberMe => 'تذكرني';
@@ -294,7 +306,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordRequired => 'كلمة المرور مطلوبة';
 
   @override
-  String get passwordInvalid => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتشمل أحرفًا وأرقامًا ورموزًا خاصة.';
+  String get passwordInvalid =>
+      'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتشمل أحرفًا وأرقامًا ورموزًا خاصة.';
 
   @override
   String get confirmPasswordRequired => 'تأكيد كلمة المرور مطلوب';
@@ -352,4 +365,204 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get video_link_not_available => 'رابط الفيديو غير متاح';
+
+  @override
+  String errorWithMessage(Object message) {
+    return 'خطأ: $message';
+  }
+
+  @override
+  String get unnamedWorkout => 'تمرين بدون اسم';
+
+  @override
+  String hiUser(Object userName) {
+    return 'مرحبًا $userName،';
+  }
+
+  @override
+  String get startYourDay => 'لنبدأ يومك';
+
+  @override
+  String get gym => 'نادي رياضي';
+
+  @override
+  String get fitness => 'لياقة بدنية';
+
+  @override
+  String get yoga => 'يوغا';
+
+  @override
+  String get aerobics => 'تمارين هوائية';
+
+  @override
+  String get trainer => 'مدرب';
+
+  @override
+  String get noRecommendationsFound => 'لم يتم العثور على توصيات';
+
+  @override
+  String get failedToLoadRecommendations => 'فشل تحميل التوصيات';
+
+  @override
+  String get popularTraining => 'التمارين الشائعة';
+
+  @override
+  String get exerciseStrengthenChest => 'تمارين تقوي صدرك';
+
+  @override
+  String tasksCount(Object count) {
+    return '$count مهام';
+  }
+
+  @override
+  String get difficultyBeginner => 'مبتدئ';
+
+  @override
+  String get error_prefix => 'خطأ: ';
+
+  @override
+  String get na => 'غير متوفر';
+
+  @override
+  String get salmon_bowl => 'طبق السلمون';
+
+  @override
+  String get tuna_pasta => 'مكرونة التونة';
+
+  @override
+  String get grilled_chicken => 'دجاج مشوي';
+
+  @override
+  String get avocado_salad => 'سلطة الأفوكادو';
+
+  @override
+  String get beef_steak => 'شريحة لحم بقري';
+
+  @override
+  String get veggie_wrap => 'ساندويتش الخضار';
+
+  @override
+  String get loading_failed => 'فشل تحميل تفاصيل الوجبة';
+
+  @override
+  String get food_recommendation => 'توصيات الطعام';
+
+  @override
+  String get no_foods_available => 'لا توجد أطعمة متاحة في هذه الفئة.';
+
+  @override
+  String get unnamed_food => 'طعام غير مسمى';
+
+  @override
+  String get exercise_title => 'تمارين';
+
+  @override
+  String get exercise_subtitle =>
+      'استكشف التمارين المصممة حسب مستوى الصعوبة الخاص بك.';
+
+  @override
+  String get exercise_duration => '30 دقيقة';
+
+  @override
+  String get exercise_calories => '١٣٠ سعر حراري';
+
+  @override
+  String get no_exercises_found => 'لم يتم العثور على تمارين';
+
+  @override
+  String get no_description => 'لا يوجد وصف';
+
+  @override
+  String get exercise_reps_info => '٣ مجموعات × ١٥ مرة';
+
+  @override
+  String get recipe_video => 'فيديو الوصفة';
+
+  @override
+  String get exercise_video => 'فيديو التمرين';
+
+  @override
+  String get recommendation_to_you => 'توصيات اليوم';
+
+  @override
+  String get profileTitle => 'الملف الشخصي';
+
+  @override
+  String get editProfile => 'تعديل الملف الشخصي';
+
+  @override
+  String get changePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get security => 'الأمان';
+
+  @override
+  String get privacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get help => 'المساعدة';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get selectLanguage => 'اختيار اللغة';
+
+  @override
+  String get changeLanguage => 'تغيير اللغة';
+
+  @override
+  String get arabic => 'العربية';
+
+  @override
+  String get english => 'الإنجليزية';
+
+  @override
+  String get profile => 'الملف';
+
+  @override
+  String get chat => 'الدردشة';
+
+  @override
+  String get explore => 'استكشف';
+
+  @override
+  String get changed_password_success =>
+      'تم تغيير كلمة المرور بنجاح، سجل مرة أخرى.';
+
+  @override
+  String get yourWeight => 'وزنك';
+
+  @override
+  String get tapToEdit => '(اضغط للتعديل)';
+
+  @override
+  String get kilo => 'كيلو';
+
+  @override
+  String get yourGoal => 'هدفك';
+
+  @override
+  String get gainWeight => 'زيادة الوزن';
+
+  @override
+  String get yourActivityLevel => 'مستوى نشاطك';
+
+  @override
+  String get rookie => 'مبتدئ';
+
+  @override
+  String get uploadPhotoSuccess => 'تم تحميل الصورة بنجاح';
+
+  @override
+  String get profileUpdatedSuccess => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get logoutConfirmTextCenter => 'تأكيد تسجيل الخروج!';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get logoutAlertMsg => 'تسجيل الخروج';
 }
