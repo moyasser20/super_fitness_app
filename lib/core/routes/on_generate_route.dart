@@ -38,6 +38,7 @@ import '../../features/exercise/presentation/viewmodel/exercise_viewmodel.dart';
 import '../../features/food/presentation/view/screens/food_screen.dart';
 import '../../features/food/presentation/viewmodel/food_viewmodel.dart';
 import '../../features/home/presentation/views/home_screen.dart';
+import '../../features/profile/presentation/viewmodel/profile_viewmodel.dart';
 import '../../features/workouts/presentation/view/workouts_screen.dart';
 import '../routes/route_names.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -171,11 +172,15 @@ class Routes {
 
       case AppRoutes.editProfileScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<EditProfileViewModel>(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => getIt<ProfileViewModel>()..getProfile()),
+              BlocProvider(create: (_) => getIt<EditProfileViewModel>()),
+            ],
             child: const EditProfileScreen(),
           ),
         );
+
 
       case AppRoutes.weightStepScreen:
         final args = settings.arguments as Map<String, dynamic>;

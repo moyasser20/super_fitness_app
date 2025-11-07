@@ -91,13 +91,20 @@ class ProfileScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               MenuItemWidget(
-                                leading: SvgPicture.asset(
-                                  AppIcons.editProfileIcon,
-                                  width: 24,
-                                  height: 24,
-                                ),
+                                leading: SvgPicture.asset(AppIcons.editProfileIcon, width: 24, height: 24),
                                 title: local.editProfile,
-                                onTap: () {},
+                                onTap: () async {
+                                  final updated = await Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.editProfileScreen,
+                                  );
+
+                                  if (updated == true) {
+                                    // دي عشان تمسح الكاش القديم وتجيب الداتا الجديدة
+                                    context.read<ProfileViewModel>().clearProfileCache();
+                                    await context.read<ProfileViewModel>().getProfile();
+                                  }
+                                },
                               ),
 
                               _divider(),

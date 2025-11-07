@@ -24,19 +24,6 @@ class RecommendationToDayWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(local.recommendation_to_you, style: balooThambi2BoldExtraLarge),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.editProfileScreen);
-              },
-              child: Text(
-                local.seeAll,
-                style: balooThambi2RegularLarge.copyWith(
-                  color: AppColors.orange,
-                  decoration: TextDecoration.underline,
-                  decorationColor: AppColors.orange,
-                ),
-              ),
-            ),
           ],
         ),
         SizedBox(height: 12),

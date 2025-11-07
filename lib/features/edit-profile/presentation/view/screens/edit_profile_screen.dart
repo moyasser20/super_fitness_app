@@ -1,19 +1,21 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:super_fitness_app/core/Widgets/custom_Elevated_Button.dart';
 import 'package:super_fitness_app/core/Widgets/custom_text_field.dart';
 import 'package:super_fitness_app/core/extensions/extensions.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/core/utils/styles.dart';
 import 'package:super_fitness_app/core/l10n/translation/app_localizations.dart';
+import 'package:super_fitness_app/core/common/widgets/custome_loading_indicator.dart';
+import 'package:super_fitness_app/core/common/widgets/custom_snackbar_widget.dart';
 import 'package:super_fitness_app/features/edit-profile/presentation/view/widgets/weight_step_widget.dart';
 import 'package:super_fitness_app/features/edit-profile/presentation/view/widgets/goal_step_widget.dart';
 import 'package:super_fitness_app/features/edit-profile/presentation/view/widgets/activity_step_widget.dart';
 import 'package:super_fitness_app/features/edit-profile/presentation/viewmodel/edit_profile_cubit.dart';
 import 'package:super_fitness_app/features/edit-profile/presentation/viewmodel/edit_profile_states.dart';
-
-import '../../../../../core/common/widgets/custome_loading_indicator.dart'; // import your loading widget
+import '../../../../profile/presentation/viewmodel/profile_viewmodel.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -31,14 +33,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     "True Beast": "level5",
   };
 
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
-    context.read<EditProfileViewModel>().loadUserData();
+    _loadProfileData();
+  }
+
+  Future<void> _loadProfileData() async {
+    final profileViewModel = context.read<ProfileViewModel>();
+    final editProfileViewModel = context.read<EditProfileViewModel>();
+    setState(() => _isLoading = true);
+    if (profileViewModel.user != null) {
+      await editProfileViewModel.loadUserDataFromProfile(profileViewModel.user!);
+    } else {
+      await profileViewModel.getProfile();
+      if (profileViewModel.user != null) {
+        await editProfileViewModel.loadUserDataFromProfile(profileViewModel.user!);
+      }
+    }
+    setState(() => _isLoading = false);
   }
 
   Future<void> _onRefresh() async {
-    await context.read<EditProfileViewModel>().loadUserData();
+    await _loadProfileData();
   }
 
   @override
@@ -46,272 +65,314 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final locale = AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: BlocBuilder<EditProfileViewModel, EditProfileState>(
-        builder: (context, state) {
-          final cubit = context.read<EditProfileViewModel>();
-
-          if (state is EditProfileLoading) {
-            return AppLoadingIndicator(color: AppColors.main);
-          }
-
-          return Container(
+      body: Stack(
+        children: [
+          Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/profile_bg.png"),
                 fit: BoxFit.cover,
               ),
             ),
-            child: RefreshIndicator(
-              onRefresh: _onRefresh,
-              color: AppColors.main,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 55),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/icons/back_fitness_icon.png",
-                          height: 30,
-                        ),
-                        const SizedBox(width: 85),
-                        Text(
-                          locale.editProfile,
-                          style: balooThambi2RegularLarge.copyWith(fontSize: 26),
-                        ),
-                        const Spacer(flex: 2),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundImage: cubit.profilePhotoUrl != null
-                              ? (cubit.profilePhotoUrl!.startsWith('assets/')
-                              ? AssetImage(cubit.profilePhotoUrl!)
-                              : Image.file(
-                            File(cubit.profilePhotoUrl!),
-                          ).image)
-                              : const AssetImage("assets/images/test_food.png"),
-                          backgroundColor: AppColors.grey,
-                        ),
-                        Positioned(
-                          bottom: 95,
-                          right: 2,
-                          child: GestureDetector(
-                            onTap: () => cubit.changeProfilePhoto(),
-                            child: Image.asset(
-                              "assets/images/edit_photo_pen.png",
-                              width: 28,
-                              height: 28,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      "${cubit.firstNameController.text} ${cubit.lastNameController.text}",
-                      style: balooThambi2RegularLarge.copyWith(
-                        fontSize: 22,
-                        color: AppColors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    CustomTextFormField(
-                      controller: cubit.firstNameController,
-                      hint: "First Name",
-                      prefixIcon: Icon(
-                        Icons.person_2_outlined,
-                        color: AppColors.white.withOpacity(0.5),
-                      ).setHorizontalPadding(context, 0.06),
-                    ),
-                    const SizedBox(height: 20),
-                    CustomTextFormField(
-                      controller: cubit.lastNameController,
-                      hint: "Last Name",
-                      prefixIcon: Icon(
-                        Icons.person_2_outlined,
-                        color: AppColors.white.withOpacity(0.5),
-                      ).setHorizontalPadding(context, 0.06),
-                    ),
-                    const SizedBox(height: 20),
-                    CustomTextFormField(
-                      controller: cubit.emailController,
-                      hint: "Email",
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: AppColors.white.withOpacity(0.5),
-                      ).setHorizontalPadding(context, 0.06),
-                    ),
-                    const SizedBox(height: 40),
-                    Row(
-                      children: [
-                        Text(
-                          locale.yourWeight,
-                          style: balooThambi2Bold.copyWith(
-                            fontSize: 18,
-                            color: AppColors.white,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => WeightStepScreen(
-                                  selectedWeight: cubit.selectedWeight,
-                                  onWeightChanged: (value) {
-                                    setState(() {
-                                      cubit.selectedWeight = value;
-                                    });
-                                  },
-                                  onNext: () => Navigator.pop(context),
+            child: _isLoading
+                ? const SizedBox.shrink()
+                : BlocListener<EditProfileViewModel, EditProfileState>(
+              listener: (context, state) async {
+              if (state is ProfilePhotoUpdatedState) {
+                  await showCustomSnackBar(
+                    context,
+                    locale.uploadPhotoSuccess,
+                    isError: false,
+                  );
+                  setState(() {});
+                } else if (state is ProfilePhotoErrorState) {
+                  await showCustomSnackBar(
+                    context,
+                    state.message,
+                    isError: true,
+                  );
+                }
+              },
+              child: BlocBuilder<EditProfileViewModel, EditProfileState>(
+                builder: (context, state) {
+                  final cubit = context.read<EditProfileViewModel>();
+                  return RefreshIndicator(
+                    onRefresh: _onRefresh,
+                    color: AppColors.main,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 55),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context, true);
+                                },
+                                child: Image.asset(
+                                  "assets/icons/back_fitness_icon.png",
+                                  height: 30,
                                 ),
                               ),
-                            );
-                          },
-                          child: Text(
-                            locale.tapToEdit,
-                            style: balooThambi2Bold.copyWith(
-                              fontSize: 18,
-                              color: AppColors.orange,
-                            ),
+                              const SizedBox(width: 85),
+                              Text(
+                                locale.editProfile,
+                                style: balooThambi2RegularLarge.copyWith(fontSize: 26),
+                              ),
+                              const Spacer(flex: 2),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      readonly: true,
-                      fillColor: AppColors.white.withOpacity(0.15),
-                      hintColor: AppColors.white,
-                      hint: "${cubit.selectedWeight} ${locale.kilo}",
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Text(
-                          locale.yourGoal,
-                          style: balooThambi2Bold.copyWith(
-                            fontSize: 18,
-                            color: AppColors.white,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => GoalStepScreen(
-                                  goals: const [
-                                    "Gain Weight",
-                                    "Lose Weight",
-                                    "Get fitter",
-                                    "Gain more flexible",
-                                    "Learn the basic",
-                                  ],
-                                  selectedGoal: cubit.selectedGoal,
-                                  onGoalSelected: (goal) {
-                                    setState(() {
-                                      cubit.selectedGoal = goal;
-                                    });
+                          const SizedBox(height: 40),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 60,
+                                backgroundImage: cubit.profilePhotoUrl != null
+                                    ? (cubit.profilePhotoUrl!.startsWith('http')
+                                    ? NetworkImage(cubit.profilePhotoUrl!)
+                                    : FileImage(File(cubit.profilePhotoUrl!)) as ImageProvider)
+                                    : const AssetImage("assets/images/test_food.png"),
+                                backgroundColor: AppColors.grey,
+                              ),
+                              if (state is ProfilePhotoLoadingState)
+                                const Positioned.fill(
+                                  child: Center(
+                                    child: SizedBox(
+                                      height: 25,
+                                      width: 25,
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.orange,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              Positioned(
+                                bottom: 95,
+                                right: 2,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final picker = ImagePicker();
+                                    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                                    if (pickedFile != null) {
+                                      await cubit.uploadPhoto(File(pickedFile.path), context);
+                                    }
                                   },
-                                  onNext: () => Navigator.pop(context),
+                                  child: Image.asset(
+                                    "assets/images/edit_photo_pen.png",
+                                    width: 28,
+                                    height: 28,
+                                  ),
                                 ),
                               ),
-                            );
-                          },
-                          child: Text(
-                            locale.tapToEdit,
-                            style: balooThambi2Bold.copyWith(
-                              fontSize: 18,
-                              color: AppColors.orange,
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            "${cubit.firstNameController.text} ${cubit.lastNameController.text}",
+                            style: balooThambi2RegularLarge.copyWith(
+                              fontSize: 22,
+                              color: AppColors.white,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      readonly: true,
-                      fillColor: AppColors.white.withOpacity(0.15),
-                      hintColor: AppColors.white,
-                      hint: cubit.selectedGoal,
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Text(
-                          locale.yourActivityLevel,
-                          style: balooThambi2Bold.copyWith(
-                            fontSize: 18,
-                            color: AppColors.white,
+                          const SizedBox(height: 40),
+                          CustomTextFormField(
+                            controller: cubit.firstNameController,
+                            hint: "First Name",
+                            prefixIcon: Icon(
+                              Icons.person_2_outlined,
+                              color: AppColors.white.withOpacity(0.5),
+                            ).setHorizontalPadding(context, 0.06),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => ActivityStepScreen(
-                                  activities: const [
-                                    {"display": "Rookie"},
-                                    {"display": "Beginner"},
-                                    {"display": "Intermediate"},
-                                    {"display": "Advance"},
-                                    {"display": "True Beast"},
-                                  ],
-                                  selectedActivityDisplay:
-                                  cubit.selectedActivity,
-                                  onActivitySelected: (activity) {
-                                    setState(() {
-                                      cubit.selectedActivity =
-                                      activityLevelMap[activity["display"]!]!;
-                                    });
-                                  },
-                                  onNext: () => Navigator.pop(context),
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: cubit.lastNameController,
+                            hint: "Last Name",
+                            prefixIcon: Icon(
+                              Icons.person_2_outlined,
+                              color: AppColors.white.withOpacity(0.5),
+                            ).setHorizontalPadding(context, 0.06),
+                          ),
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: cubit.emailController,
+                            hint: "Email",
+                            prefixIcon: Icon(
+                              Icons.email_outlined,
+                              color: AppColors.white.withOpacity(0.5),
+                            ).setHorizontalPadding(context, 0.06),
+                          ),
+                          const SizedBox(height: 40),
+                          Row(
+                            children: [
+                              Text(
+                                locale.yourWeight,
+                                style: balooThambi2Bold.copyWith(
+                                  fontSize: 18,
+                                  color: AppColors.white,
                                 ),
                               ),
-                            );
-                          },
-                          child: Text(
-                            locale.tapToEdit,
-                            style: balooThambi2Bold.copyWith(
-                              fontSize: 18,
-                              color: AppColors.orange,
+                              GestureDetector(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => WeightStepScreen(
+                                        selectedWeight: cubit.selectedWeight,
+                                        onWeightChanged: (value) {
+                                          setState(() {
+                                            cubit.selectedWeight = value;
+                                          });
+                                        },
+                                        onNext: () => Navigator.pop(context),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  locale.tapToEdit,
+                                  style: balooThambi2Bold.copyWith(
+                                    fontSize: 18,
+                                    color: AppColors.orange,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextFormField(
+                            readonly: true,
+                            fillColor: AppColors.white.withOpacity(0.15),
+                            hintColor: AppColors.white,
+                            hint: "${cubit.selectedWeight} ${locale.kilo}",
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Text(
+                                locale.yourGoal,
+                                style: balooThambi2Bold.copyWith(
+                                  fontSize: 18,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => GoalStepScreen(
+                                        goals: const [
+                                          "Gain Weight",
+                                          "Lose Weight",
+                                          "Get fitter",
+                                          "Gain more flexible",
+                                          "Learn the basic",
+                                        ],
+                                        selectedGoal: cubit.selectedGoal,
+                                        onGoalSelected: (goal) {
+                                          setState(() {
+                                            cubit.selectedGoal = goal;
+                                          });
+                                        },
+                                        onNext: () => Navigator.pop(context),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  locale.tapToEdit,
+                                  style: balooThambi2Bold.copyWith(
+                                    fontSize: 18,
+                                    color: AppColors.orange,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextFormField(
+                            readonly: true,
+                            fillColor: AppColors.white.withOpacity(0.15),
+                            hintColor: AppColors.white,
+                            hint: cubit.selectedGoal,
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Text(
+                                locale.yourActivityLevel,
+                                style: balooThambi2Bold.copyWith(
+                                  fontSize: 18,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ActivityStepScreen(
+                                        activities: const [
+                                          {"display": "Rookie"},
+                                          {"display": "Beginner"},
+                                          {"display": "Intermediate"},
+                                          {"display": "Advance"},
+                                          {"display": "True Beast"},
+                                        ],
+                                        selectedActivityDisplay: cubit.selectedActivity,
+                                        onActivitySelected: (activity) {
+                                          setState(() {
+                                            cubit.selectedActivity = activityLevelMap[activity["display"]!]!;
+                                          });
+                                        },
+                                        onNext: () => Navigator.pop(context),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  locale.tapToEdit,
+                                  style: balooThambi2Bold.copyWith(
+                                    fontSize: 18,
+                                    color: AppColors.orange,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextFormField(
+                            readonly: true,
+                            fillColor: AppColors.white.withOpacity(0.15),
+                            hintColor: AppColors.white,
+                            hint: activityLevelMap.keys.firstWhere(
+                                  (key) => activityLevelMap[key] == cubit.selectedActivity,
+                              orElse: () => cubit.selectedActivity,
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 35),
+                          CustomElevatedButton(
+                            text: locale.done,
+                            width: 400,
+                            onPressed: () => cubit.submitProfile(context),
+                          ),
+                          const SizedBox(height: 50),
+                        ],
+                      ).setHorizontalPadding(context, 0.06),
                     ),
-                    const SizedBox(height: 10),
-                    CustomTextFormField(
-                      readonly: true,
-                      fillColor: AppColors.white.withOpacity(0.15),
-                      hintColor: AppColors.white,
-                      hint: activityLevelMap.keys.firstWhere(
-                            (key) =>
-                        activityLevelMap[key] == cubit.selectedActivity,
-                        orElse: () => cubit.selectedActivity,
-                      ),
-                    ),
-                    const SizedBox(height: 35),
-                    CustomElevatedButton(
-                      text: locale.done,
-                      width: 400,
-                      onPressed: () => cubit.submitProfile(context),
-                    ),
-                    const SizedBox(height: 50),
-                  ],
-                ).setHorizontalPadding(context, 0.06),
+                  );
+                },
               ),
             ),
-          );
-        },
+          ),
+          if (_isLoading)
+            Container(
+              color: AppColors.black,
+              child: const Center(child: AppLoadingIndicator()),
+            ),
+        ],
       ),
     );
   }

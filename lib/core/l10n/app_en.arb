@@ -174,5 +174,9 @@
   "yourGoal": "Your goal",
   "gainWeight": "Gain weight",
   "yourActivityLevel": "Your activity level",
-  "rookie": "Rookie"
+  "rookie": "Rookie",
+  "uploadPhotoSuccess": "Photo Uploaded Successfully",
+  "profileUpdatedSuccess": "Profile updated successfully"
+
+
 }
