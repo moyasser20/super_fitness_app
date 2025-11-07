@@ -59,4 +59,9 @@ class AuthRepoImpl implements AuthRepo {
   ) async {
     return await _remoteDatasource.changePassword(oldPassword, newPassword);
   }
+
+  @override
+  Future<String> logout() {
+    return _remoteDatasource.logout();
+  }
 }

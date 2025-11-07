@@ -176,7 +176,8 @@
   "yourActivityLevel": "Your activity level",
   "rookie": "Rookie",
   "uploadPhotoSuccess": "Photo Uploaded Successfully",
-  "profileUpdatedSuccess": "Profile updated successfully"
-
-
+  "profileUpdatedSuccess": "Profile updated successfully",
+  "logoutConfirmTextCenter": "Confirm logout!",
+  "cancel": "Cancel",
+  "logoutAlertMsg": "Logout"
 }

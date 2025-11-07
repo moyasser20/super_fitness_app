@@ -5,11 +5,15 @@ import 'package:super_fitness_app/core/common/widgets/custome_loading_indicator.
 import 'package:super_fitness_app/core/extensions/extensions.dart';
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/menu_item_widget.dart';
 import 'package:super_fitness_app/features/profile/presentation/view/widgets/language_toggle_widget.dart';
+import '../../../../core/config/di.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
 import '../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../core/routes/route_names.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../auth/presentation/logout/viewmodel/logout_viewmodel.dart';
+import '../../../auth/presentation/logout/views/logout_widget.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../viewmodel/states/profile_states.dart';
 
@@ -72,6 +76,7 @@ class ProfileScreen extends StatelessWidget {
                               CircleAvatar(
                                 radius: 50,
                                 backgroundImage: NetworkImage(profile.photo),
+                                backgroundColor: AppColors.grey,
                               ),
                               const SizedBox(height: 18),
                               Text(
@@ -100,7 +105,6 @@ class ProfileScreen extends StatelessWidget {
                                   );
 
                                   if (updated == true) {
-                                    // دي عشان تمسح الكاش القديم وتجيب الداتا الجديدة
                                     context.read<ProfileViewModel>().clearProfileCache();
                                     await context.read<ProfileViewModel>().getProfile();
                                   }
@@ -178,7 +182,14 @@ class ProfileScreen extends StatelessWidget {
                                 title: local.logout,
                                 isLogout: true,
                                 onTap: () {
-                                  // Add logout logic
+                                  showDialog(
+                                    context: context,
+                                    builder:
+                                        (context) => BlocProvider(
+                                      create: (context) => getIt<LogoutViewModel>(),
+                                      child: const LogoutDialogWidget(),
+                                    ),
+                                  );
                                 },
                               ),
 
