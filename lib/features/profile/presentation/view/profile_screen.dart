@@ -10,6 +10,7 @@ import '../../../../core/contants/app_icons.dart';
 import '../../../../core/contants/app_images.dart';
 import '../../../../core/l10n/translation/app_localizations.dart';
 import '../../../../core/routes/route_names.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/styles.dart';
 import '../../../auth/presentation/logout/viewmodel/logout_viewmodel.dart';
 import '../../../auth/presentation/logout/views/logout_widget.dart';
@@ -75,6 +76,7 @@ class ProfileScreen extends StatelessWidget {
                               CircleAvatar(
                                 radius: 50,
                                 backgroundImage: NetworkImage(profile.photo),
+                                backgroundColor: AppColors.grey,
                               ),
                               const SizedBox(height: 18),
                               Text(

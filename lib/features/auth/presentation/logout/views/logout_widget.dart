@@ -30,7 +30,7 @@ class LogoutDialogWidget extends StatelessWidget {
       },
       builder: (context, state) {
         return AlertDialog(
-          backgroundColor: AppColors.white,
+          backgroundColor: AppColors.grey,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -39,17 +39,19 @@ class LogoutDialogWidget extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontFamily: "Inter",
+              fontFamily: "BalooThambi2",
+              color: AppColors.white,
+              fontSize: 20,
             ),
           ),
           content: Text(
             locale.logoutConfirmTextCenter,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: AppColors.grey,
-              fontSize: 16,
+              color: AppColors.white,
+              fontSize: 18,
               fontWeight: FontWeight.w500,
-              fontFamily: "Inter",
+              fontFamily: "BalooThambi2",
             ),
           ),
           actions: [
@@ -59,8 +61,8 @@ class LogoutDialogWidget extends StatelessWidget {
                   width: 120,
                   height: 50,
                   color: AppColors.white,
-                  textColor: AppColors.grey,
-                  borderColor: AppColors.grey,
+                  textColor: AppColors.orange,
+                  borderColor: AppColors.orange,
                   text: locale.cancel,
                   onPressed: () {
                     Navigator.pop(context);
