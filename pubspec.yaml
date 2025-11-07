@@ -18,6 +18,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_chat_types: ^3.6.2
+  flutter_chat_ui: ^1.6.15
   flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter
@@ -28,17 +30,18 @@ dependencies:
   get: ^4.7.2
   get_it: ^8.2.0
   google_fonts: ^6.2.1
+  google_generative_ai: ^0.4.7
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   image_picker: ^1.2.0
   injectable: ^2.5.1
   intl: any
   json_annotation: ^4.9.0
+  leak_tracker: 11.0.2
   loading_indicator: ^3.1.1
   logger: ^2.6.1
   mockito: null
   path_provider: ^2.1.5
-  leak_tracker: ^10.0.8
   percent_indicator: ^4.2.5
   retrofit: ^4.1.0
   shared_preferences: ^2.5.3
@@ -47,6 +50,8 @@ dependencies:
   step_progress_indicator: ^1.0.2
   url_launcher: ^6.3.2
   webview_flutter: ^4.7.0
+  uuid: ^4.4.0
+  http: ^1.5.0
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -65,7 +70,6 @@ flutter_icons:
   image_path: "assets/icons/main_fitness_app_icon.png"
   adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/icons/app_icon3.png"
-
 
 flutter:
   generate: true

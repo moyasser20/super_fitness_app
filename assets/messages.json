@@ -1,0 +1,13 @@
+[
+  {
+    "author": {
+      "id": "bot",
+      "firstName": "smart-coach"
+    },
+    "createdAt": 1698734468000,
+    "id": "welcome-message",
+    "status": "seen",
+    "text": "Hello How Can I Assist You Today?",
+    "type": "text"
+  }
+]

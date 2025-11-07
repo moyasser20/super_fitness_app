@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:super_fitness_app/features/app_sections/presentation/view/dash_board_screen.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/complete_registration_screen.dart';
 import 'package:super_fitness_app/features/auth/presentation/register/views/register_screen.dart';
+import 'package:super_fitness_app/features/bot/view/smart_coach_screen.dart';
 import 'package:super_fitness_app/features/onboarding/onboaarding_screen.dart';
 import 'package:super_fitness_app/features/splash/splash_screen.dart';
 import '../../features/food-details/presentation/view/screens/food_details_screen.dart';
@@ -33,6 +34,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
+      case AppRoutes.smartCoachScreen:
+        return MaterialPageRoute(builder: (_) => const SmartCoachScreen());
       case AppRoutes.completeRegistration:
         return MaterialPageRoute(
           builder: (_) => const CompleteRegistrationScreen(),

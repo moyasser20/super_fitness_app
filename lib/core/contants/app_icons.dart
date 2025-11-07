@@ -13,4 +13,5 @@ abstract final class AppIcons {
   static const String trainerIcon = "assets/icons/trainer_icon.png";
   static const String aerobicsIcon = "assets/icons/aerobics_icon.png";
   static const String yogaIcon = "assets/icons/yoga_icon.png";
+  static const String menuIcon = "assets/icons/menu.png";
 }
