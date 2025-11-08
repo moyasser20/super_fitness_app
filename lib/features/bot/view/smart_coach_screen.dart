@@ -1,5 +1,5 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'dart:convert';
 import 'dart:io';
@@ -16,8 +16,12 @@ import 'package:uuid/uuid.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:super_fitness_app/features/bot/data/models/chat_session.dart';
 
+import '../../../core/l10n/translation/app_localizations.dart';
+
 class SmartCoachScreen extends StatefulWidget {
-  const SmartCoachScreen({super.key});
+  const SmartCoachScreen({super.key, this.isFromNav = false});
+
+  final bool isFromNav;
 
   @override
   State<SmartCoachScreen> createState() => _BotScreenState();
@@ -25,6 +29,7 @@ class SmartCoachScreen extends StatefulWidget {
 
 class _BotScreenState extends State<SmartCoachScreen> {
   bool _isLoading = false;
+  bool isAr = false;
 
   static const apiKey = "AIzaSyBrEkUbIjAw8QVxXU59350f6TAkyf_uGio";
 
@@ -44,6 +49,12 @@ class _BotScreenState extends State<SmartCoachScreen> {
   void initState() {
     super.initState();
     _initializeHive();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    isAr = AppLocalizations.of(context)?.localeName == 'ar';
   }
 
   Future<void> _initializeHive() async {
@@ -75,6 +86,7 @@ class _BotScreenState extends State<SmartCoachScreen> {
     }
   }
 
+  // Todo: add profile data like image.
   void _handleMessageTap(BuildContext _, types.Message message) async {
     if (message is types.FileMessage) {
       var localPath = message.uri;
@@ -206,19 +218,23 @@ User message: ${message.text}
   void _createNewSession() {
     final now = DateTime.now();
     final sessionId = const Uuid().v4();
+    var local = AppLocalizations.of(context);
 
     final welcomeMessage = types.TextMessage(
       author: _bot,
       createdAt: now.millisecondsSinceEpoch,
       id: const Uuid().v4(),
-      text: "Hello How Can I Assist You Today ?",
+      text:
+          isAr
+              ? "?Hello How Can I Assist You Today"
+              : "How can I help you today?",
     );
 
     final messagesList = [welcomeMessage];
 
     _currentSession = ChatSession(
       id: sessionId,
-      title: 'New Chat',
+      title: local!.newChat,
       messagesJson: messagesList.map((msg) => msg.toJson()).toList(),
       createdAt: now,
       updatedAt: now,
@@ -235,6 +251,7 @@ User message: ${message.text}
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -250,183 +267,204 @@ User message: ${message.text}
               ),
             ),
             child: SafeArea(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(12.0),
-                              decoration: BoxDecoration(
-                                color: AppColors.main,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: SvgPicture.asset(AppIcons.backIcon),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          "Smart Coach",
-                          style: balooThambi2BoldExtraLarge.copyWith(
-                            fontSize: 24,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: _showPastChats,
-                          icon: Image.asset(
-                            AppIcons.menuIcon,
-                            width: 25,
-                            height: 25,
-                            color: AppColors.orange,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Chat(
-                      messages: _messages,
-                      onMessageTap: _handleMessageTap,
-                      onPreviewDataFetched: _handlePreviewDataFetched,
-                      onSendPressed: _handleSendPressed,
-                      showUserAvatars: true,
-                      showUserNames: true,
-                      user: _user,
-                      timeFormat: DateFormat('h:mm a'),
-                      customBottomWidget: const SizedBox.shrink(),
-                      theme: DefaultChatTheme(
-                        backgroundColor: Colors.transparent,
-                        primaryColor: Color(0x80FF6A00),
-                        secondaryColor: Color(0x80242424),
-                        userAvatarNameColors: [
-                          AppColors.main,
-                          AppColors.main,
-                          AppColors.main,
-                          AppColors.main,
-                        ],
-                        messageBorderRadius: 20,
-                        sentMessageBodyTextStyle: balooThambi2BoldExtraLarge
-                            .copyWith(fontSize: 14, color: Colors.white),
-                        receivedMessageBodyTextStyle: balooThambi2BoldExtraLarge
-                            .copyWith(fontSize: 14, color: Colors.white),
-                        sentMessageCaptionTextStyle: balooThambi2BoldExtraLarge
-                            .copyWith(fontSize: 12, color: Colors.white70),
-                        receivedMessageCaptionTextStyle:
-                            balooThambi2BoldExtraLarge.copyWith(
-                              fontSize: 12,
-                              color: Colors.white70,
-                            ),
-                        dateDividerTextStyle: balooThambi2BoldExtraLarge
-                            .copyWith(fontSize: 12, color: Colors.white),
-                        inputTextColor: Colors.white,
-                        inputTextStyle: const TextStyle(color: Colors.white),
-                        inputTextCursorColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          offset: const Offset(0, -1),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: TextField(
-                              controller: _textController,
-                              cursorColor: AppColors.grey,
-                              decoration: InputDecoration(
-                                hintStyle: balooThambi2BoldExtraLarge.copyWith(
-                                  fontSize: 12,
-                                  color: AppColors.grey,
-                                ),
-                                hintText: 'Ask for anything about fitness..',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor: const Color(0xFFF5F5F5),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 10,
-                                ),
-                              ),
-                              textCapitalization: TextCapitalization.sentences,
-                              onSubmitted: (text) {
-                                if (text.trim().isNotEmpty) {
-                                  _handleCustomSend(text);
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Material(
-                                color: AppColors.main,
-                                borderRadius: BorderRadius.circular(30),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(30),
-                                  onTap:
-                                      _isLoading
-                                          ? null
-                                          : () {
-                                            if (_textController.text
-                                                .trim()
-                                                .isNotEmpty) {
-                                              _handleCustomSend(
-                                                _textController.text,
-                                              );
-                                            }
-                                          },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(12),
-                                    child: const Icon(
-                                      Icons.send_rounded,
-                                      color: Colors.white,
-                                      size: 24,
+                          !widget.isFromNav
+                              ? Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Transform.flip(
+                                    flipX: isAr,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(12.0),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.main,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: SvgPicture.asset(
+                                        AppIcons.backIcon,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              if (_isLoading)
-                                const SizedBox(
-                                  width: 48,
-                                  height: 48,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 5,
-                                  ),
-                                ),
-                            ],
+                              )
+                              : Padding(padding: const EdgeInsets.all(16)),
+                          Text(
+                            local!.smartCoach,
+                            style: balooThambi2BoldExtraLarge.copyWith(
+                              fontSize: 24,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: _showPastChats,
+                            icon: Image.asset(
+                              AppIcons.menuIcon,
+                              width: 25,
+                              height: 25,
+                              color: AppColors.orange,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Chat(
+                        messages: _messages,
+                        l10n: isAr ? ChatL10nAr() : ChatL10nEn(),
+                        onMessageTap: _handleMessageTap,
+                        onPreviewDataFetched: _handlePreviewDataFetched,
+                        onSendPressed: _handleSendPressed,
+                        showUserAvatars: true,
+                        showUserNames: true,
+                        user: _user,
+                        timeFormat: DateFormat('h:mm a'),
+                        customBottomWidget: const SizedBox.shrink(),
+                        theme: DefaultChatTheme(
+                          backgroundColor: Colors.transparent,
+                          primaryColor: Color(0x80FF6A00),
+                          secondaryColor: Color(0x80242424),
+                          userAvatarNameColors: [
+                            AppColors.main,
+                            AppColors.main,
+                            AppColors.main,
+                            AppColors.main,
+                          ],
+                          messageBorderRadius: 20,
+                          sentMessageBodyTextStyle: balooThambi2BoldExtraLarge
+                              .copyWith(fontSize: 14, color: Colors.white),
+                          receivedMessageBodyTextStyle:
+                              balooThambi2BoldExtraLarge.copyWith(
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                          sentMessageCaptionTextStyle:
+                              balooThambi2BoldExtraLarge.copyWith(
+                                fontSize: 12,
+                                color: Colors.white70,
+                              ),
+                          receivedMessageCaptionTextStyle:
+                              balooThambi2BoldExtraLarge.copyWith(
+                                fontSize: 12,
+                                color: Colors.white70,
+                              ),
+                          dateDividerTextStyle: balooThambi2BoldExtraLarge
+                              .copyWith(fontSize: 12, color: Colors.white),
+                          inputTextColor: Colors.white,
+                          inputTextStyle: const TextStyle(color: Colors.white),
+                          inputTextCursorColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            offset: const Offset(0, -1),
+                            blurRadius: 5,
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: _textController,
+                                cursorColor: AppColors.grey,
+                                decoration: InputDecoration(
+                                  hintStyle: balooThambi2BoldExtraLarge
+                                      .copyWith(
+                                        fontSize: 12,
+                                        color: AppColors.grey,
+                                      ),
+                                  hintText: local.askAboutFitness,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  filled: true,
+                                  fillColor: const Color(0xFFF5F5F5),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 10,
+                                  ),
+                                ),
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                onSubmitted: (text) {
+                                  if (text.trim().isNotEmpty) {
+                                    _handleCustomSend(text);
+                                  }
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Material(
+                                  color: AppColors.main,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(30),
+                                    onTap:
+                                        _isLoading
+                                            ? null
+                                            : () {
+                                              if (_textController.text
+                                                  .trim()
+                                                  .isNotEmpty) {
+                                                _handleCustomSend(
+                                                  _textController.text,
+                                                );
+                                              }
+                                            },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(12),
+                                      child: const Icon(
+                                        Icons.send_rounded,
+                                        color: Colors.white,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                if (_isLoading)
+                                  const SizedBox(
+                                    width: 48,
+                                    height: 48,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 5,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    widget.isFromNav ? Container(height: 90) : SizedBox(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -442,6 +480,7 @@ User message: ${message.text}
   }
 
   void _showPastChats() {
+    var local = AppLocalizations.of(context);
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
@@ -451,161 +490,180 @@ User message: ${message.text}
       pageBuilder: (context, animation, secondaryAnimation) => Container(),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         final slideAnimation = Tween<Offset>(
-          begin: const Offset(1.0, 0.0),
+          begin: isAr ? const Offset(-1.0, 0.0) : const Offset(1.0, 0.0),
           end: Offset.zero,
         ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut));
 
         return SlideTransition(
           position: slideAnimation,
           child: Align(
-            alignment: Alignment.centerRight,
+            alignment: isAr ? Alignment.centerLeft : Alignment.centerRight,
             child: Material(
-              color: Colors.black.withValues(alpha: 0.5),
-              borderRadius: const BorderRadius.horizontal(
-                left: Radius.circular(20),
-              ),
+              color: Color(0xff1C1C1C).withValues(alpha: 0.8),
+              borderRadius:
+                  isAr
+                      ? const BorderRadius.horizontal(
+                        right: Radius.circular(20),
+                      )
+                      : const BorderRadius.horizontal(
+                        left: Radius.circular(20),
+                      ),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: MediaQuery.of(context).size.height,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(20),
-                  ),
-                ),
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Previous conversations',
-                              style: balooThambi2BoldExtraLarge.copyWith(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ],
+                decoration:
+                    isAr
+                        ? const BoxDecoration(
+                          borderRadius: BorderRadius.horizontal(
+                            right: Radius.circular(20),
+                          ),
+                        )
+                        : const BoxDecoration(
+                          borderRadius: BorderRadius.horizontal(
+                            left: Radius.circular(20),
+                          ),
                         ),
-                      ),
+                child: SafeArea(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                local!.previousConversations,
+                                style: balooThambi2BoldExtraLarge.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
 
-                      Expanded(
-                        child:
-                            _chatBox.isEmpty
-                                ? Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.chat_bubble_outline,
-                                        size: 64,
-                                        color: Colors.grey,
-                                      ),
-                                      const SizedBox(height: 16),
-                                      const Text(
-                                        'No past chats yet',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                                : ListView.builder(
-                                  itemCount: _chatBox.length + 1,
-                                  itemBuilder: (context, index) {
-                                    if (index == 0) {
+                        Expanded(
+                          child:
+                              _chatBox.isEmpty
+                                  ? Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.chat_bubble_outline,
+                                          size: 64,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          local.no_previous_chats,
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  : ListView.builder(
+                                    itemCount: _chatBox.length + 1,
+                                    itemBuilder: (context, index) {
+                                      if (index == 0) {
+                                        return ListTile(
+                                          leading: Icon(
+                                            Icons.add_circle,
+                                            color: AppColors.main,
+                                          ),
+                                          title: Text(
+                                            local.newChat,
+                                            style: balooThambi2BoldExtraLarge
+                                                .copyWith(fontSize: 16),
+                                          ),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            _createNewSession();
+                                          },
+                                        );
+                                      }
+
+                                      final session =
+                                          _chatBox.getAt(index - 1)!;
+                                      final isCurrentSession =
+                                          _currentSession?.id == session.id;
+
                                       return ListTile(
                                         leading: Icon(
-                                          Icons.add_circle,
-                                          color: AppColors.main,
-                                        ),
-                                        title: Text(
-                                          'New Chat',
-                                          style: balooThambi2BoldExtraLarge
-                                              .copyWith(fontSize: 16),
-                                        ),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          _createNewSession();
-                                        },
-                                      );
-                                    }
-
-                                    final session = _chatBox.getAt(index - 1)!;
-                                    final isCurrentSession =
-                                        _currentSession?.id == session.id;
-
-                                    return ListTile(
-                                      leading: Icon(
-                                        Icons.arrow_back_ios,
-                                        size: 16,
-                                        color:
-                                            isCurrentSession
-                                                ? AppColors.main
-                                                : Colors.grey,
-                                      ),
-                                      title: Text(
-                                        session.title,
-                                        style: balooThambi2BoldExtraLarge
-                                            .copyWith(
-                                              color:
-                                                  isCurrentSession
-                                                      ? AppColors.main
-                                                      : Colors.white,
-                                              fontSize: 14,
-                                              fontWeight:
-                                                  isCurrentSession
-                                                      ? FontWeight.bold
-                                                      : FontWeight.normal,
-                                            ),
-                                      ),
-                                      subtitle: Text(
-                                        DateFormat(
-                                          'MMM dd, yyyy - h:mm a',
-                                        ).format(session.updatedAt),
-                                        style: TextStyle(
-                                          fontSize: 12,
+                                          Icons.arrow_back_ios,
+                                          size: 16,
                                           color:
                                               isCurrentSession
                                                   ? AppColors.main
-                                                  : Colors.white,
+                                                  : Colors.grey,
                                         ),
-                                      ),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                              size: 20,
-                                            ),
-                                            onPressed:
-                                                () => _showDeleteDialog(
-                                                  context,
-                                                  session,
-                                                  index - 1,
-                                                ),
+                                        title: Text(
+                                          session.title,
+                                          style: balooThambi2BoldExtraLarge
+                                              .copyWith(
+                                                color:
+                                                    isCurrentSession
+                                                        ? AppColors.main
+                                                        : Colors.white,
+                                                fontSize: 14,
+                                                fontWeight:
+                                                    isCurrentSession
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                              ),
+                                        ),
+                                        subtitle: Text(
+                                          DateFormat(
+                                            'MMM dd, yyyy - h:mm a',
+                                          ).format(session.updatedAt),
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color:
+                                                isCurrentSession
+                                                    ? AppColors.main
+                                                    : Colors.white,
                                           ),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                        _loadSession(session);
-                                      },
-                                      onLongPress: () {
-                                        _showDeleteDialog(
-                                          context,
-                                          session,
-                                          index - 1,
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                      ),
-                    ],
+                                        ),
+                                        trailing: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            IconButton(
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                                size: 20,
+                                              ),
+                                              onPressed:
+                                                  () => _showDeleteDialog(
+                                                    context,
+                                                    session,
+                                                    index - 1,
+                                                    local,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          _loadSession(session);
+                                        },
+                                        onLongPress: () {
+                                          _showDeleteDialog(
+                                            context,
+                                            session,
+                                            index - 1,
+                                            local,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -616,17 +674,22 @@ User message: ${message.text}
     );
   }
 
-  void _showDeleteDialog(BuildContext context, ChatSession session, int index) {
+  void _showDeleteDialog(
+    BuildContext context,
+    ChatSession session,
+    int index,
+    var local,
+  ) {
     showDialog(
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Delete Chat'),
-            content: Text('Are you sure you want to delete this chat?'),
+            title: Text(local.delete_chat),
+            content: Text(local.delete_chat_msg),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancel', style: TextStyle(color: Colors.grey)),
+                child: Text(local.cancel, style: TextStyle(color: Colors.grey)),
               ),
               TextButton(
                 onPressed: () {
@@ -636,7 +699,7 @@ User message: ${message.text}
                     _createNewSession();
                   }
                 },
-                child: Text('Delete', style: TextStyle(color: Colors.red)),
+                child: Text(local.delete, style: TextStyle(color: Colors.red)),
               ),
             ],
           ),

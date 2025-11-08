@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../../features/auth/domain/services/auth_services.dart';
+import '../../../features/localization/data/localization_preference.dart';
 import '../../api/api_constants/api_constants.dart';
 
 @module
@@ -31,6 +32,9 @@ abstract class DioModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
+          final currentLanguage = await LocalizationPreference.getLanguage();
+          options.headers['Accept-Language'] = currentLanguage;
+
           final requiresAuth = options.extra['auth'] == true;
 
           if (requiresAuth) {
