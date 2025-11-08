@@ -133,7 +133,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final userName = state is HomeLoaded ? state.userName : 'User';
     final userImage =
         state is HomeLoaded ? state.userImage : AppImages.mainImage;
-
+    if (state is HomeLoading) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: const Center(
+          child: CircularProgressIndicator(color: AppColors.orange),
+        ),
+      );
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -146,8 +153,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         CircleAvatar(
           radius: 25,
-          backgroundColor: Colors.white,
-          child: Image.asset(userImage!, fit: BoxFit.cover),
+          backgroundColor: AppColors.grey,
+          child: Image.network(userImage!, fit: BoxFit.cover),
         ),
       ],
     );

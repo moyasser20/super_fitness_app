@@ -86,6 +86,7 @@ class _BotScreenState extends State<SmartCoachScreen> {
     }
   }
 
+  // Todo: add profile data like image.
   void _handleMessageTap(BuildContext _, types.Message message) async {
     if (message is types.FileMessage) {
       var localPath = message.uri;
@@ -217,19 +218,23 @@ User message: ${message.text}
   void _createNewSession() {
     final now = DateTime.now();
     final sessionId = const Uuid().v4();
+    var local = AppLocalizations.of(context);
 
     final welcomeMessage = types.TextMessage(
       author: _bot,
       createdAt: now.millisecondsSinceEpoch,
       id: const Uuid().v4(),
-      text: "Hello How Can I Assist You Today ?",
+      text:
+          isAr
+              ? "?Hello How Can I Assist You Today"
+              : "How can I help you today?",
     );
 
     final messagesList = [welcomeMessage];
 
     _currentSession = ChatSession(
       id: sessionId,
-      title: 'New Chat',
+      title: local!.newChat,
       messagesJson: messagesList.map((msg) => msg.toJson()).toList(),
       createdAt: now,
       updatedAt: now,
@@ -246,6 +251,7 @@ User message: ${message.text}
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -295,7 +301,7 @@ User message: ${message.text}
                               )
                               : Padding(padding: const EdgeInsets.all(16)),
                           Text(
-                            "Smart Coach",
+                            local!.smartCoach,
                             style: balooThambi2BoldExtraLarge.copyWith(
                               fontSize: 24,
                             ),
@@ -315,7 +321,7 @@ User message: ${message.text}
                     Expanded(
                       child: Chat(
                         messages: _messages,
-                        l10n: isAr? ChatL10nAr(): ChatL10nEn(),
+                        l10n: isAr ? ChatL10nAr() : ChatL10nEn(),
                         onMessageTap: _handleMessageTap,
                         onPreviewDataFetched: _handlePreviewDataFetched,
                         onSendPressed: _handleSendPressed,
@@ -389,7 +395,7 @@ User message: ${message.text}
                                         fontSize: 12,
                                         color: AppColors.grey,
                                       ),
-                                  hintText: 'Ask for anything about fitness..',
+                                  hintText: local.askAboutFitness,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
                                     borderSide: BorderSide.none,
@@ -474,6 +480,7 @@ User message: ${message.text}
   }
 
   void _showPastChats() {
+    var local = AppLocalizations.of(context);
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
@@ -527,7 +534,7 @@ User message: ${message.text}
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Previous conversations',
+                                local!.previousConversations,
                                 style: balooThambi2BoldExtraLarge.copyWith(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -551,8 +558,8 @@ User message: ${message.text}
                                           color: Colors.grey,
                                         ),
                                         const SizedBox(height: 16),
-                                        const Text(
-                                          'No past chats yet',
+                                        Text(
+                                          local.no_previous_chats,
                                           style: TextStyle(color: Colors.grey),
                                         ),
                                       ],
@@ -568,7 +575,7 @@ User message: ${message.text}
                                             color: AppColors.main,
                                           ),
                                           title: Text(
-                                            'New Chat',
+                                            local.newChat,
                                             style: balooThambi2BoldExtraLarge
                                                 .copyWith(fontSize: 16),
                                           ),
@@ -634,6 +641,7 @@ User message: ${message.text}
                                                     context,
                                                     session,
                                                     index - 1,
+                                                    local,
                                                   ),
                                             ),
                                           ],
@@ -647,6 +655,7 @@ User message: ${message.text}
                                             context,
                                             session,
                                             index - 1,
+                                            local,
                                           );
                                         },
                                       );
@@ -665,17 +674,22 @@ User message: ${message.text}
     );
   }
 
-  void _showDeleteDialog(BuildContext context, ChatSession session, int index) {
+  void _showDeleteDialog(
+    BuildContext context,
+    ChatSession session,
+    int index,
+    var local,
+  ) {
     showDialog(
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Delete Chat'),
-            content: Text('Are you sure you want to delete this chat?'),
+            title: Text(local.delete_chat),
+            content: Text(local.delete_chat_msg),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancel', style: TextStyle(color: Colors.grey)),
+                child: Text(local.cancel, style: TextStyle(color: Colors.grey)),
               ),
               TextButton(
                 onPressed: () {
@@ -685,7 +699,7 @@ User message: ${message.text}
                     _createNewSession();
                   }
                 },
-                child: Text('Delete', style: TextStyle(color: Colors.red)),
+                child: Text(local.delete, style: TextStyle(color: Colors.red)),
               ),
             ],
           ),

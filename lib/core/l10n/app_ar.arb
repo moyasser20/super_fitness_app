@@ -179,5 +179,14 @@
   "profileUpdatedSuccess": "تم تحديث الملف الشخصي بنجاح",
   "logoutConfirmTextCenter": "تأكيد تسجيل الخروج!",
   "cancel": "إلغاء",
-  "logoutAlertMsg": "تسجيل الخروج"
+  "logoutAlertMsg": "تسجيل الخروج",
+  "smartCoach": "المدرب الذكي",
+  "askAboutFitness": "اسأل عن أي شيء يتعلق باللياقة البدنية...",
+  "previousConversations": "المحادثات السابقة",
+  "newChat": "محادثة جديدة",
+  "no_previous_chats": "لا يوجد محادثات سابقة",
+  "delete_chat": "حذف المحادثة",
+  "delete_chat_msg": "هل أنت متأكد من حذف هذه المحادثة؟",
+  "delete_chat_success": "تم حذف المحادثة بنجاح",
+  "delete": "حذف"
 }
