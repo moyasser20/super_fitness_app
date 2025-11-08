@@ -41,6 +41,7 @@ class _FoodScreenState extends State<FoodScreen>
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
+    final isAr = AppLocalizations.of(context)!.localeName == 'ar';
 
     return BlocConsumer<MealsCubit, FoodStates>(
       listener: (context, state) {
@@ -94,13 +95,16 @@ class _FoodScreenState extends State<FoodScreen>
                       padding: const EdgeInsets.all(10),
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: Container(
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: AppColors.main,
-                            borderRadius: BorderRadius.circular(20),
+                        child: Transform.flip(
+                          flipX: isAr,
+                          child: Container(
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: AppColors.main,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: SvgPicture.asset(AppIcons.backIcon),
                           ),
-                          child: SvgPicture.asset(AppIcons.backIcon),
                         ),
                       ),
                     ),

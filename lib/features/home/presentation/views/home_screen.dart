@@ -133,7 +133,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final userName = state is HomeLoaded ? state.userName : 'User';
     final userImage =
         state is HomeLoaded ? state.userImage : AppImages.mainImage;
-
+    if (state is HomeLoading) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: const Center(
+          child: CircularProgressIndicator(color: AppColors.orange),
+        ),
+      );
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -146,8 +153,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         CircleAvatar(
           radius: 25,
-          backgroundColor: Colors.white,
-          child: Image.asset(userImage!, fit: BoxFit.cover),
+          backgroundColor: AppColors.grey,
+          child: Image.network(userImage!, fit: BoxFit.cover),
         ),
       ],
     );
@@ -192,10 +199,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Expanded(
-            child: CategoryItemWidget(
-              catName: local.trainer,
-              icon: AppIcons.trainerIcon,
-              showDivider: false,
+            child: GestureDetector(
+              onTap:
+                  () => Navigator.pushNamed(
+                    context,
+                    AppRoutes.smartCoachScreen,
+                    arguments: false,
+                  ),
+              child: CategoryItemWidget(
+                catName: local.trainer,
+                icon: AppIcons.trainerIcon,
+                showDivider: false,
+              ),
             ),
           ),
         ],
@@ -285,6 +300,18 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeState state,
     AppLocalizations local,
   ) {
+    if (state is HomeLoading) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.12,
+        child: ListView.builder(
+          itemCount: 5,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return CustomCardShimmerWidget();
+          },
+        ),
+      );
+    }
     if (state is! HomeLoaded ||
         state.selectedWorkout == null ||
         state.selectedWorkout!.muscles.isEmpty) {
@@ -333,9 +360,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildRecommendationForYouSection(
-      HomeState state,
-      AppLocalizations local,
-      ) {
+    HomeState state,
+    AppLocalizations local,
+  ) {
     if (state is HomeLoaded && state.mealCategories.isEmpty) {
       return SizedBox(
         height: 115,
