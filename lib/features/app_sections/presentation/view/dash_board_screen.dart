@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:super_fitness_app/features/bot/view/smart_coach_screen.dart';
 import 'package:super_fitness_app/features/workouts/presentation/view/workouts_screen.dart';
 import 'package:super_fitness_app/core/theme/app_colors.dart';
 import 'package:super_fitness_app/features/home/presentation/views/home_screen.dart';
+import 'package:super_fitness_app/features/home/presentation/viewmodel/home_cubit.dart';
 import '../../../../core/contants/app_icons.dart';
 import '../../../../core/l10n/translation/app_localizations.dart';
 import '../../../profile/presentation/view/profile_screen.dart';
@@ -36,6 +39,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_handleScroll);
+    // Load home data when dashboard is first opened
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && currentPageIndex == 0) {
+        context.read<HomeCubit>().loadHomeData();
+      }
+    });
   }
 
   void _handleScroll() {
@@ -57,7 +66,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     final local = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -67,15 +75,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             index: currentPageIndex,
             children: <Widget>[
               HomeScreen(scrollController: _scrollController),
-              Center(
-                child: Text(
-                  'Chat page',
-                  key: const Key('chatPageText'),
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              SmartCoachScreen(isFromNav: true),
               WorkoutsScreen(isFromHome: false),
               const ProfileScreen(),
             ],
@@ -147,6 +147,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         setState(() {
           currentPageIndex = index;
         });
+        // Fetch home data when navigating to home tab (index 0)
+        if (index == 0) {
+          context.read<HomeCubit>().loadHomeData();
+        }
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,

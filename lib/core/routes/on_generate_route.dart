@@ -65,7 +65,10 @@ class Routes {
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case AppRoutes.smartCoachScreen:
-        return MaterialPageRoute(builder: (_) => const SmartCoachScreen());
+        final bool isFromNav = settings.arguments as bool? ?? false;
+        return MaterialPageRoute(
+          builder: (_) => SmartCoachScreen(isFromNav: isFromNav),
+        );
 
       case AppRoutes.completeRegistration:
         return MaterialPageRoute(
@@ -157,12 +160,8 @@ class Routes {
                 ),
               ),
         );
-        case AppRoutes.changePasswordScreen:
-          return MaterialPageRoute(
-            builder:
-                (_) => const ChangePasswordScreen(),
-          );
-
+      case AppRoutes.changePasswordScreen:
+        return MaterialPageRoute(builder: (_) => const ChangePasswordScreen());
 
       case AppRoutes.securityScreen:
         return MaterialPageRoute(builder: (_) => const SecurityRolesScreen());
@@ -175,57 +174,61 @@ class Routes {
 
       case AppRoutes.editProfileScreen:
         return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (_) => getIt<ProfileViewModel>()..getProfile()),
-              BlocProvider(create: (_) => getIt<EditProfileViewModel>()),
-            ],
-            child: const EditProfileScreen(),
-          ),
+          builder:
+              (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (_) => getIt<ProfileViewModel>()..getProfile(),
+                  ),
+                  BlocProvider(create: (_) => getIt<EditProfileViewModel>()),
+                ],
+                child: const EditProfileScreen(),
+              ),
         );
-
 
       case AppRoutes.weightStepScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<EditProfileViewModel>(),
-            child: WeightStepScreen(
-              selectedWeight: args['selectedWeight'],
-              onWeightChanged: args['onWeightChanged'],
-              onNext: args['onNext'],
-            ),
-          ),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<EditProfileViewModel>(),
+                child: WeightStepScreen(
+                  selectedWeight: args['selectedWeight'],
+                  onWeightChanged: args['onWeightChanged'],
+                  onNext: args['onNext'],
+                ),
+              ),
         );
 
       case AppRoutes.goalStepScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<EditProfileViewModel>(),
-            child: GoalStepScreen(
-              goals: args['goals'],
-              selectedGoal: args['selectedGoal'],
-              onGoalSelected: args['onGoalSelected'],
-              onNext: args['onNext'],
-            ),
-          ),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<EditProfileViewModel>(),
+                child: GoalStepScreen(
+                  goals: args['goals'],
+                  selectedGoal: args['selectedGoal'],
+                  onGoalSelected: args['onGoalSelected'],
+                  onNext: args['onNext'],
+                ),
+              ),
         );
 
       case AppRoutes.activityStepScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: getIt<EditProfileViewModel>(),
-            child: ActivityStepScreen(
-              activities: args['activities'],
-              selectedActivityDisplay: args['selectedActivityDisplay'],
-              onActivitySelected: args['onActivitySelected'],
-              onNext: args['onNext'],
-            ),
-          ),
+          builder:
+              (_) => BlocProvider.value(
+                value: getIt<EditProfileViewModel>(),
+                child: ActivityStepScreen(
+                  activities: args['activities'],
+                  selectedActivityDisplay: args['selectedActivityDisplay'],
+                  onActivitySelected: args['onActivitySelected'],
+                  onNext: args['onNext'],
+                ),
+              ),
         );
-
 
       default:
         return MaterialPageRoute(
