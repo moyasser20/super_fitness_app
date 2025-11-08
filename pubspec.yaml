@@ -37,7 +37,7 @@ dependencies:
   injectable: ^2.5.1
   intl: any
   json_annotation: ^4.9.0
-#  leak_tracker: ^11.0.2
+  leak_tracker: ^10.0.8
   loading_indicator: ^3.1.1
   logger: ^2.6.1
   mockito: null
